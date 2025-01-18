@@ -1,40 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import {
-    getFirestore,
-    collection,
-    getDocs
-} from "firebase/firestore";
-import {getFirebase} from "@/Firebase";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import { Blog } from "@/types";
+import { firebaseService } from "@/Firebase";
 import BulmaLoading from "@/components/Loading";
-
-interface Blog {
-    id: string;
-    title: string;
-    content: string;
-}
-
-// async function getBlogs() {
-//     const app = getFirebase();
-//     const db = getFirestore(app);
-//     const colRef = collection(db, "blogs");
-//     const snapshot = await getDocs(colRef);
-//     const blogs: Blog[] = [];
-//
-//     snapshot.forEach((doc) => {
-//         const data = doc.data();
-//         const blog: Blog = {
-//             id: doc.id,
-//             title: data.title,
-//             content: data.content,
-//         };
-//         blogs.push(blog);
-//     });
-//     return blogs;
-// }
-
+import BlogForm from "@/components/BlogForm";
 
 
 function App() {
@@ -46,25 +16,17 @@ function App() {
     useEffect(() => {
         async function fetchBlogs() {
             try {
-                const app = getFirebase();
-                const db = getFirestore(app);
-                const colRef = collection(db, "blogs");
-                const snapshot = await getDocs(colRef);
-                const fetchedBlogs: Blog[] = snapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    title: doc.data().title,
-                    content: doc.data().content,
-                }))
-
-                    setBlogs(fetchedBlogs)
-                } catch (error: any) {
-                    setError(error.message);
-                } finally {
-                    setIsLoading(false);
-                }
+                const fetchedBlogs = await firebaseService.getBlogs();
+                setBlogs(fetchedBlogs);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+            } finally {
+                setIsLoading(false);
+            }
         }
 
-        fetchBlogs().then((r => r));
+        fetchBlogs();
+
     }, []);
 
     if (isLoading) return <BulmaLoading/>
@@ -72,16 +34,22 @@ function App() {
 
     return (
         <div>
-            <h1 className={"title is-1"}>Home</h1>
-            {blogs.map((blog: Blog) => (
-                <div className={"card"} key={blog.id}>
-                    <h2 className={"title is-3"}>{blog.title}</h2>
+            <h1 className="title is-1">Home</h1>
+            <BlogForm/>
+            {blogs.map((blog) => (
+                <div className="card" key={blog.id}>
+                    <h2 className="title is-3">{blog.title}</h2>
                     <p>{blog.content}</p>
+                    <a href={`/blogs/${blog.id}`} className="button is-primary show-blog">Read more</a>
+                    <button className="button is-danger deleteBlog"
+                            onClick={() => firebaseService.deleteBlog(blog.id).then(() => {
+                                setBlogs(blogs.filter((b) => b.id !== blog.id));
+                            })}>Delete
+                    </button>
                 </div>
             ))}
         </div>
     );
 }
 
-export default App
-
+export default App;
