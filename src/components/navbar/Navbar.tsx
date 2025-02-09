@@ -32,6 +32,7 @@ const Navbar: React.FC = () => {
             <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
                 <div className="navbar-start">
                     <Link href="/" className="navbar-item is-tab">Home</Link>
+                    <Link href="/taperCalculator" className="navbar-item is-tab">Taper Calculator</Link>
                     <Link href="/blogs" className="navbar-item is-tab">Read Blogs</Link>
 
                     <div className="navbar-item has-dropdown is-hoverable">

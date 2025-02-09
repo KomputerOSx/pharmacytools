@@ -37,15 +37,20 @@ function App() {
             <h1 className="title is-1">Home</h1>
             <BlogForm/>
             {blogs.map((blog) => (
-                <div className="card" key={blog.id}>
+                <div className="blog-item box" key={blog.id}>
                     <h2 className="title is-3">{blog.title}</h2>
                     <p>{blog.content}</p>
-                    <a href={`/blogs/${blog.id}`} className="button is-primary show-blog">Read more</a>
-                    <button className="button is-danger deleteBlog"
-                            onClick={() => firebaseService.deleteBlog(blog.id).then(() => {
-                                setBlogs(blogs.filter((b) => b.id !== blog.id));
-                            })}>Delete
-                    </button>
+
+                    <span><a href={`/blogs/${blog.id}`} className="button is-primary show-blog">Read more</a></span>
+
+                    <span>
+                        <button className="button is-danger deleteBlog"
+                                onClick={() => firebaseService.deleteBlog(blog.id).then(() => {
+                                    setBlogs(blogs.filter((b) => b.id !== blog.id));
+                                })}>Delete
+                        </button>
+                    </span>
+                    
                 </div>
             ))}
         </div>

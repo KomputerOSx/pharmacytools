@@ -8,7 +8,7 @@ const BlogForm = ({ onBlogCreated }: { onBlogCreated?: () => void }) => {
     const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
-        // e.preventDefault();
+        e.preventDefault();
         setIsSubmitting(true);
         setError(null);
 

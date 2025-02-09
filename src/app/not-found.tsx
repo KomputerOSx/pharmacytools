@@ -49,8 +49,8 @@ const NotFound = () => {
                         </h2>
 
                         <p className="is-size-5 mb-6">
-                            Oops! It seems you've ventured into uncharted territory.
-                            The page you're looking for has gone on an adventure.
+                            Oops! It seems you&apos;ve ventured into uncharted territory.
+                            The page you&apos;re looking for has gone on an adventure.
                         </p>
 
                         {/* Action buttons */}
