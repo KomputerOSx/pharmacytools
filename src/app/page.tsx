@@ -1,60 +1,33 @@
-"use client";
+import React from 'react';
+import 'bulma/css/bulma.min.css';
 
-import { useEffect, useState } from "react";
-import { Blog } from "@/types";
-import { firebaseService } from "@/Firebase";
-import BulmaLoading from "@/components/Loading";
-import BlogForm from "@/components/BlogForm";
-
-
-function App() {
-    // Initialize Firestore with more options
-    const [blogs, setBlogs] = useState<Blog[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        async function fetchBlogs() {
-            try {
-                const fetchedBlogs = await firebaseService.getBlogs();
-                setBlogs(fetchedBlogs);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'An error occurred');
-            } finally {
-                setIsLoading(false);
-            }
-        }
-
-        fetchBlogs();
-
-    }, []);
-
-    if (isLoading) return <BulmaLoading/>
-    if (error) return <div>Error: {error}</div>;
-
+const App: React.FC = () => {
     return (
-        <div>
-            <h1 className="title is-1">Home</h1>
-            <BlogForm/>
-            {blogs.map((blog) => (
-                <div className="blog-item box" key={blog.id}>
-                    <h2 className="title is-3">{blog.title}</h2>
-                    <p>{blog.content}</p>
-
-                    <span><a href={`/blogs/${blog.id}`} className="button is-primary show-blog">Read more</a></span>
-
-                    <span>
-                        <button className="button is-danger deleteBlog"
-                                onClick={() => firebaseService.deleteBlog(blog.id).then(() => {
-                                    setBlogs(blogs.filter((b) => b.id !== blog.id));
-                                })}>Delete
-                        </button>
-                    </span>
-                    
+        <div className="hero">
+            <div className="hero-body">
+                <div className="container has-text-centered">
+                    <h1 className="title is-1">
+                        <span style={styles.constructionIcon}>🚧</span>
+                        Under Construction
+                    </h1>
+                    <p className="subtitle is-3">
+                        Our cute little website is getting a makeover!
+                    </p>
+                    <p className="is-size-5">
+                        We're working hard to bring you something amazing. <br />
+                        Please check back soon!
+                    </p>
                 </div>
-            ))}
+            </div>
         </div>
     );
-}
+};
+
+const styles: { [key: string]: React.CSSProperties } = {
+    constructionIcon: {
+        fontSize: '5rem',
+        marginRight: '1rem',
+    },
+};
 
 export default App;
