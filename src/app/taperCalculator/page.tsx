@@ -33,37 +33,41 @@ function TaperCalculator() {
 
     // Handle calculations (you can replace this with actual logic)
     const handleCalculate = () => {
+
         let taperLabel = document.getElementById("taperLabel");
         if (taperLabel) {
             taperLabel.innerHTML = ''; // Clear the existing content
             let textToCopy = ''; // Initialize the textToCopy variable
+            let currentDose = taperLines[0].dose; // Start with the highest dose
+
             for (let i = 0; i < taperLines.length; i++) {
-                let currentDose = taperLines[i].dose;
-                while (currentDose >= taperLines[i].taperAmount) {
+                let nextDose = i < taperLines.length - 1 ? taperLines[i + 1].dose : 0;
+
+                while (currentDose > nextDose) {
                     console.log(`Take ${currentDose}mg for ${taperLines[i].interval} days`);
-                    // Create a new paragraph element for each taper calculation
                     const paragraph = document.createElement('p');
                     paragraph.className = "field";
                     let fiveMilligramTablets = Math.floor(currentDose / 5);
                     let oneMilligramTablets = currentDose % 5;
                     let text;
                     if (fiveMilligramTablets > 0) {
-                        text = `Take ${numberToWords(fiveMilligramTablets)} 5mg tablets`;
+                        text = `Take ${numberToWords(fiveMilligramTablets)} 5mg tablet(s)`;
                     } else {
                         text = '';
                     }
                     if (oneMilligramTablets > 0) {
                         if (text !== '') {
-                            text += ` and ${numberToWords(oneMilligramTablets)} 1mg tablets`;
+                            text += ` and ${numberToWords(oneMilligramTablets)} 1mg tablet(s)`;
                         } else {
-                            text = `Take ${numberToWords(oneMilligramTablets)} 1mg tablets`;
+                            text = `Take ${numberToWords(oneMilligramTablets)} 1mg tablet(s)`;
                         }
                     }
                     text += ` (a ${currentDose}mg dose) for ${taperLines[i].interval} days`;
                     paragraph.textContent = text;
                     taperLabel.appendChild(paragraph);
                     textToCopy += text + '\n'; // Update the textToCopy variable
-                    currentDose -= taperLines[i].taperAmount;
+
+                    currentDose = Math.max(nextDose, currentDose - taperLines[i].taperAmount);
                 }
             }
             setTextToCopy(textToCopy); // Update the textToCopy state
@@ -71,6 +75,7 @@ function TaperCalculator() {
             console.error("Element with id 'taperLabel' not found");
         }
     }
+
 
     function numberToWords(num) {
         const ones = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
@@ -102,6 +107,14 @@ function TaperCalculator() {
 
             <div>
                 <h1 className={"title is-1"}>Taper Calculator</h1>
+
+                <div className="field" style={{maxWidth: '204px'}}>
+                    <label className="label">Select a date (Optional)</label>
+                    <div className="control">
+                        <input className="input is-medium" type="date" id="date-selector" name="date-selector"/>
+                    </div>
+                </div>
+
 
                 {/* Render each taper line */}
                 {taperLines.map((taperLine, index) => (
@@ -201,8 +214,8 @@ function TaperCalculator() {
                 </div>
             </div>
 
-                        <div className={"container"} id={"taperLabel"} style={{marginTop: "2rem"}}>
-                    <h1 className={"title is-3"}>Taper Label</h1>
+            <div className={"container"} id={"taperLabel"} style={{marginTop: "2rem"}}>
+                {/*<h1 className={"title is-3"}>Taper Label</h1>*/}
             </div>
 
         </>
