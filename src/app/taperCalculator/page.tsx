@@ -42,6 +42,9 @@ function TaperCalculator() {
             let startDateInput = document.getElementById('date-selector');
             let startDate = startDateInput.value ? new Date(startDateInput.value) : null;
 
+            let totalFiveMilligramTablets = 0;
+            let totalOneMilligramTablets = 0;
+
             for (let i = 0; i < taperLines.length; i++) {
                 let nextDose = i < taperLines.length - 1 ? taperLines[i + 1].dose : 0;
 
@@ -67,9 +70,9 @@ function TaperCalculator() {
                     text += ` (a ${currentDose}mg dose)`;
 
                     if (startDate) {
-                        let endDate = new Date(startDate.getTime() + taperLines[i].interval * 24 * 60 * 60 * 1000);
+                        let endDate = new Date(startDate.getTime() + (taperLines[i].interval - 1) * 24 * 60 * 60 * 1000);
                         text += ` from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
-                        startDate = endDate;
+                        startDate = new Date(endDate.getTime() + 24 * 60 * 60 * 1000); // Set start date to the next day
                     } else {
                         text += ` for ${taperLines[i].interval} days`;
                     }
@@ -78,14 +81,24 @@ function TaperCalculator() {
                     taperLabel.appendChild(paragraph);
                     textToCopy += text + '\n'; // Update the textToCopy variable
 
+                    totalFiveMilligramTablets += fiveMilligramTablets;
+                    totalOneMilligramTablets += oneMilligramTablets;
+
                     currentDose = Math.max(nextDose, currentDose - taperLines[i].taperAmount);
                 }
             }
+
+            const totalTabletsParagraph = document.createElement('p');
+            totalTabletsParagraph.className = "field subtitle";
+            totalTabletsParagraph.innerHTML = `<strong>Total tablets required:</strong> <br> <strong>${totalFiveMilligramTablets}</strong> x 5mg tablets & <strong>${totalOneMilligramTablets}</strong> x 1mg tablets`;
+            taperLabel.appendChild(totalTabletsParagraph);
+
             setTextToCopy(textToCopy); // Update the textToCopy state
         } else {
             console.error("Element with id 'taperLabel' not found");
         }
     }
+
 
 
     function numberToWords(num) {
@@ -110,8 +123,36 @@ function TaperCalculator() {
 
     const onCopyText = () => {
         setCopyStatus(true);
-        setTimeout(() => setCopyStatus(false), 5000); // Reset status after 2 seconds
+        setTimeout(() => setCopyStatus(false), 5000); // Reset status after 5 seconds
     };
+
+    const patientInfo1 = `
+      ALERT: I TAKE STEROID MEDICATION
+      I am at risk of adrenal crisis
+
+      IN CASE OF EMERGENCY:
+
+      I need immediate hydrocortisone
+
+      Call 999 or take me to A&E
+
+      Show this card to the medical staff
+
+      IMPORTANT:
+
+      I must not stop taking steroids suddenly
+
+      I need extra steroids during illness or injury
+
+      I should carry extra medication at all times
+    `;
+
+    const patientInfo2 = `--- Additional Information ---
+      - Take your medication as prescribed, usually once a day in the morning with food.
+      - Never stop taking steroids suddenly.
+      - Report any new symptoms or side effects to your healthcare provider promptly.
+      - Attend regular check-ups and blood tests as recommended by your doctor.
+      \n\n--- End of Document ---`;
 
     return (
         <>
@@ -206,7 +247,13 @@ function TaperCalculator() {
                         Calculate
                     </button>
                     <CopyToClipboard text={textToCopy} onCopy={onCopyText}>
-                        <button style={{marginLeft: '10px'}} className={'button is-secodary'}>Copy to Clipboard</button>
+                        <button style={{marginLeft: '10px'}} className={'button is-secondary'}>Copy Label</button>
+                    </CopyToClipboard>
+                    <CopyToClipboard
+                        text={patientInfo1 + `\n\n` + textToCopy + '\n\n' + patientInfo2}
+                        onCopy={onCopyText}
+                    >
+                        <button style={{marginLeft: '10px'}} className={'button is-secondary'}>Document Copy</button>
                     </CopyToClipboard>
                     {copyStatus && (
                         <div className="notification is-success animated fadeInDown" style={{
