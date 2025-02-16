@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
+
 
 function TaperCalculator() {
     const [taperLines, setTaperLines] = useState([
@@ -16,7 +19,7 @@ function TaperCalculator() {
     };
 
     // Delete a specific taper line
-    const handleDeleteTaper = (index) => {
+    const handleDeleteTaper = (index: number) => {
         setTaperLines(taperLines.filter((_, i) => i !== index));
     };
 
@@ -33,29 +36,76 @@ function TaperCalculator() {
         let taperLabel = document.getElementById("taperLabel");
         if (taperLabel) {
             taperLabel.innerHTML = ''; // Clear the existing content
+            let textToCopy = ''; // Initialize the textToCopy variable
             for (let i = 0; i < taperLines.length; i++) {
                 let currentDose = taperLines[i].dose;
                 while (currentDose >= taperLines[i].taperAmount) {
                     console.log(`Take ${currentDose}mg for ${taperLines[i].interval} days`);
                     // Create a new paragraph element for each taper calculation
                     const paragraph = document.createElement('p');
-                    paragraph.textContent = `Take ${currentDose}mg for ${taperLines[i].interval} days`;
+                    paragraph.className = "field";
+                    let fiveMilligramTablets = Math.floor(currentDose / 5);
+                    let oneMilligramTablets = currentDose % 5;
+                    let text;
+                    if (fiveMilligramTablets > 0) {
+                        text = `Take ${numberToWords(fiveMilligramTablets)} 5mg tablets`;
+                    } else {
+                        text = '';
+                    }
+                    if (oneMilligramTablets > 0) {
+                        if (text !== '') {
+                            text += ` and ${numberToWords(oneMilligramTablets)} 1mg tablets`;
+                        } else {
+                            text = `Take ${numberToWords(oneMilligramTablets)} 1mg tablets`;
+                        }
+                    }
+                    text += ` (a ${currentDose}mg dose) for ${taperLines[i].interval} days`;
+                    paragraph.textContent = text;
                     taperLabel.appendChild(paragraph);
+                    textToCopy += text + '\n'; // Update the textToCopy variable
                     currentDose -= taperLines[i].taperAmount;
                 }
             }
+            setTextToCopy(textToCopy); // Update the textToCopy state
         } else {
             console.error("Element with id 'taperLabel' not found");
         }
     }
+
+    function numberToWords(num) {
+        const ones = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
+        const teens = ['TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN'];
+        const tens = ['', '', 'TWENTY', 'THIRTY', 'FORTY', 'FIFTY', 'SIXTY', 'SEVENTY', 'EIGHTY', 'NINETY'];
+
+        if (num < 10) {
+            return ones[num];
+        } else if (num < 20) {
+            return teens[num - 10];
+        } else if (num < 100) {
+            return tens[Math.floor(num / 10)] + (num % 10 === 0 ? '' : ' ' + ones[num % 10]);
+        } else {
+            // implement hundreds, thousands, etc.
+            return ones[Math.floor(num / 100)] + ' hundred' + (num % 100 === 0 ? '' : ' and ' + numberToWords(num % 100));
+        }
+    }
+
+    const [textToCopy, setTextToCopy] = useState(''); // The text you want to copy
+    const [copyStatus, setCopyStatus] = useState(false); // To indicate if the text was copied
+
+    const onCopyText = () => {
+        setCopyStatus(true);
+        setTimeout(() => setCopyStatus(false), 5000); // Reset status after 2 seconds
+    };
+
     return (
         <>
+
             <div>
                 <h1 className={"title is-1"}>Taper Calculator</h1>
 
                 {/* Render each taper line */}
                 {taperLines.map((taperLine, index) => (
-                    <span key={index} style={{ display: "flex", gap: "1rem" }}>
+                    <span key={index} style={{display: "flex", gap: "1rem"}}>
                         {/* Dose Input */}
                         <div className="field">
                             <label className="label">Dose</label>
@@ -105,7 +155,7 @@ function TaperCalculator() {
                         </div>
 
                         {/* Delete Button */}
-                        <div className="field" style={{ marginTop: "1.5rem" }}>
+                        <div className="field" style={{marginTop: "1.5rem"}}>
                             <button
                                 className="button is-danger"
                                 onClick={() => handleDeleteTaper(index)}
@@ -117,10 +167,10 @@ function TaperCalculator() {
                 ))}
 
                 {/* Buttons for Adding and Calculating */}
-                <div className="field">
+                <div style={{display: 'flex', alignItems: 'center'}}>
                     <button
                         className="button is-warning"
-                        style={{ marginRight: "1rem" }}
+                        style={{marginRight: "1rem"}}
                         onClick={handleAddTaper}
                     >
                         Add Taper
@@ -131,13 +181,30 @@ function TaperCalculator() {
                     >
                         Calculate
                     </button>
+                    <CopyToClipboard text={textToCopy} onCopy={onCopyText}>
+                        <button style={{marginLeft: '10px'}} className={'button is-secodary'}>Copy to Clipboard</button>
+                    </CopyToClipboard>
+                    {copyStatus && (
+                        <div className="notification is-success animated fadeInDown" style={{
+                            position: 'fixed',
+                            top: '10px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 1000,
+                            opacity: copyStatus ? 1 : 0,
+                            transition: 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out',
+                        }}>
+                            <button className="delete" onClick={() => setCopyStatus(false)}></button>
+                            Text copied to clipboard!
+                        </div>
+                    )}
                 </div>
             </div>
 
-            <div className={"container"} id={"taperLabel"}>
-                <h1 className={"title is-1"}>Taper Label</h1>
-
+                        <div className={"container"} id={"taperLabel"} style={{marginTop: "2rem"}}>
+                    <h1 className={"title is-3"}>Taper Label</h1>
             </div>
+
         </>
     );
 }
