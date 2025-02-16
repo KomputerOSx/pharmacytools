@@ -33,12 +33,14 @@ function TaperCalculator() {
 
     // Handle calculations (you can replace this with actual logic)
     const handleCalculate = () => {
-
         let taperLabel = document.getElementById("taperLabel");
         if (taperLabel) {
             taperLabel.innerHTML = ''; // Clear the existing content
             let textToCopy = ''; // Initialize the textToCopy variable
             let currentDose = taperLines[0].dose; // Start with the highest dose
+
+            let startDateInput = document.getElementById('date-selector');
+            let startDate = startDateInput.value ? new Date(startDateInput.value) : null;
 
             for (let i = 0; i < taperLines.length; i++) {
                 let nextDose = i < taperLines.length - 1 ? taperLines[i + 1].dose : 0;
@@ -51,18 +53,27 @@ function TaperCalculator() {
                     let oneMilligramTablets = currentDose % 5;
                     let text;
                     if (fiveMilligramTablets > 0) {
-                        text = `Take ${numberToWords(fiveMilligramTablets)} 5mg tablet(s)`;
+                        text = `Take ${numberToWords(fiveMilligramTablets)} 5mg tablets`;
                     } else {
                         text = '';
                     }
                     if (oneMilligramTablets > 0) {
                         if (text !== '') {
-                            text += ` and ${numberToWords(oneMilligramTablets)} 1mg tablet(s)`;
+                            text += ` and ${numberToWords(oneMilligramTablets)} 1mg tablets`;
                         } else {
-                            text = `Take ${numberToWords(oneMilligramTablets)} 1mg tablet(s)`;
+                            text = `Take ${numberToWords(oneMilligramTablets)} 1mg tablets`;
                         }
                     }
-                    text += ` (a ${currentDose}mg dose) for ${taperLines[i].interval} days`;
+                    text += ` (a ${currentDose}mg dose)`;
+
+                    if (startDate) {
+                        let endDate = new Date(startDate.getTime() + taperLines[i].interval * 24 * 60 * 60 * 1000);
+                        text += ` from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
+                        startDate = endDate;
+                    } else {
+                        text += ` for ${taperLines[i].interval} days`;
+                    }
+
                     paragraph.textContent = text;
                     taperLabel.appendChild(paragraph);
                     textToCopy += text + '\n'; // Update the textToCopy variable
