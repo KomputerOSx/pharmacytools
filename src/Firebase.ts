@@ -3,14 +3,14 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, updateDoc, doc } from "firebase/firestore";
 import { Blog } from "@/types"; // Create this type file separately
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDkX-oVmYk1KMVInuBMUPMxt5pvt0gpnEw",
-    authDomain: "locum-guides.firebaseapp.com",
-    projectId: "locum-guides",
-    storageBucket: "locum-guides.firebasestorage.app",
-    messagingSenderId: "1048727841562",
-    appId: "1:1048727841562:web:543c12a6d73805ceb61aa3",
-    measurementId: "G-986KFBNV0R"
+const firebaseConfig =  {
+    apiKey: "AIzaSyDfa1McjlABequLyxQIvmasFvNU3IyQXbk",
+    authDomain: "pharmacytools.firebaseapp.com",
+    projectId: "pharmacytools",
+    storageBucket: "pharmacytools.firebasestorage.app",
+    messagingSenderId: "807028875436",
+    appId: "1:807028875436:web:4b2dfa7cfc3a448f16bf09",
+    measurementId: "G-04BW5CTRVC"
 };
 
 const app = initializeApp(firebaseConfig);

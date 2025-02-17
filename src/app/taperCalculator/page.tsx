@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+// @ts-expect-error ignore this line
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-
+import './taperCalculator.css';
 
 
 function TaperCalculator() {
@@ -26,34 +27,34 @@ function TaperCalculator() {
     // Update a specific field in a specific taper line
     const handleInputChange = (index: number, field: string, value: number) => {
         const updatedTaperLines = [...taperLines];
-        // @ts-ignore
+        // @ts-expect-error ignore this line
         updatedTaperLines[index][field] = value;
         setTaperLines(updatedTaperLines);
     };
 
     // Handle calculations (you can replace this with actual logic)
     const handleCalculate = () => {
-        let taperLabel = document.getElementById("taperLabel");
+        const taperLabel = document.getElementById("taperLabel");
         if (taperLabel) {
             taperLabel.innerHTML = ''; // Clear the existing content
             let textToCopy = ''; // Initialize the textToCopy variable
             let currentDose = taperLines[0].dose; // Start with the highest dose
 
-            let startDateInput = document.getElementById('date-selector');
-            let startDate = startDateInput.value ? new Date(startDateInput.value) : null;
+            const startDateInput = document.getElementById('date-selector') as HTMLInputElement;
+            let startDate = startDateInput?.value ? new Date(startDateInput.value) : null;
 
             let totalFiveMilligramTablets = 0;
             let totalOneMilligramTablets = 0;
 
             for (let i = 0; i < taperLines.length; i++) {
-                let nextDose = i < taperLines.length - 1 ? taperLines[i + 1].dose : 0;
+                const nextDose = i < taperLines.length - 1 ? taperLines[i + 1].dose : 0;
 
                 while (currentDose > nextDose) {
                     console.log(`Take ${currentDose}mg for ${taperLines[i].interval} days`);
                     const paragraph = document.createElement('p');
                     paragraph.className = "field";
-                    let fiveMilligramTablets = Math.floor(currentDose / 5);
-                    let oneMilligramTablets = currentDose % 5;
+                    const fiveMilligramTablets = Math.floor(currentDose / 5);
+                    const oneMilligramTablets = currentDose % 5;
                     let text;
                     if (fiveMilligramTablets > 0) {
                         text = `Take ${numberToWords(fiveMilligramTablets)} 5mg tablets`;
@@ -70,7 +71,7 @@ function TaperCalculator() {
                     text += ` (a ${currentDose}mg dose)`;
 
                     if (startDate) {
-                        let endDate = new Date(startDate.getTime() + (taperLines[i].interval - 1) * 24 * 60 * 60 * 1000);
+                        const endDate = new Date(startDate.getTime() + (taperLines[i].interval - 1) * 24 * 60 * 60 * 1000);
                         text += ` from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
                         startDate = new Date(endDate.getTime() + 24 * 60 * 60 * 1000); // Set start date to the next day
                     } else {
@@ -81,8 +82,8 @@ function TaperCalculator() {
                     taperLabel.appendChild(paragraph);
                     textToCopy += text + '\n'; // Update the textToCopy variable
 
-                    totalFiveMilligramTablets += fiveMilligramTablets;
-                    totalOneMilligramTablets += oneMilligramTablets;
+                    totalFiveMilligramTablets += fiveMilligramTablets * taperLines[i].interval;
+                    totalOneMilligramTablets += oneMilligramTablets * taperLines[i].interval;
 
                     currentDose = Math.max(nextDose, currentDose - taperLines[i].taperAmount);
                 }
@@ -101,7 +102,7 @@ function TaperCalculator() {
 
 
 
-    function numberToWords(num) {
+    function numberToWords(num: number): string {
         const ones = ['', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
         const teens = ['TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'SIXTEEN', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN'];
         const tens = ['', '', 'TWENTY', 'THIRTY', 'FORTY', 'FIFTY', 'SIXTY', 'SEVENTY', 'EIGHTY', 'NINETY'];
@@ -133,17 +134,13 @@ function TaperCalculator() {
       IN CASE OF EMERGENCY:
 
       I need immediate hydrocortisone
-
       Call 999 or take me to A&E
-
       Show this card to the medical staff
 
       IMPORTANT:
 
       I must not stop taking steroids suddenly
-
       I need extra steroids during illness or injury
-
       I should carry extra medication at all times
     `;
 
@@ -156,7 +153,7 @@ function TaperCalculator() {
 
     return (
         <>
-
+        <div style={{padding: '1rem'}}>
             <div>
                 <h1 className={"title is-1"}>Taper Calculator</h1>
 
@@ -172,70 +169,104 @@ function TaperCalculator() {
                 {taperLines.map((taperLine, index) => (
                     <span key={index} style={{display: "flex", gap: "1rem"}}>
                         {/* Dose Input */}
-                        <div className="field">
-                            <label className="label">Dose</label>
-                            <div className="control">
-                                <input
-                                    className="input"
-                                    type="number"
-                                    placeholder="Enter Dose"
-                                    value={taperLine.dose}
-                                    onChange={(e) =>
-                                        handleInputChange(index, "dose", parseFloat(e.target.value) || 0)
-                                    }
-                                />
+                        <div className="taper-inputs-container">
+                            <div className="taper-input-row">
+                                {/* Dose Input */}
+                                <div className="field">
+                                    <label className="label">Dose</label>
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="number"
+                                            min="0"
+                                            step="1"
+                                            placeholder="Enter Dose"
+                                            value={taperLine.dose}
+                                            onChange={(e) => {
+                                                const value = e.target.value === '' ? '' : Math.max(0, Math.floor(Number(e.target.value)));
+                                                handleInputChange(index, "dose", value as number);
+                                            }}
+                                            onKeyPress={(e) => {
+                                                if (!/[0-9]/.test(e.key)) {
+                                                    e.preventDefault();
+                                                }
+                                            }}
+                                        />
+
+                                    </div>
+                                </div>
+
+                                {/* Taper Amount Input */}
+                                <div className="field">
+                                    <label className="label">Taper Amount</label>
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="number"
+                                            min="0"
+                                            step="1"
+                                            placeholder="Enter Taper Amount"
+                                            value={taperLine.taperAmount}
+                                            onChange={(e) => {
+                                                const value = e.target.value === '' ? '' : Math.max(0, Math.floor(Number(e.target.value)));
+                                                handleInputChange(index, "taperAmount", value as number);
+                                            }}
+                                            onKeyPress={(e) => {
+                                                if (!/[0-9]/.test(e.key)) {
+                                                    e.preventDefault();
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Interval Input */}
+                                <div className="field">
+                                    <label className="label">Interval</label>
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="number"
+                                            min="0"
+                                            step="1"
+                                            placeholder="Enter Taper Amount"
+                                            value={taperLine.interval}
+                                            onChange={(e) => {
+                                                const value = e.target.value === '' ? '' : Math.max(0, Math.floor(Number(e.target.value)));
+                                                handleInputChange(index, "interval", value as number);
+                                            }}
+                                            onKeyPress={(e) => {
+                                                if (!/[0-9]/.test(e.key)) {
+                                                    e.preventDefault();
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Delete Button */}
+                                <div className="field delete-button-container">
+                                    <label className="label">&nbsp;</label>
+                                    <div className="control">
+                                        <button
+                                            className="button is-danger"
+                                            onClick={() => handleDeleteTaper(index)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Taper Amount Input */}
-                        <div className="field">
-                            <label className="label">Taper Amount</label>
-                            <div className="control">
-                                <input
-                                    className="input"
-                                    type="number"
-                                    placeholder="Enter Taper Amount"
-                                    value={taperLine.taperAmount}
-                                    onChange={(e) =>
-                                        handleInputChange(index, "taperAmount", parseFloat(e.target.value) || 0)
-                                    }
-                                />
-                            </div>
-                        </div>
 
-                        {/* Interval Input */}
-                        <div className="field">
-                            <label className="label">Interval</label>
-                            <div className="control">
-                                <input
-                                    className="input"
-                                    type="number"
-                                    placeholder="Enter Interval"
-                                    value={taperLine.interval}
-                                    onChange={(e) =>
-                                        handleInputChange(index, "interval", parseFloat(e.target.value) || 0)
-                                    }
-                                />
-                            </div>
-                        </div>
-
-                        {/* Delete Button */}
-                        <div className="field" style={{marginTop: "1.5rem"}}>
-                            <button
-                                className="button is-danger"
-                                onClick={() => handleDeleteTaper(index)}
-                            >
-                                X
-                            </button>
-                        </div>
                     </span>
                 ))}
 
                 {/* Buttons for Adding and Calculating */}
-                <div style={{display: 'flex', alignItems: 'center'}}>
+                <div className="action-buttons-container">
                     <button
                         className="button is-warning"
-                        style={{marginRight: "1rem"}}
                         onClick={handleAddTaper}
                     >
                         Add Taper
@@ -247,13 +278,13 @@ function TaperCalculator() {
                         Calculate
                     </button>
                     <CopyToClipboard text={textToCopy} onCopy={onCopyText}>
-                        <button style={{marginLeft: '10px'}} className={'button is-secondary'}>Copy Label</button>
+                        <button className="button is-secondary">Copy Label</button>
                     </CopyToClipboard>
                     <CopyToClipboard
                         text={patientInfo1 + `\n\n` + textToCopy + '\n\n' + patientInfo2}
                         onCopy={onCopyText}
                     >
-                        <button style={{marginLeft: '10px'}} className={'button is-secondary'}>Document Copy</button>
+                        <button className="button is-secondary">Document Copy</button>
                     </CopyToClipboard>
                     {copyStatus && (
                         <div className="notification is-success animated fadeInDown" style={{
@@ -275,7 +306,7 @@ function TaperCalculator() {
             <div className={"container"} id={"taperLabel"} style={{marginTop: "2rem"}}>
                 {/*<h1 className={"title is-3"}>Taper Label</h1>*/}
             </div>
-
+        </div>
         </>
     );
 }

@@ -7,14 +7,13 @@ const App: React.FC = () => {
             <div className="hero-body">
                 <div className="container has-text-centered">
                     <h1 className="title is-1">
-                        <span style={styles.constructionIcon}>🚧</span>
-                        Under Construction
+                        <span style={styles.constructionIcon}>🚧 Under Construction</span>
                     </h1>
                     <p className="subtitle is-3">
                         Our cute little website is getting a makeover!
                     </p>
                     <p className="is-size-5">
-                        We're working hard to bring you something amazing. <br />
+                        We are working hard to bring you something amazing. <br />
                         Please check back soon!
                     </p>
                 </div>
