@@ -10,11 +10,17 @@ const App: React.FC = () => {
                         <span style={styles.constructionIcon}>🚧 Under Construction</span>
                     </h1>
                     <p className="subtitle is-3">
-                        Our cute little website is getting a makeover!
+                        The Home Page is getting a makeover!
                     </p>
                     <p className="is-size-5">
-                        We are working hard to bring you something amazing. <br />
-                        Please check back soon!
+                        {"Don\'t much time with all these TTOs & Histories to be done"} <br />
+                        Check back soon!
+                        <br/>
+                        <br/>
+                        You can still use the Apps on here though!
+                        <br/>
+                        <br/>
+                        - Ramyar
                     </p>
                 </div>
             </div>
