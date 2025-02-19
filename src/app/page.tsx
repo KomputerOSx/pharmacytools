@@ -13,7 +13,7 @@ const App: React.FC = () => {
                         The Home Page is getting a makeover!
                     </p>
                     <p className="is-size-5">
-                        {"Don\'t much time with all these TTOs & Histories to be done"} <br />
+                        {"Don\'t have much time with all these TTOs & Histories to be done"} <br />
                         Check back soon!
                         <br/>
                         <br/>

@@ -52,15 +52,15 @@ const Navbar: React.FC = () => {
                                 <SwitchTheme/>
                             </span>
 
-                            <span>
-                                <a className="button is-primary is-rounded">
-                                    <strong>Sign up</strong>
-                                </a>
-                            </span>
+                            {/*<span>*/}
+                            {/*    <a className="button is-primary is-rounded">*/}
+                            {/*        <strong>Sign up</strong>*/}
+                            {/*    </a>*/}
+                            {/*</span>*/}
 
-                            <span>
-                                <a className="button is-light is-rounded">Log in</a>
-                            </span>
+                            {/*<span>*/}
+                            {/*    <a className="button is-light is-rounded">Log in</a>*/}
+                            {/*</span>*/}
 
                         </div>
                     </div>
