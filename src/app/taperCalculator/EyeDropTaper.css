@@ -1,0 +1,19 @@
+.taper-input-row {
+    display: flex;
+    align-items: flex-end;
+}
+
+.taper-input-row .field {
+    flex: 1;
+    min-width: 0;
+}
+
+.taper-input-row .field:last-child {
+    flex: 0 0 auto;
+}
+
+.taper-input-row .input,
+.taper-input-row .button {
+    width: 100%;
+}
+
