@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { firebaseService } from '@/Firebase';
+import { firebaseService } from '@/firebase/Firebase';
 
-const BlogForm = ({ onBlogCreated }: { onBlogCreated?: () => void }) => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+const ContactForm = ({ onContactCreated }: { onContactCreated?: () => void }) => {
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');
+    const [site, setSite] = useState('');
+    const [department, setDepartment] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -13,21 +15,25 @@ const BlogForm = ({ onBlogCreated }: { onBlogCreated?: () => void }) => {
         setError(null);
 
         try {
-            await firebaseService.addBlog({
-                title,
-                content
+            await firebaseService.addContact({
+                name,
+                number,
+                site,
+                department
             });
 
             // Clear form
-            setTitle('');
-            setContent('');
+            setName('');
+            setNumber('');
+            setSite('');
+            setDepartment('');
 
             // Notify parent component if callback provided
-            if (onBlogCreated) {
-                onBlogCreated();
+            if (onContactCreated) {
+                onContactCreated();
             }
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to create blog');
+            setError(err instanceof Error ? err.message : 'Failed to create Contact');
         } finally {
             setIsSubmitting(false);
         }
@@ -35,7 +41,7 @@ const BlogForm = ({ onBlogCreated }: { onBlogCreated?: () => void }) => {
 
     return (
         <div className="box">
-            <h2 className="title is-4">Create New Blog</h2>
+            <h2 className="title is-4">Create New Contact</h2>
 
             {error && (
                 <div className="notification is-danger">
@@ -46,42 +52,43 @@ const BlogForm = ({ onBlogCreated }: { onBlogCreated?: () => void }) => {
 
             <form onSubmit={handleSubmit}>
                 <div className="field">
-                    <label className="label">Title</label>
+                    <label className="label">Name</label>
                     <div className="control">
                         <input
-                            className="input"
                             type="text"
-                            placeholder="Enter blog title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            required
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                 </div>
-
                 <div className="field">
-                    <label className="label">Content</label>
+                    <label className="label">Number</label>
                     <div className="control">
-                        <textarea
-                            className="textarea"
-                            placeholder="Enter blog content"
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            rows={5}
-                            required
+                        <input
+                            type="text"
+                            value={number}
+                            onChange={(e) => setNumber(e.target.value)}
                         />
                     </div>
                 </div>
-
                 <div className="field">
+                    <label className="label">Site</label>
                     <div className="control">
-                        <button
-                            className={`button is-primary ${isSubmitting ? 'is-loading' : ''}`}
-                            type="submit"
-                            disabled={isSubmitting}
-                        >
-                            Create Blog
-                        </button>
+                        <input
+                            type="text"
+                            value={site}
+                            onChange={(e) => setSite(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="field">
+                    <label className="label">Department</label>
+                    <div className="control">
+                        <input
+                            type="text"
+                            value={department}
+                            onChange={(e) => setDepartment(e.target.value)}
+                        />
                     </div>
                 </div>
             </form>
@@ -89,4 +96,4 @@ const BlogForm = ({ onBlogCreated }: { onBlogCreated?: () => void }) => {
     );
 };
 
-export default BlogForm;
+export default ContactForm;
