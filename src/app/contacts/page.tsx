@@ -1,10 +1,10 @@
 "use client";
 
-import GetContacts from "@/components/contacts/GetContacts";
+import GetContacts from "@/app/contacts/GetContacts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faSearch } from "@fortawesome/free-solid-svg-icons";
 import styles from "./ContactsPage.module.css";
-import { ReactElement, useState } from "react";
+import { useState } from "react";
 
 function ContactsPage() {
     const [search, setSearch] = useState("");
