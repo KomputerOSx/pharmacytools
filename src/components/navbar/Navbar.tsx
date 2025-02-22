@@ -1,3 +1,67 @@
+// "use client";
+//
+// import React, { useState } from "react";
+// import Link from "next/link";
+// import SwitchTheme from "@/components/SwitchTheme";
+//
+// const Navbar: React.FC = () => {
+//     const [isActive, setIsActive] = useState(false);
+//
+//     const toggleNavbar = () => {
+//         setIsActive(!isActive);
+//     };
+//
+//     return (
+//         <nav
+//             className="navbar is-spaced"
+//             role="navigation"
+//             aria-label="main navigation"
+//         >
+//             <div
+//                 id="navbarBasicExample"
+//                 className={`navbar-menu ${isActive ? "is-active" : ""}`}
+//             >
+//                 <div className="navbar-start">
+//                     <Link href="/" className="navbar-item is-tab">
+//                         Home
+//                     </Link>
+//                     <Link
+//                         href="/taperCalculator"
+//                         className="navbar-item is-tab"
+//                     >
+//                         Taper Calculator
+//                     </Link>
+//                     <Link href="/contacts" className="navbar-item is-tab">
+//                         Contacts
+//                     </Link>
+//                 </div>
+//
+//                 <div className="navbar-end">
+//                     <div className="navbar-item">
+//                         <div className="buttons">
+//                             <span>
+//                                 <SwitchTheme />
+//                             </span>
+//
+//                             {/*<span>*/}
+//                             {/*    <a className="button is-primary is-rounded">*/}
+//                             {/*        <strong>Sign up</strong>*/}
+//                             {/*    </a>*/}
+//                             {/*</span>*/}
+//
+//                             {/*<span>*/}
+//                             {/*    <a className="button is-light is-rounded">Log in</a>*/}
+//                             {/*</span>*/}
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </nav>
+//     );
+// };
+//
+// export default Navbar;
+
 "use client";
 
 import React, { useState } from "react";
@@ -12,47 +76,59 @@ const Navbar: React.FC = () => {
     };
 
     return (
-        <nav className="navbar is-spaced" role="navigation" aria-label="main navigation">
+        <nav
+            className="navbar is-spaced"
+            role="navigation"
+            aria-label="main navigation"
+        >
             <div className="navbar-brand">
+                <div className="navbar-item">
+                    <img
+                        src="/favicon.ico"
+                        alt="Pharmacy Tools"
+                        width={28}
+                        height={28}
+                    />
+                </div>
+
                 <a
                     role="button"
-                    className={`navbar-burger ${isActive ? 'is-active' : ''}`}
+                    className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
                     aria-label="menu"
-                    aria-expanded={isActive}
+                    aria-expanded="false"
                     onClick={toggleNavbar}
-                    data-target="navbarBasicExample"
                 >
-
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </a>
             </div>
 
-            <div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
+            <div
+                id="navbarBasicExample"
+                className={`navbar-menu ${isActive ? "is-active" : ""}`}
+            >
                 <div className="navbar-start">
-                    <Link href="/" className="navbar-item is-tab">Home</Link>
-                    <Link href="/taperCalculator" className="navbar-item is-tab">Taper Calculator</Link>
-                    <Link href="/contacts" className="navbar-item is-tab">Contacts</Link>
+                    <Link href="/" className="navbar-item is-tab">
+                        Home
+                    </Link>
+                    <Link
+                        href="/taperCalculator"
+                        className="navbar-item is-tab"
+                    >
+                        Taper Calculator
+                    </Link>
+                    <Link href="/contacts" className="navbar-item is-tab">
+                        Contacts
+                    </Link>
                 </div>
 
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
                             <span>
-                                <SwitchTheme/>
+                                <SwitchTheme />
                             </span>
-
-                            {/*<span>*/}
-                            {/*    <a className="button is-primary is-rounded">*/}
-                            {/*        <strong>Sign up</strong>*/}
-                            {/*    </a>*/}
-                            {/*</span>*/}
-
-                            {/*<span>*/}
-                            {/*    <a className="button is-light is-rounded">Log in</a>*/}
-                            {/*</span>*/}
-
                         </div>
                     </div>
                 </div>
