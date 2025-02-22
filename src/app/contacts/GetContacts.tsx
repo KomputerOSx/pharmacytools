@@ -1,36 +1,24 @@
-import { firebaseService } from "@/firebase/Firebase";
 import { Contact } from "@/firebase/types";
 import "./contactsGrid.css";
-import { useEffect, useState } from "react";
-import Loading from "@/components/Loading";
+import { useState } from "react";
+import contactJSON from "./contacts.json";
 
 interface GetContactsProps {
     search: string;
 }
 
 function GetContacts({ search }: GetContactsProps) {
-    const [contacts, setContacts] = useState<Contact[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    useEffect(() => {
-        setLoading(true);
-        firebaseService.getContacts().then((contacts) => {
-            setContacts(contacts);
-            setLoading(false);
-        });
-    }, []);
+    //@ts-expect-error // Contacts saved as JSON, to save on Firestore bandwidth
+    const [contacts] = useState<Contact[]>(contactJSON);
 
     const filteredContacts = contacts.filter((contact) =>
-        contact.name.toLowerCase().includes(search.toLowerCase()),
+        // @ts-expect-error // search is a string
+        contact.name.toLowerCase().includes(String(search).toLowerCase()),
     );
-
-    if (loading) {
-        return <Loading />;
-    }
-
     return (
         <div className="contact-grid">
-            {filteredContacts.map((contact: Contact) => (
-                <div className="contact-card" key={contact.id}>
+            {filteredContacts.map((contact: Contact, index) => (
+                <div className="contact-card" key={index}>
                     <div className="contact-info">
                         <h2 className="contact-name">{contact.name}</h2>
                         <p className="contact-number">{contact.number}</p>
