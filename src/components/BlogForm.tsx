@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { firebaseService } from '@/firebase/Firebase';
+import React, { useState } from "react";
+import { firebaseService } from "@/firebase/Firebase";
 
-const ContactForm = ({ onContactCreated }: { onContactCreated?: () => void }) => {
-    const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
-    const [site, setSite] = useState('');
-    const [department, setDepartment] = useState('');
+const ContactForm = ({
+    onContactCreated,
+}: {
+    onContactCreated?: () => void;
+}) => {
+    const [name, setName] = useState("");
+    const [number, setNumber] = useState("");
+    const [site, setSite] = useState("");
+    const [department, setDepartment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -19,21 +23,23 @@ const ContactForm = ({ onContactCreated }: { onContactCreated?: () => void }) =>
                 name,
                 number,
                 site,
-                department
+                department,
             });
 
             // Clear form
-            setName('');
-            setNumber('');
-            setSite('');
-            setDepartment('');
+            setName("");
+            setNumber("");
+            setSite("");
+            setDepartment("");
 
             // Notify parent component if callback provided
             if (onContactCreated) {
                 onContactCreated();
             }
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to create Contact');
+            setError(
+                err instanceof Error ? err.message : "Failed to create Contact",
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -45,7 +51,10 @@ const ContactForm = ({ onContactCreated }: { onContactCreated?: () => void }) =>
 
             {error && (
                 <div className="notification is-danger">
-                    <button className="delete" onClick={() => setError(null)}></button>
+                    <button
+                        className="delete"
+                        onClick={() => setError(null)}
+                    ></button>
                     {error}
                 </div>
             )}

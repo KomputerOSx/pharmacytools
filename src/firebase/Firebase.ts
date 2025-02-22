@@ -1,6 +1,6 @@
 // Firebase.ts
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, updateDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, updateDoc, doc, query, orderBy } from "firebase/firestore";
 import { Contact } from "@/firebase/types"; // Create this type file separately
 
 const firebaseConfig = {
@@ -21,7 +21,8 @@ export const firebaseService = {
     // Get all contacts
     getContacts: async (): Promise<Contact[]> => {
         const colRef = collection(db, "contacts");
-        const snapshot = await getDocs(colRef);
+        const q = query(colRef, orderBy('name'));
+        const snapshot = await getDocs(q);
         return snapshot.docs.map((doc) => ({
             id: doc.id,
             name: doc.data().name,
@@ -55,6 +56,7 @@ export const firebaseService = {
         await deleteDoc(docRef);
     }
 };
+
 
 
 

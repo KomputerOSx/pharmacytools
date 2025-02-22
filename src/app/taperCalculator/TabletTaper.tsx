@@ -1,17 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-// @ts-expect-error ignore this line
-import {CopyToClipboard} from 'react-copy-to-clipboard';
 import './TabletTaper.css';
-
 
 function TabletTaper() {
     const [taperLines, setTaperLines] = useState([
         { dose: 0, taperAmount: 0, interval: 0 },
     ]);
 
-    // Add a new taper line
+        // Add a new taper line
     const handleAddTaper = () => {
         setTaperLines([
             ...taperLines,
@@ -118,12 +115,18 @@ function TabletTaper() {
         }
     }
 
-    const [textToCopy, setTextToCopy] = useState(''); // The text you want to copy
-    const [copyStatus, setCopyStatus] = useState(false); // To indicate if the text was copied
+    const [textToCopy, setTextToCopy] = useState('');
+    const [copyStatus, setCopyStatus] = useState(false);
 
-    const onCopyText = () => {
-        setCopyStatus(true);
-        setTimeout(() => setCopyStatus(false), 5000); // Reset status after 5 seconds
+    // New clipboard copy function
+    const handleCopy = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            setCopyStatus(true);
+            setTimeout(() => setCopyStatus(false), 5000);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
     };
 
     const patientInfo1 = `
@@ -150,12 +153,11 @@ function TabletTaper() {
       - Attend regular check-ups and blood tests as recommended by your doctor.
       \n\n--- End of Document ---`;
 
+    // ... [keep all other functions and JSX the same until the buttons section] ...
     return (
         <>
             <div style={{padding: '1rem'}}>
                 <div>
-                    {/*<h1 className={"title is-1"}>Taper Calculator</h1>*/}
-
                     <div className="field" style={{maxWidth: '204px'}}>
                         <label className="label">Select a date (Optional)</label>
                         <div className="control">
@@ -163,11 +165,9 @@ function TabletTaper() {
                         </div>
                     </div>
 
-
                     {/* Render each taper line */}
                     {taperLines.map((taperLine, index) => (
                         <span key={index} style={{display: "flex", gap: "1rem"}}>
-                        {/* Dose Input */}
                         <div className="taper-inputs-container">
                             <div className="taper-input-row">
                                 {/* Dose Input */}
@@ -191,7 +191,6 @@ function TabletTaper() {
                                                 }
                                             }}
                                         />
-
                                     </div>
                                 </div>
 
@@ -257,8 +256,6 @@ function TabletTaper() {
                                 </div>
                             </div>
                         </div>
-
-
                     </span>
                     ))}
 
@@ -276,15 +273,18 @@ function TabletTaper() {
                         >
                             Calculate
                         </button>
-                        <CopyToClipboard text={textToCopy} onCopy={onCopyText}>
-                            <button className="button is-secondary">Copy Label</button>
-                        </CopyToClipboard>
-                        <CopyToClipboard
-                            text={patientInfo1 + `\n\n` + textToCopy + '\n\n' + patientInfo2}
-                            onCopy={onCopyText}
+                        <button
+                            className="button is-secondary"
+                            onClick={() => handleCopy(textToCopy)}
                         >
-                            <button className="button is-secondary">Document Copy</button>
-                        </CopyToClipboard>
+                            Copy Label
+                        </button>
+                        <button
+                            className="button is-secondary"
+                            onClick={() => handleCopy(patientInfo1 + `\n\n` + textToCopy + '\n\n' + patientInfo2)}
+                        >
+                            Document Copy
+                        </button>
                         {copyStatus && (
                             <div className="notification is-success animated fadeInDown" style={{
                                 position: 'fixed',
@@ -303,7 +303,6 @@ function TabletTaper() {
                 </div>
 
                 <div className={"container"} id={"taperLabel"} style={{marginTop: "2rem"}}>
-                    {/*<h1 className={"title is-3"}>Taper Label</h1>*/}
                 </div>
             </div>
         </>

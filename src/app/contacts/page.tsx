@@ -1,18 +1,43 @@
-import GetContacts from "@/components/GetContacts";
+"use client";
+
+import GetContacts from "@/components/contacts/GetContacts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhone, faSearch } from "@fortawesome/free-solid-svg-icons";
+import styles from "./ContactsPage.module.css";
+import { ReactElement, useState } from "react";
 
 function ContactsPage() {
+    const [search, setSearch] = useState("");
 
     return (
         <>
             <div>
-                <h1 className={"title is-1"}>ContactsPage</h1>
+                <h1 className="title is-1">Contacts</h1>
             </div>
 
-            <GetContacts/>
+            <div className="field mb-4">
+                <div className="control has-icons-left has-icons-right is-flex">
+                    <input
+                        className="input"
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Enter Name"
+                        style={{ maxWidth: "300px" }}
+                    />
+                    <span className="icon is-large is-left">
+                        <FontAwesomeIcon
+                            icon={faPhone}
+                            className="is-large"
+                            style={{ marginTop: "14px", scale: "1.5" }}
+                        />
+                    </span>
+                </div>
+            </div>
 
+            <GetContacts search={search} />
         </>
     );
 }
-
 
 export default ContactsPage;

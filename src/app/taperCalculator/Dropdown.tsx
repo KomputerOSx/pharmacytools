@@ -1,5 +1,7 @@
 // Dropdown.tsx
 import React, { useState } from 'react';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
 
 interface DropdownProps {
     selectedItem: string;
@@ -29,8 +31,9 @@ const Dropdown: React.FC<DropdownProps> = ({ selectedItem, onItemSelect }) => {
                 >
                     <span>{selectedItem}</span>
                     <span className="icon is-small">
-            <i className="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
+                        <FontAwesomeIcon icon={faAngleDown} aria-hidden="true"/>
+                    </span>
+
                 </button>
             </div>
             <div className="dropdown-menu" id="dropdown-menu" role="menu">

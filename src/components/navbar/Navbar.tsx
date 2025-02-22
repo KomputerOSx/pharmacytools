@@ -33,16 +33,7 @@ const Navbar: React.FC = () => {
                 <div className="navbar-start">
                     <Link href="/" className="navbar-item is-tab">Home</Link>
                     <Link href="/taperCalculator" className="navbar-item is-tab">Taper Calculator</Link>
-
-                    <div className="navbar-item has-dropdown is-hoverable">
-                        <a className="navbar-link">More</a>
-                        <div className="navbar-dropdown">
-                            <Link href="/about_me" className="navbar-item">About Me</Link>
-                            <Link href="/contact_info" className="navbar-item">Contact Info</Link>
-                            <hr className="navbar-divider"/>
-                            <Link href="/funny_joke" className="navbar-item">A Funny Joke</Link>
-                        </div>
-                    </div>
+                    <Link href="/contacts" className="navbar-item is-tab">Contacts</Link>
                 </div>
 
                 <div className="navbar-end">
