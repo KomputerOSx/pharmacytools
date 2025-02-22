@@ -11,7 +11,10 @@ function ContactsPage() {
 
     return (
         <>
-            <div className={"container"}>
+            <div
+                className={"container"}
+                style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            >
                 <div>
                     <h1 className="title is-1">Contacts</h1>
                 </div>

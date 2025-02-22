@@ -5,9 +5,6 @@ body {
     flex-direction: column;
 }
 
-main {
-    flex-grow: 1;
-}
 .newsletter-container {
     border-radius: 5px;
     padding: 20px;

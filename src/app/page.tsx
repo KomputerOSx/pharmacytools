@@ -3,6 +3,14 @@
 import React from "react";
 import "bulma/css/bulma.min.css";
 import ScrollVelocity from "@/TextAnimations/ScrollVelocity/ScrollVelocity";
+import "./app.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faUser,
+    faLock,
+    faSync,
+    faFastForward,
+} from "@fortawesome/free-solid-svg-icons";
 
 const App: React.FC = () => {
     return (
@@ -10,7 +18,7 @@ const App: React.FC = () => {
             <ScrollVelocity
                 texts={["Pharmacy Tools", "Your Trusted Pharmacy Companion"]}
                 velocity={90}
-                className="custom-scroll-text"
+                className=""
             />
 
             <section className="section">
@@ -41,7 +49,7 @@ const App: React.FC = () => {
                                     <footer className="card-footer">
                                         <a
                                             href={appInfo.link}
-                                            className="card-footer-item"
+                                            className="card-footer-item animated-link"
                                         >
                                             Learn More
                                         </a>
@@ -60,32 +68,33 @@ const App: React.FC = () => {
                         {[
                             {
                                 title: "User-Friendly",
-                                icon: "check-circle",
+                                icon: faUser,
                                 color: "success",
                                 description:
-                                    "Our tools are designed with pharmacists in mind, ensuring ease of use and efficiency.",
+                                    "My tools are designed with the user in mind, making them easy to use.",
                             },
                             {
-                                title: "Secure",
-                                icon: "lock",
+                                title: "Speedy",
+                                icon: faFastForward,
                                 color: "info",
                                 description:
-                                    "We prioritize the security of your data and comply with all relevant regulations.",
+                                    "Speed up your work, and stop repeating the same calculations.",
                             },
                             {
-                                title: "Always Updated",
-                                icon: "sync",
+                                title: "One Stop Shop",
+                                icon: faSync,
                                 color: "warning",
                                 description:
-                                    "Our tools are regularly updated to reflect the latest in pharmaceutical practices.",
+                                    "Find all the tools you need in one place. No more searching.",
                             },
                         ].map((feature, index) => (
                             <div className="column" key={index}>
                                 <div className="box">
                                     <h3 className="title is-4">
-                                        <i
-                                            className={`fas fa-${feature.icon} has-text-${feature.color}`}
-                                        ></i>{" "}
+                                        <FontAwesomeIcon
+                                            icon={feature.icon}
+                                            className={`has-text-${feature.color} mr-2`}
+                                        />
                                         {feature.title}
                                     </h3>
                                     <p>{feature.description}</p>

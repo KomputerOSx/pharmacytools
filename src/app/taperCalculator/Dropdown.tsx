@@ -1,7 +1,7 @@
 // Dropdown.tsx
-import React, { useState } from 'react';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 interface DropdownProps {
     selectedItem: string;
@@ -21,28 +21,50 @@ const Dropdown: React.FC<DropdownProps> = ({ selectedItem, onItemSelect }) => {
     };
 
     return (
-        <div className={`dropdown ${isActive ? 'is-active' : ''}`}>
-            <div className="dropdown-trigger">
-                <button
-                    className="button"
-                    aria-haspopup="true"
-                    aria-controls="dropdown-menu"
-                    onClick={toggleDropdown}
-                >
-                    <span>{selectedItem}</span>
-                    <span className="icon is-small">
-                        <FontAwesomeIcon icon={faAngleDown} aria-hidden="true"/>
-                    </span>
-
-                </button>
-            </div>
-            <div className="dropdown-menu" id="dropdown-menu" role="menu">
-                <div className="dropdown-content">
-                    <a href="#" className="dropdown-item" onClick={() => handleItemClick('Tablet Taper')}>Tablet Taper</a>
-                    <a href="#" className="dropdown-item" onClick={() => handleItemClick('Eye Drop Taper')}>Eye Drop Taper</a>
+        <>
+            <p style={{ marginBottom: "0.5rem" }}>
+                <strong>Select Taper</strong>
+            </p>
+            <div
+                className={`dropdown ${isActive ? "is-active" : ""}`}
+                style={{ marginBottom: "1rem" }}
+            >
+                <div className="dropdown-trigger">
+                    <button
+                        className="button"
+                        aria-haspopup="true"
+                        aria-controls="dropdown-menu"
+                        onClick={toggleDropdown}
+                    >
+                        <span>{selectedItem}</span>
+                        <span className="icon is-small">
+                            <FontAwesomeIcon
+                                icon={faAngleDown}
+                                aria-hidden="true"
+                            />
+                        </span>
+                    </button>
+                </div>
+                <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div className="dropdown-content">
+                        <a
+                            href="#"
+                            className="dropdown-item"
+                            onClick={() => handleItemClick("Tablet Taper")}
+                        >
+                            Tablet Taper
+                        </a>
+                        <a
+                            href="#"
+                            className="dropdown-item"
+                            onClick={() => handleItemClick("Eye Drop Taper")}
+                        >
+                            Eye Drop Taper
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

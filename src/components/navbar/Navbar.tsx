@@ -1,73 +1,9 @@
-// "use client";
-//
-// import React, { useState } from "react";
-// import Link from "next/link";
-// import SwitchTheme from "@/components/SwitchTheme";
-//
-// const Navbar: React.FC = () => {
-//     const [isActive, setIsActive] = useState(false);
-//
-//     const toggleNavbar = () => {
-//         setIsActive(!isActive);
-//     };
-//
-//     return (
-//         <nav
-//             className="navbar is-spaced"
-//             role="navigation"
-//             aria-label="main navigation"
-//         >
-//             <div
-//                 id="navbarBasicExample"
-//                 className={`navbar-menu ${isActive ? "is-active" : ""}`}
-//             >
-//                 <div className="navbar-start">
-//                     <Link href="/" className="navbar-item is-tab">
-//                         Home
-//                     </Link>
-//                     <Link
-//                         href="/taperCalculator"
-//                         className="navbar-item is-tab"
-//                     >
-//                         Taper Calculator
-//                     </Link>
-//                     <Link href="/contacts" className="navbar-item is-tab">
-//                         Contacts
-//                     </Link>
-//                 </div>
-//
-//                 <div className="navbar-end">
-//                     <div className="navbar-item">
-//                         <div className="buttons">
-//                             <span>
-//                                 <SwitchTheme />
-//                             </span>
-//
-//                             {/*<span>*/}
-//                             {/*    <a className="button is-primary is-rounded">*/}
-//                             {/*        <strong>Sign up</strong>*/}
-//                             {/*    </a>*/}
-//                             {/*</span>*/}
-//
-//                             {/*<span>*/}
-//                             {/*    <a className="button is-light is-rounded">Log in</a>*/}
-//                             {/*</span>*/}
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </nav>
-//     );
-// };
-//
-// export default Navbar;
-
 "use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
 import SwitchTheme from "@/components/SwitchTheme";
-
+import "./navbar.css";
 const Navbar: React.FC = () => {
     const [isActive, setIsActive] = useState(false);
 

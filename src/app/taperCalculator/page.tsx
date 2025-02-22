@@ -13,7 +13,10 @@ function TaperCalculator() {
 
     return (
         <>
-            <div className={"container"}>
+            <div
+                className={"container"}
+                style={{ paddingLeft: "20px", paddingRight: "20px" }}
+            >
                 <div>
                     <h1 className={"title is-1"}>Taper Calculator</h1>
 

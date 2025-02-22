@@ -11,7 +11,7 @@ function EyeDropTaper() {
     const [selectedEye, setSelectedEye] = useState("Left");
     const [calculationResult, setCalculationResult] = useState<string[]>([]);
     const [totalMls, setTotalMls] = useState<number>(0);
-    const [textToCopy, setTextToCopy] = useState(''); // The text you want to copy
+    const [textToCopy, setTextToCopy] = useState(""); // The text you want to copy
     const [copyStatus, setCopyStatus] = useState(false); // To indicate if the text was copied
 
     // New clipboard copy function
@@ -21,7 +21,7 @@ function EyeDropTaper() {
             setCopyStatus(true);
             setTimeout(() => setCopyStatus(false), 5000);
         } catch (err) {
-            console.error('Failed to copy text: ', err);
+            console.error("Failed to copy text: ", err);
         }
     };
 
@@ -58,7 +58,10 @@ function EyeDropTaper() {
         // Process each taper line
         for (let lineIndex = 0; lineIndex < taperLines.length; lineIndex++) {
             const currentLine = taperLines[lineIndex];
-            const nextLine = lineIndex < taperLines.length - 1 ? taperLines[lineIndex + 1] : null;
+            const nextLine =
+                lineIndex < taperLines.length - 1
+                    ? taperLines[lineIndex + 1]
+                    : null;
 
             if (currentLine.frequency === 0) continue;
 
@@ -76,30 +79,35 @@ function EyeDropTaper() {
             // Generate taper schedule for current section
             for (let i = startIndex; i < endIndex; i++) {
                 const currentFreq = normalFrequency[i];
-                const text = `Apply ${currentLine.dropCount} drop${currentLine.dropCount > 1 ? 's' : ''} ${numberToWords(currentFreq)} for ${currentLine.interval} days`;
+                const text = `Apply ${currentLine.dropCount} drop${currentLine.dropCount > 1 ? "s" : ""} ${numberToWords(currentFreq)} for ${currentLine.interval} days`;
                 results.push(text);
-                copyText += text + '\n';
+                copyText += text + "\n";
 
-                totalDropCount += currentLine.dropCount * currentFreq * currentLine.interval;
+                totalDropCount +=
+                    currentLine.dropCount * currentFreq * currentLine.interval;
             }
 
             if (nextLine && currentLine.frequency === nextLine.frequency) {
-                const text = `Apply ${currentLine.dropCount} drop${currentLine.dropCount > 1 ? 's' : ''} ${numberToWords(currentLine.frequency)} for ${currentLine.interval} days`;
+                const text = `Apply ${currentLine.dropCount} drop${currentLine.dropCount > 1 ? "s" : ""} ${numberToWords(currentLine.frequency)} for ${currentLine.interval} days`;
                 results.push(text);
-                copyText += text + '\n';
+                copyText += text + "\n";
 
-                totalDropCount += currentLine.dropCount * currentLine.frequency * currentLine.interval;
+                totalDropCount +=
+                    currentLine.dropCount *
+                    currentLine.frequency *
+                    currentLine.interval;
                 continue;
             }
 
             if (nextLine && endIndex < normalFrequency.length) {
                 for (let i = endIndex; i < normalFrequency.length; i++) {
                     const currentFreq = normalFrequency[i];
-                    const text = `Apply ${nextLine.dropCount} drop${nextLine.dropCount > 1 ? 's' : ''} ${numberToWords(currentFreq)} for ${nextLine.interval} days`;
+                    const text = `Apply ${nextLine.dropCount} drop${nextLine.dropCount > 1 ? "s" : ""} ${numberToWords(currentFreq)} for ${nextLine.interval} days`;
                     results.push(text);
-                    copyText += text + '\n';
+                    copyText += text + "\n";
 
-                    totalDropCount += nextLine.dropCount * currentFreq * nextLine.interval;
+                    totalDropCount +=
+                        nextLine.dropCount * currentFreq * nextLine.interval;
                 }
                 break;
             }
@@ -112,24 +120,55 @@ function EyeDropTaper() {
     };
 
     function numberToWords(num: number): string {
-        const ones = ['', 'ONCE a day', 'TWICE a day', 'THREE times a day', 'FOUR times a day', 'FIVE', 'SIX times a day', 'SEVEN', 'every TWO hours', 'NINE', ];
-        const teens = ['TEN', 'ELEVEN', 'TWELVE', 'THIRTEEN', 'FOURTEEN', 'FIFTEEN', 'every HOUR', 'SEVENTEEN', 'EIGHTEEN', 'NINETEEN'];
+        const ones = [
+            "",
+            "ONCE a day",
+            "TWICE a day",
+            "THREE times a day",
+            "FOUR times a day",
+            "FIVE",
+            "SIX times a day",
+            "SEVEN",
+            "every TWO hours",
+            "NINE",
+        ];
+        const teens = [
+            "TEN",
+            "ELEVEN",
+            "TWELVE",
+            "THIRTEEN",
+            "FOURTEEN",
+            "FIFTEEN",
+            "every HOUR",
+            "SEVENTEEN",
+            "EIGHTEEN",
+            "NINETEEN",
+        ];
 
         if (num < 10) {
             return ones[num];
         } else if (num < 20) {
             return teens[num - 10];
         } else {
-            return ones[Math.floor(num / 100)] + ' hundred' + (num % 100 === 0 ? '' : ' and ' + numberToWords(num % 100));
+            return (
+                ones[Math.floor(num / 100)] +
+                " hundred" +
+                (num % 100 === 0 ? "" : " and " + numberToWords(num % 100))
+            );
         }
     }
 
     return (
-        <div style={{padding: '1rem'}}>
-            <EyeButtonGroup onSelect={(eye) => {
-                console.log("Selected eye in parent:", eye);
-                handleEyeSelection(eye);
-            }} />
+        <div>
+            <p style={{ marginBottom: "0.5rem" }}>
+                <strong>Select Eye(s)</strong>
+            </p>
+            <EyeButtonGroup
+                onSelect={(eye) => {
+                    console.log("Selected eye in parent:", eye);
+                    handleEyeSelection(eye);
+                }}
+            />
 
             {taperLines.map((taperLine, index) => (
                 <div key={index} className="taper-input-row">
@@ -144,8 +183,20 @@ function EyeDropTaper() {
                                 placeholder="Enter Drops per Dose"
                                 value={taperLine.dropCount}
                                 onChange={(e) => {
-                                    const value = e.target.value === '' ? '' : Math.max(0, Math.floor(Number(e.target.value)));
-                                    handleInputChange(index, "dropCount", value as number);
+                                    const value =
+                                        e.target.value === ""
+                                            ? ""
+                                            : Math.max(
+                                                  0,
+                                                  Math.floor(
+                                                      Number(e.target.value),
+                                                  ),
+                                              );
+                                    handleInputChange(
+                                        index,
+                                        "dropCount",
+                                        value as number,
+                                    );
                                 }}
                             />
                         </div>
@@ -158,7 +209,11 @@ function EyeDropTaper() {
                                 className="input"
                                 value={taperLine.frequency}
                                 onChange={(e) => {
-                                    handleInputChange(index, "frequency", Number(e.target.value));
+                                    handleInputChange(
+                                        index,
+                                        "frequency",
+                                        Number(e.target.value),
+                                    );
                                 }}
                             >
                                 <option value="0">Select Frequency</option>
@@ -184,8 +239,20 @@ function EyeDropTaper() {
                                 placeholder="Enter Taper Interval"
                                 value={taperLine.interval}
                                 onChange={(e) => {
-                                    const value = e.target.value === '' ? '' : Math.max(0, Math.floor(Number(e.target.value)));
-                                    handleInputChange(index, "interval", value as number);
+                                    const value =
+                                        e.target.value === ""
+                                            ? ""
+                                            : Math.max(
+                                                  0,
+                                                  Math.floor(
+                                                      Number(e.target.value),
+                                                  ),
+                                              );
+                                    handleInputChange(
+                                        index,
+                                        "interval",
+                                        value as number,
+                                    );
                                 }}
                             />
                         </div>
@@ -220,16 +287,23 @@ function EyeDropTaper() {
                 </button>
 
                 {copyStatus && (
-                    <div className="notification is-success animated fadeInDown" style={{
-                        position: 'fixed',
-                        top: '10px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        zIndex: 1000,
-                        opacity: copyStatus ? 1 : 0,
-                        transition: 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out',
-                    }}>
-                        <button className="delete" onClick={() => setCopyStatus(false)}></button>
+                    <div
+                        className="notification is-success animated fadeInDown"
+                        style={{
+                            position: "fixed",
+                            top: "10px",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            zIndex: 1000,
+                            opacity: copyStatus ? 1 : 0,
+                            transition:
+                                "opacity 0.5s ease-in-out, transform 0.5s ease-in-out",
+                        }}
+                    >
+                        <button
+                            className="delete"
+                            onClick={() => setCopyStatus(false)}
+                        ></button>
                         Text copied to clipboard!
                     </div>
                 )}
@@ -237,14 +311,18 @@ function EyeDropTaper() {
 
             <div id="taperLabel" className="mt-4">
                 {calculationResult.length > 0 && (
-                    <p className="field has-text-weight-bold">Apply to {selectedEye.toUpperCase()} EYE</p>
+                    <p className="field has-text-weight-bold">
+                        Apply to {selectedEye.toUpperCase()} EYE
+                    </p>
                 )}
                 {calculationResult.map((result, index) => (
-                    <p key={index} className="field">{result}</p>
+                    <p key={index} className="field">
+                        {result}
+                    </p>
                 ))}
                 {totalMls > 0 && (
                     <p className="field subtitle">
-                        <strong>Total mls needed:</strong> <br/>
+                        <strong>Total mls needed:</strong> <br />
                         <strong>{totalMls.toFixed(1)}</strong>
                     </p>
                 )}
