@@ -7,7 +7,6 @@ import "./app.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faUser,
-    faLock,
     faSync,
     faFastForward,
 } from "@fortawesome/free-solid-svg-icons";
@@ -106,13 +105,6 @@ const App: React.FC = () => {
             </section>
         </>
     );
-};
-
-const styles: { [key: string]: React.CSSProperties } = {
-    constructionIcon: {
-        fontSize: "5rem",
-        marginRight: "1rem",
-    },
 };
 
 export default App;

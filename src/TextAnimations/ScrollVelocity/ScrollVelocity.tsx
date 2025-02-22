@@ -4,6 +4,8 @@
 	22-02-2025
 */
 
+/* eslint-disable react-hooks/rules-of-hooks */
+
 import React, { useRef, useLayoutEffect, useState } from "react";
 import {
     motion,
@@ -114,6 +116,7 @@ export const ScrollVelocity: React.FC<ScrollVelocityProps> = ({
         );
 
         const copyRef = useRef<HTMLSpanElement>(null);
+        // @ts-expect-error - framer-motion types are incorrect
         const copyWidth = useElementWidth(copyRef);
 
         function wrap(min: number, max: number, v: number): number {

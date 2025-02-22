@@ -2,8 +2,7 @@
 
 import GetContacts from "@/app/contacts/GetContacts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faSearch } from "@fortawesome/free-solid-svg-icons";
-import styles from "./ContactsPage.module.css";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 function ContactsPage() {

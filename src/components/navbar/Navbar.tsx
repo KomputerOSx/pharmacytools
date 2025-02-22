@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import SwitchTheme from "@/components/SwitchTheme";
 import "./navbar.css";
+import Image from "next/image";
 const Navbar: React.FC = () => {
     const [isActive, setIsActive] = useState(false);
 
@@ -19,9 +20,9 @@ const Navbar: React.FC = () => {
         >
             <div className="navbar-brand">
                 <div className="navbar-item">
-                    <img
-                        src="/favicon.ico"
-                        alt="Pharmacy Tools"
+                    <Image
+                        src={"/static/logo.png"}
+                        alt={"Pharmacy tools"}
                         width={28}
                         height={28}
                     />

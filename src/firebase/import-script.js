@@ -1,7 +1,6 @@
 // Import required Firebase modules
-const { initializeApp } = require('firebase/app');
-const { getFirestore, collection, addDoc, writeBatch, doc } = require('firebase/firestore');
-
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, writeBatch, doc } from "firebase/firestore";
 // Your Firebase configuration object
 const firebaseConfig = {
     apiKey: "AIzaSyDfa1McjlABequLyxQIvmasFvNU3IyQXbk",
@@ -10,7 +9,7 @@ const firebaseConfig = {
     storageBucket: "pharmacytools.firebasestorage.app",
     messagingSenderId: "807028875436",
     appId: "1:807028875436:web:4b2dfa7cfc3a448f16bf09",
-    measurementId: "G-04BW5CTRVC"
+    measurementId: "G-04BW5CTRVC",
 };
 
 // Initialize Firebase
@@ -24,7 +23,7 @@ async function bulkImport() {
     try {
         // Use batched writes for better performance
         const batch = writeBatch(db);
-        const collectionRef = collection(db, 'contacts'); // Replace 'employees' with your collection name
+        const collectionRef = collection(db, "contacts"); // Replace 'employees' with your collection name
 
         data.forEach((item) => {
             const docRef = doc(collectionRef);
@@ -32,12 +31,11 @@ async function bulkImport() {
         });
 
         await batch.commit();
-        console.log('Bulk import completed successfully!');
+        console.log("Bulk import completed successfully!");
     } catch (error) {
-        console.error('Error during bulk import:', error);
+        console.error("Error during bulk import:", error);
     }
 }
-
 
 // Run the import
 bulkImport();
