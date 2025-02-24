@@ -68,7 +68,7 @@ function CrClCalculator() {
         age: number,
         gender: string,
         serumCr: number,
-    ): number | string => {
+    ): number => {
         const genderFactor =
             gender.toLowerCase() === "male" ? male.crclBase : female.crclBase;
         const crcl = ((140 - age) * weight * genderFactor) / serumCr;
@@ -250,7 +250,10 @@ function CrClCalculator() {
                 {/* Results Display */}
 
                 <div className="section">
-                    <h2 className="title is-3">Results</h2>
+                    {results.actualCrCl !== null && (
+                        <h2 className="title is-3">Results</h2>
+                    )}
+
                     <div className="crcl-results-container">
                         {results.actualCrCl !== null && (
                             <div className="crcl-results-item">
