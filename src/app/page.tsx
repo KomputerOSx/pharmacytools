@@ -36,10 +36,10 @@ const App: React.FC = () => {
                                         "Find pharmacy contacts easily",
                                     link: "/contacts",
                                 },
-                                "TBC...": {
+                                "Creatinine Clearance": {
                                     description:
-                                        "More exciting tools coming soon!",
-                                    link: "#",
+                                        "Cockcroft-Gault CrCl Calculator, for renal dosing",
+                                    link: "/crclCalculator",
                                 },
                             }).map(([appName, appInfo]) => (
                                 <div className="column" key={appName}>

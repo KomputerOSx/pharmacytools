@@ -17,10 +17,10 @@
 //     const [loading, setLoading] = useState<boolean>(true);
 //
 //     // useEffect(() => {
-//     //     setLoading(true);
+
 //     //     firebaseService.getContacts(search).then((contacts) => {
 //     //         setContacts(contacts);
-//     //         setLoading(false);
+
 //     //     });
 //     // }, []);
 //
@@ -29,9 +29,7 @@
 //         contact.name.toLowerCase().includes(String(search).toLowerCase()),
 //     );
 //
-//     // if (loading) {
-//     //     return <Loading />;
-//     // }
+
 //
 //     return (
 //         <div className="contact-grid">

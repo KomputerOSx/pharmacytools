@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
-const BulmaLoading = () => {
+function Loading() {
     return (
         <div
             className="hero is-fullheight"
@@ -46,6 +46,6 @@ const BulmaLoading = () => {
             </div>
         </div>
     );
-};
+}
 
-export default BulmaLoading;
+export default Loading;

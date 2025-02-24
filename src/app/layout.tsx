@@ -11,6 +11,9 @@ config.autoAddCss = false;
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Footer from "@/components/Footer/Footer";
 
+import { Suspense } from "react";
+import Loading from "./loading";
+
 export const metadata: Metadata = {
     title: "Pharmacy Tools",
     description: "Pharmacy Tools by Ramyar Abdullah",
@@ -26,8 +29,7 @@ export default function RootLayout({
             <body className={""}>
                 <ThemeProvider>
                     <Navbar />
-
-                    {children}
+                    <Suspense fallback={<Loading />}>{children}</Suspense>
                     <Footer />
                 </ThemeProvider>
             </body>
