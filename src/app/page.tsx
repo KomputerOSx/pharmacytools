@@ -37,8 +37,7 @@ const App: React.FC = () => {
                                     link: "/contacts",
                                 },
                                 "Creatinine Clearance": {
-                                    description:
-                                        "Cockcroft-Gault CrCl Calculator, for renal dosing",
+                                    description: "Cockcroft-Gault CrCl Formula",
                                     link: "/crclCalculator",
                                 },
                             }).map(([appName, appInfo]) => (
