@@ -1,0 +1,50 @@
+
+/* Action buttons container */
+.action-buttons-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.action-buttons-container button {
+    flex: 0 1 auto; /* Don't grow in full screen */
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+    @media screen and (max-width: 768px) {
+        /* Make the button group full width */
+        .buttons.has-addons {
+            width: 100% !important;
+            display: flex !important;
+        }
+
+        /* Make each button inside take equal space */
+        .buttons.has-addons .button {
+            flex: 1 1 auto !important; /* This is key - makes buttons grow equally */
+            width: 50% !important; /* Each button takes 50% of container */
+        }
+    }
+
+    /* Small screen button adjustments */
+    .action-buttons-container {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .action-buttons-container button,
+    .action-buttons-container button.button {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Fix for CopyToClipboard wrapper */
+    .action-buttons-container > span {
+        width: 100%;
+    }
+}

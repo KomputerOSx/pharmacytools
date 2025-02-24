@@ -47,16 +47,19 @@ const Navbar: React.FC = () => {
             >
                 <div className="navbar-start">
                     <Link href="/" className="navbar-item is-tab">
-                        Home
+                        <strong>Home</strong>
                     </Link>
                     <Link
                         href="/taperCalculator"
                         className="navbar-item is-tab"
                     >
-                        Taper Calculator
+                        <strong>Taper Calculator</strong>
                     </Link>
                     <Link href="/contacts" className="navbar-item is-tab">
-                        Contacts
+                        <strong>Phone Book</strong>
+                    </Link>
+                    <Link href="/crclCalculator" className="navbar-item is-tab">
+                        <strong>CrCl Calculator</strong>
                     </Link>
                 </div>
 

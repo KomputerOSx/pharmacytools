@@ -55,7 +55,7 @@ const App: React.FC = () => {
                                                 href={appInfo.link}
                                                 className="card-footer-item animated-link"
                                             >
-                                                Learn More
+                                                Use Tool
                                             </a>
                                         </footer>
                                     </div>
