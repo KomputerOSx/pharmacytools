@@ -1,8 +1,9 @@
 "use client";
 
+import React, { useState } from "react";
 import "./crclCalculator.css";
-import React from "react";
 import GenderSelectButton from "@/app/crclCalculator/GenderSelectButton";
+import CrClDisplay from "@/app/crclCalculator/CrClDisplay";
 
 interface Patient {
     ibwBase: number;
@@ -10,10 +11,25 @@ interface Patient {
 }
 
 function CrClCalculator() {
-    const [selectedGender, setSelectedGender] = React.useState("Male");
+    const [selectedGender, setSelectedGender] = useState("Male");
+    const [age, setAge] = useState<number | null>(null);
+    const [weight, setWeight] = useState<number | null>(null);
+    const [height, setHeight] = useState<number | null>(null);
+    const [serumCreatinine, setSerumCreatinine] = useState<number | null>(null);
+    const [results, setResults] = useState<{
+        actualCrCl: number | null;
+        ibwCrCl: number | null;
+        abwCrCl: number | null;
+        ibwError?: string;
+        abwError?: string;
+    }>({
+        actualCrCl: null,
+        ibwCrCl: null,
+        abwCrCl: null,
+    });
 
-    const handleGenderChange = () => {
-        setSelectedGender(selectedGender);
+    const handleGenderChange = (gender: string) => {
+        setSelectedGender(gender);
     };
 
     const male: Patient = {
@@ -26,8 +42,8 @@ function CrClCalculator() {
         crclBase: 1.04,
     };
 
-    const handleIBW = (heightInCm: number, selectedGender: string): number => {
-        if (selectedGender.toLowerCase() === "male") {
+    const handleIBW = (heightInCm: number, gender: string): number => {
+        if (gender.toLowerCase() === "male") {
             return male.ibwBase + 2.3 * (heightInCm / 2.54 - 60);
         } else {
             return female.ibwBase + 2.3 * (heightInCm / 2.54 - 60);
@@ -37,35 +53,83 @@ function CrClCalculator() {
     const handleABW = (
         weightInKg: number,
         heightInCm: number,
-        selectedGender: string,
-    ): number | boolean => {
-        if (weightInKg < handleIBW(heightInCm, selectedGender)) {
-            return false;
+        gender: string,
+    ): number => {
+        const ibw = handleIBW(heightInCm, gender);
+        if (weightInKg < ibw) {
+            return weightInKg;
         } else {
-            return (
-                handleIBW(heightInCm, selectedGender) +
-                0.4 * (weightInKg - handleIBW(heightInCm, selectedGender))
-            );
+            return ibw + 0.4 * (weightInKg - ibw);
         }
     };
 
-    const handleCrCl = (
+    const calculateCrCl = (
+        weight: number,
         age: number,
-        weightInKg: number,
-        heightInCm: number,
-        serumCreatinine: number,
-        selectedGender: string,
-    ): number | boolean => {
-        if (weightInKg < handleIBW(heightInCm, selectedGender)) {
-            return false;
-        }
-        if (selectedGender.toLowerCase() === "male") {
-            return ((140 - age) * weightInKg * male.crclBase) / serumCreatinine;
+        gender: string,
+        serumCr: number,
+    ): number | string => {
+        const genderFactor =
+            gender.toLowerCase() === "male" ? male.crclBase : female.crclBase;
+        const crcl = ((140 - age) * weight * genderFactor) / serumCr;
+        if (crcl >= 120) {
+            return 120;
         } else {
-            return (
-                ((140 - age) * weightInKg * female.crclBase) / serumCreatinine
-            );
+            return crcl;
         }
+    };
+
+    const handleCalculate = () => {
+        if (age && weight && height && serumCreatinine) {
+            const ibw = handleIBW(height, selectedGender);
+            const abw = handleABW(weight, height, selectedGender);
+
+            const actualCrCl = calculateCrCl(
+                weight,
+                age,
+                selectedGender,
+                serumCreatinine,
+            );
+
+            let ibwCrCl = null;
+            let abwCrCl = null;
+            let ibwError = undefined;
+            let abwError = undefined;
+
+            if (weight < ibw) {
+                ibwError = "Not calculated: Actual weight is less than IBW";
+                abwError = "Not calculated: Actual weight is less than IBW";
+            } else {
+                ibwCrCl = calculateCrCl(
+                    ibw,
+                    age,
+                    selectedGender,
+                    serumCreatinine,
+                );
+                abwCrCl = calculateCrCl(
+                    abw,
+                    age,
+                    selectedGender,
+                    serumCreatinine,
+                );
+            }
+
+            setResults({
+                actualCrCl,
+                ibwCrCl,
+                abwCrCl,
+                ibwError,
+                abwError,
+            });
+        }
+    };
+
+    const handleClear = () => {
+        setAge(null);
+        setWeight(null);
+        setHeight(null);
+        setSerumCreatinine(null);
+        setResults({ actualCrCl: null, ibwCrCl: null, abwCrCl: null });
     };
 
     return (
@@ -80,8 +144,8 @@ function CrClCalculator() {
 
                 <GenderSelectButton onSelect={handleGenderChange} />
 
-                <div className="field has-addons-right">
-                    <div className={"block"}>
+                <div className="inputs-container">
+                    <div className="field">
                         <label className="label">Age</label>
                         <div className="control">
                             <input
@@ -89,53 +153,142 @@ function CrClCalculator() {
                                 type="number"
                                 min={18}
                                 placeholder="Enter Age"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="field has-addons-right">
-                    <div className={"block"}>
-                        <label className="label">Weight</label>
-                        <div className="control">
-                            <input
-                                className="input "
-                                type="number"
-                                min={30}
-                                placeholder="Enter Weight"
+                                value={age || ""}
+                                onChange={(e) =>
+                                    setAge(
+                                        e.target.value
+                                            ? Number(e.target.value)
+                                            : null,
+                                    )
+                                }
                             />
                         </div>
                     </div>
 
-                    <div className={"block"}>
-                        <label className="label">Height</label>
+                    <div className="field">
+                        <label className="label">Weight (kg)</label>
+                        <div className="control">
+                            <input
+                                className="input"
+                                type="number"
+                                min={30}
+                                placeholder="Enter Weight"
+                                value={weight || ""}
+                                onChange={(e) =>
+                                    setWeight(
+                                        e.target.value
+                                            ? Number(e.target.value)
+                                            : null,
+                                    )
+                                }
+                            />
+                        </div>
+                    </div>
+
+                    <div className="field">
+                        <label className="label">Height (cm)</label>
                         <div className="control">
                             <input
                                 className="input"
                                 type="number"
                                 min={120}
                                 placeholder="Enter Height"
+                                value={height || ""}
+                                onChange={(e) =>
+                                    setHeight(
+                                        e.target.value
+                                            ? Number(e.target.value)
+                                            : null,
+                                    )
+                                }
                             />
                         </div>
                     </div>
 
-                    <div className={"block"}>
-                        <label className="label">Serum Creatinine</label>
+                    <div className="field">
+                        <label className="label">
+                            Serum Creatinine (μmol/L)
+                        </label>
                         <div className="control">
                             <input
                                 className="input"
                                 type="number"
-                                min={1}
+                                min={20}
+                                step="1"
                                 placeholder="Enter Serum Creatinine"
+                                value={serumCreatinine || ""}
+                                onChange={(e) =>
+                                    setSerumCreatinine(
+                                        e.target.value
+                                            ? Number(e.target.value)
+                                            : null,
+                                    )
+                                }
                             />
                         </div>
                     </div>
                 </div>
 
                 <div className="action-buttons-container">
-                    <button className="button is-seconday is-light">
+                    <button
+                        className="button is-secondary is-light"
+                        onClick={handleClear}
+                    >
                         Clear
                     </button>
-                    <button className="button is-primary">Calculate</button>
+                    <button
+                        className="button is-primary"
+                        onClick={handleCalculate}
+                        disabled={
+                            !age || !weight || !height || !serumCreatinine
+                        }
+                    >
+                        Calculate
+                    </button>
+                </div>
+
+                {/* Results Display */}
+
+                <div className="section">
+                    <h2 className="title is-3">Results</h2>
+                    <div className="crcl-results-container">
+                        {results.actualCrCl !== null && (
+                            <div className="crcl-results-item">
+                                <CrClDisplay
+                                    crcl={results.actualCrCl}
+                                    title="Actual Weight CrCl"
+                                />
+                            </div>
+                        )}
+
+                        {results.ibwCrCl !== null && (
+                            <div className="crcl-results-item">
+                                <CrClDisplay
+                                    crcl={results.ibwCrCl}
+                                    title="Ideal Body Weight CrCl"
+                                />
+                                {results.ibwError && (
+                                    <div className="error-message">
+                                        {results.ibwError}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {results.abwCrCl !== null && (
+                            <div className="crcl-results-item">
+                                <CrClDisplay
+                                    crcl={results.abwCrCl}
+                                    title="Adjusted Body Weight CrCl"
+                                />
+                                {results.abwError && (
+                                    <div className="error-message">
+                                        {results.abwError}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </>

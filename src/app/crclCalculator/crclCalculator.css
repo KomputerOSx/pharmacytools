@@ -1,8 +1,21 @@
 
+/* Container for inputs and buttons */
+.inputs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.inputs-container .field {
+    flex: 1 1 auto;
+    min-width: 150px;
+}
+
 /* Action buttons container */
 .action-buttons-container {
     display: flex;
-    align-items: center;
+    justify-content: left;
     gap: 1rem;
     margin-top: 1rem;
 }
@@ -10,6 +23,8 @@
 .action-buttons-container button {
     flex: 0 1 auto; /* Don't grow in full screen */
 }
+
+
 
 
 
