@@ -40,7 +40,7 @@ try {
 async function bulkImport() {
     try {
         // Use batched writes for better performance
-        const batch = writeBatch(db);
+        let batch = writeBatch(db);
         const collectionRef = collection(db, "contacts");
 
         let count = 0;
