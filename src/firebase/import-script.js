@@ -1,7 +1,15 @@
 // Import required Firebase modules
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, writeBatch, doc } from "firebase/firestore";
-// Your Firebase configuration object
+const { initializeApp } = require("firebase/app");
+const {
+    getFirestore,
+    collection,
+    writeBatch,
+    doc,
+} = require("firebase/firestore");
+const fs = require("fs");
+const path = require("path");
+
+// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDfa1McjlABequLyxQIvmasFvNU3IyQXbk",
     authDomain: "pharmacytools.firebaseapp.com",
@@ -16,21 +24,50 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Sample data structure (replace with your actual data)
-// const data = require('D:\\Coding\\JS\\pharmacytools\\bleeps.json')
+// Read the JSON file
+const dataFilePath = path.join(__dirname, "bleeps.json");
+let data;
+
+try {
+    const rawData = fs.readFileSync(dataFilePath, "utf8");
+    data = JSON.parse(rawData);
+    console.log(`Successfully loaded ${data.length} records from bleeps.json`);
+} catch (error) {
+    console.error("Error reading JSON file:", error);
+    process.exit(1);
+}
 
 async function bulkImport() {
     try {
         // Use batched writes for better performance
         const batch = writeBatch(db);
-        const collectionRef = collection(db, "contacts"); // Replace 'employees' with your collection name
+        const collectionRef = collection(db, "contacts");
 
-        data.forEach((item) => {
+        let count = 0;
+        for (const item of data) {
             const docRef = doc(collectionRef);
             batch.set(docRef, item);
-        });
+            count++;
 
-        await batch.commit();
+            // Firebase has a limit of 500 operations per batch
+            if (count >= 450) {
+                console.log(`Committing batch of ${count} records...`);
+                await batch.commit();
+                console.log("Batch committed successfully");
+
+                // Reset for next batch
+                count = 0;
+                batch = writeBatch(db);
+            }
+        }
+
+        // Commit any remaining items in the batch
+        if (count > 0) {
+            console.log(`Committing final batch of ${count} records...`);
+            await batch.commit();
+            console.log("Final batch committed successfully");
+        }
+
         console.log("Bulk import completed successfully!");
     } catch (error) {
         console.error("Error during bulk import:", error);
@@ -38,4 +75,6 @@ async function bulkImport() {
 }
 
 // Run the import
-bulkImport();
+bulkImport()
+    .then(() => console.log("Import process finished"))
+    .catch((err) => console.error("Import process failed:", err));

@@ -96,7 +96,10 @@ function CrClCalculator() {
             let ibwError = undefined;
             let abwError = undefined;
 
-            if (weight < ibw) {
+            if (height < 152) {
+                ibwError = "Not calculated: Height is less than 154cm";
+                abwError = "Not calculated: Height is less than 154cm";
+            } else if (weight < ibw) {
                 ibwError = "Not calculated: Actual weight is less than IBW";
                 abwError = "Not calculated: Actual weight is less than IBW";
             } else {

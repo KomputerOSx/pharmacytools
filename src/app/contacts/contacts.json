@@ -78,12 +78,6 @@
     "department": "pharmacy"
   },
   {
-    "name": "Beth Tempest",
-    "number": 53480,
-    "site": "srh",
-    "department": "pharmacy"
-  },
-  {
     "name": "Brooke Murtha",
     "number": 52256,
     "site": "srh",
@@ -152,12 +146,6 @@
   {
     "name": "Elliot Pace",
     "number": 52103,
-    "site": "srh",
-    "department": "pharmacy"
-  },
-  {
-    "name": "Emma Pearson",
-    "number": 52215,
     "site": "srh",
     "department": "pharmacy"
   },
@@ -696,67 +684,67 @@
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician EAU",
+    "name": "Pharmacy Technician EAU",
     "number": 50307,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician Ward 2",
+    "name": "Pharmacy Technician Ward 2",
     "number": 50308,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician Ward 3",
+    "name": "Pharmacy Technician Ward 3",
     "number": 50309,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician Ward 5",
+    "name": "Pharmacy Technician Ward 5",
     "number": 50310,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician Ward 6",
+    "name": "Pharmacy Technician Ward 6",
     "number": 50311,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician Ward 7",
+    "name": "Pharmacy Technician Ward 7",
     "number": 50312,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician Ward 9",
+    "name": "Pharmacy Technician Ward 9",
     "number": 50313,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician Ward 10",
+    "name": "Pharmacy Technician Ward 10",
     "number": 50314,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician Ward 19",
+    "name": "Pharmacy Technician Ward 19",
     "number": 50315,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Technician SCIP",
+    "name": "Pharmacy Technician SCIP",
     "number": 50306,
     "site": "st",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Oncall Pager",
+    "name": "Pharmacy Oncall Pager",
     "number": 50233,
     "site": "st",
     "department": "pharmacy"
@@ -828,7 +816,7 @@
     "department": "pharmacy"
   },
   {
-    "name": "stephen Ogbonna",
+    "name": "Stephen Ogbonna",
     "number": 53502,
     "site": "srh",
     "department": "pharmacy"
@@ -870,13 +858,13 @@
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy Office SEI",
+    "name": "Pharmacy Office SEI",
     "number": 40566,
     "site": "SEI",
     "department": "pharmacy"
   },
   {
-    "name": "pharmacy SEI",
+    "name": "Pharmacy SEI",
     "number": 46257,
     "site": "SEI",
     "department": "pharmacy"
@@ -1074,7 +1062,7 @@
     "department": "pharmacy"
   },
   {
-    "name": "steph Gray",
+    "name": "Steph Gray",
     "number": 52358,
     "site": "srh",
     "department": "pharmacy"
@@ -1347,6 +1335,66 @@
     "name": "Late Inpatient Pharmacist",
     "number": 52073,
     "site": "srh",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist Ward 2",
+    "number": 3072,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist Ward 3",
+    "number": 3024,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist Ward 3",
+    "number": 2943,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist Ward 5",
+    "number": 2156,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist Ward 6",
+    "number": 3258,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist Ward 7",
+    "number": 2990,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist Ward 8",
+    "number": 3032,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist Ward 10",
+    "number": 3132,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacy Hub Ward 10",
+    "number": 3397,
+    "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Pharmacist EAU",
+    "number": 3043,
+    "site": "st",
     "department": "pharmacy"
   }
 ]
