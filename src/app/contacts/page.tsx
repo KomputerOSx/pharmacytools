@@ -15,7 +15,7 @@ function ContactsPage() {
                 style={{ paddingLeft: "20px", paddingRight: "20px" }}
             >
                 <div>
-                    <h1 className="title is-1">Phone Book</h1>
+                    <h1 className="title is-1 mb-3">Phone Book</h1>
                 </div>
 
                 <div className="field mb-4">
@@ -32,7 +32,7 @@ function ContactsPage() {
                             <FontAwesomeIcon
                                 icon={faPhone}
                                 className="is-large"
-                                style={{ marginTop: "14px", scale: "1.5" }}
+                                style={{ scale: "1.5" }}
                             />
                         </span>
                     </div>

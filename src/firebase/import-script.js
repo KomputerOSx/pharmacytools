@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // Import required Firebase modules
 const { initializeApp } = require("firebase/app");
 const {

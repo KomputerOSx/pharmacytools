@@ -61,6 +61,12 @@ const Navbar: React.FC = () => {
                     <Link href="/crclCalculator" className="navbar-item is-tab">
                         <strong>CrCl Calculator</strong>
                     </Link>
+                    <Link
+                        href="/palliativeLabelGenerator"
+                        className="navbar-item is-tab"
+                    >
+                        <strong>Palliative Labels</strong>
+                    </Link>
                 </div>
 
                 <div className="navbar-end">

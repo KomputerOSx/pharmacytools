@@ -11,7 +11,7 @@ config.autoAddCss = false;
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Footer from "@/components/Footer/Footer";
 
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import Loading from "./loading";
 
 export const metadata: Metadata = {
