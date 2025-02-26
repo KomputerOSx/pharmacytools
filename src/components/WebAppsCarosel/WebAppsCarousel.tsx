@@ -3,8 +3,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import path from "path";
-import fs from "fs/promises";
 import "./WebAppsCarousel.css";
 
 interface WebApp {
@@ -13,20 +11,42 @@ interface WebApp {
     link: string;
 }
 
-// This component needs to be used with a Next.js API route that reads the directories
-const WebAppsCarousel: React.FC<{ visibleCards?: number }> = ({
-    visibleCards = 3,
-}) => {
+interface WebAppsCarouselProps {
+    visibleCards: number;
+}
+
+const WebAppsCarousel: React.FC<WebAppsCarouselProps> = () => {
     const [webApps, setWebApps] = useState<WebApp[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const [visibleCards, setVisibleCards] = useState(3);
     const carouselRef = useRef<HTMLDivElement>(null);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    // Handle responsive behavior
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 768) {
+                setVisibleCards(1);
+            } else {
+                setVisibleCards(3);
+            }
+        };
+
+        // Set initial value
+        handleResize();
+
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+
+        // Clean up
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     useEffect(() => {
         // Fetch web apps from API
         const fetchWebApps = async () => {
             try {
-                console.log("Fetching web apps from API...");
                 const response = await fetch("/api/web-apps");
 
                 if (!response.ok) {
@@ -36,7 +56,6 @@ const WebAppsCarousel: React.FC<{ visibleCards?: number }> = ({
                 }
 
                 const data = await response.json();
-                console.log(`Received ${data.length} web apps from API:`, data);
                 setWebApps(data);
             } catch (error) {
                 console.error("Error fetching web apps:", error);
@@ -64,7 +83,6 @@ const WebAppsCarousel: React.FC<{ visibleCards?: number }> = ({
                         link: "/webApps/fourthApp",
                     },
                 ];
-                console.log("Using fallback data with 4 apps");
                 setWebApps(fallbackData);
             }
         };
@@ -72,11 +90,13 @@ const WebAppsCarousel: React.FC<{ visibleCards?: number }> = ({
         fetchWebApps();
     }, []);
 
+    // Auto-scroll effect
     useEffect(() => {
-        // Auto-scroll the carousel
         if (webApps.length > visibleCards) {
             intervalRef.current = setInterval(() => {
-                nextSlide();
+                if (!isTransitioning) {
+                    nextSlide();
+                }
             }, 5000); // Change slide every 5 seconds
         }
 
@@ -85,39 +105,49 @@ const WebAppsCarousel: React.FC<{ visibleCards?: number }> = ({
                 clearInterval(intervalRef.current);
             }
         };
-    }, [webApps, currentIndex]);
+    }, [webApps, currentIndex, isTransitioning, visibleCards]);
 
     const nextSlide = () => {
-        setCurrentIndex((prevIndex) =>
-            prevIndex === webApps.length - 1 ? 0 : prevIndex + 1,
-        );
+        if (isTransitioning || webApps.length <= visibleCards) return;
+
+        setIsTransitioning(true);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % webApps.length);
+
+        // Reset transition state after animation completes
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 500);
     };
 
     const prevSlide = () => {
+        if (isTransitioning || webApps.length <= visibleCards) return;
+
+        setIsTransitioning(true);
         setCurrentIndex((prevIndex) =>
             prevIndex === 0 ? webApps.length - 1 : prevIndex - 1,
         );
+
+        // Reset transition state after animation completes
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 500);
     };
 
-    const getVisibleApps = () => {
-        console.log(
-            `Getting visible apps: current index ${currentIndex}, total apps ${webApps.length}, visible cards ${visibleCards}`,
-        );
+    const goToSlide = (index: number) => {
+        if (isTransitioning) return;
 
-        if (webApps.length <= visibleCards) {
-            return webApps;
-        }
+        setIsTransitioning(true);
+        setCurrentIndex(index);
 
-        let visible = [];
-        for (let i = 0; i < visibleCards; i++) {
-            const index = (currentIndex + i) % webApps.length;
-            visible.push(webApps[index]);
-        }
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 500);
+    };
 
-        console.log(
-            `Visible apps: ${visible.map((app) => app.name).join(", ")}`,
-        );
-        return visible;
+    // Calculate translateX value for smooth sliding
+    const getTranslateX = () => {
+        const slideWidth = 100 / visibleCards;
+        return `-${currentIndex * slideWidth}%`;
     };
 
     return (
@@ -127,51 +157,66 @@ const WebAppsCarousel: React.FC<{ visibleCards?: number }> = ({
                     className="button is-rounded carousel-button prev"
                     onClick={prevSlide}
                     aria-label="Previous apps"
+                    disabled={webApps.length <= visibleCards}
                 >
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
 
-                <div
-                    className="columns is-centered carousel-container"
-                    ref={carouselRef}
-                >
-                    {getVisibleApps().map((app, index) => (
-                        <div className="column" key={`${app.name}-${index}`}>
-                            <div className="card">
-                                <div className="card-content">
-                                    <p className="title is-4">{app.name}</p>
-                                    <p>{app.description}</p>
+                <div className="carousel-outer-container">
+                    <div
+                        className="carousel-inner-container"
+                        ref={carouselRef}
+                        style={{
+                            transform: `translateX(${getTranslateX()})`,
+                            gridTemplateColumns: `repeat(${webApps.length}, ${100 / visibleCards}%)`,
+                            transition: isTransitioning
+                                ? "transform 0.5s ease-in-out"
+                                : "none",
+                        }}
+                    >
+                        {webApps.map((app, index) => (
+                            <div
+                                className="carousel-item"
+                                key={`${app.name}-${index}`}
+                            >
+                                <div className="card">
+                                    <div className="card-content">
+                                        <p className="title is-4">{app.name}</p>
+                                        <p>{app.description}</p>
+                                    </div>
+                                    <footer className="card-footer">
+                                        <a
+                                            href={app.link}
+                                            className="card-footer-item animated-link"
+                                        >
+                                            Use Tool
+                                        </a>
+                                    </footer>
                                 </div>
-                                <footer className="card-footer">
-                                    <a
-                                        href={app.link}
-                                        className="card-footer-item animated-link"
-                                    >
-                                        Use Tool
-                                    </a>
-                                </footer>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
 
                 <button
                     className="button is-rounded carousel-button next"
                     onClick={nextSlide}
                     aria-label="Next apps"
+                    disabled={webApps.length <= visibleCards}
                 >
                     <FontAwesomeIcon icon={faAngleRight} />
                 </button>
             </div>
 
             <div className="carousel-dots">
-                {webApps.map((_, index) => (
-                    <span
-                        key={index}
-                        className={`dot ${index === currentIndex ? "is-active" : ""}`}
-                        onClick={() => setCurrentIndex(index)}
-                    />
-                ))}
+                {webApps.length > visibleCards &&
+                    webApps.map((_, index) => (
+                        <span
+                            key={index}
+                            className={`dot ${index === currentIndex ? "is-active" : ""}`}
+                            onClick={() => goToSlide(index)}
+                        />
+                    ))}
             </div>
         </div>
     );
