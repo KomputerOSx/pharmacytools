@@ -1,0 +1,8 @@
+{
+  "name": "Phone Book",
+  "description": "Easily look up the contacts from pharmacy department",
+  "version": "1.0.0",
+  "author": "Ramyar Abdullah",
+  "tags": ["pharmacy", "phone", "contacts", "bleeps"],
+  "icon": "icon-name"
+}

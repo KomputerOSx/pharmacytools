@@ -1,0 +1,76 @@
+/* WebAppsCarousel.css */
+.web-apps-carousel {
+    position: relative;
+    padding: 1rem 0;
+}
+
+.carousel-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-container {
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+}
+
+.carousel-button {
+    margin: 0 1rem;
+    z-index: 10;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot.is-active {
+    background-color: #4a4a4a;
+}
+
+/* Transition effect for smoother card changes */
+.carousel-container .column {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for cards */
+.carousel-container .card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.carousel-container .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Button hover effects */
+.carousel-button:hover {
+    background-color: #f5f5f5;
+}
+
+/* Animation for dots */
+.dot {
+    transition: transform 0.2s ease-in-out, background-color 0.3s;
+}
+
+.dot:hover {
+    transform: scale(1.2);
+}
+
+.dot.is-active {
+    transform: scale(1.2);
+}

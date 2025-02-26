@@ -1,0 +1,8 @@
+{
+  "name": "Creatinine Clearance Calculator",
+  "description": "Use Cockcroft-Gault CrCl Formula to calculate renal function",
+  "version": "1.0.0",
+  "author": "Ramyar Abdullah",
+  "tags": ["pharmacy", "calculator", "creatinine", "crcl"],
+  "icon": "icon-name"
+}
