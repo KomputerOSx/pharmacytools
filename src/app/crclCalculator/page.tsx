@@ -254,7 +254,9 @@ function CrClCalculator() {
 
                 <div className="section">
                     {results.actualCrCl !== null && (
-                        <h2 className="title is-3">Results</h2>
+                        <h2 className="title is-2 has-text-centered">
+                            Results
+                        </h2>
                     )}
 
                     <div className="crcl-results-container">
