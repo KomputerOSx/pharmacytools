@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import "./WebAppsCarousel.css";
@@ -90,7 +90,34 @@ const WebAppsCarousel: React.FC<WebAppsCarouselProps> = () => {
         fetchWebApps();
     }, []);
 
-    // Auto-scroll effect
+    // Define nextSlide as a useCallback so it can be used in dependency arrays
+    const nextSlide = useCallback(() => {
+        if (isTransitioning || webApps.length <= visibleCards) return;
+
+        setIsTransitioning(true);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % webApps.length);
+
+        // Reset transition state after animation completes
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 500);
+    }, [isTransitioning, webApps.length, visibleCards]);
+
+    const prevSlide = useCallback(() => {
+        if (isTransitioning || webApps.length <= visibleCards) return;
+
+        setIsTransitioning(true);
+        setCurrentIndex((prevIndex) =>
+            prevIndex === 0 ? webApps.length - 1 : prevIndex - 1,
+        );
+
+        // Reset transition state after animation completes
+        setTimeout(() => {
+            setIsTransitioning(false);
+        }, 500);
+    }, [isTransitioning, webApps.length, visibleCards]);
+
+    // Auto-scroll effect - now with proper dependency array
     useEffect(() => {
         if (webApps.length > visibleCards) {
             intervalRef.current = setInterval(() => {
@@ -105,44 +132,21 @@ const WebAppsCarousel: React.FC<WebAppsCarouselProps> = () => {
                 clearInterval(intervalRef.current);
             }
         };
-    }, [webApps, currentIndex, isTransitioning, visibleCards]);
+    }, [webApps.length, visibleCards, isTransitioning, nextSlide]); // nextSlide added to dependency array
 
-    const nextSlide = () => {
-        if (isTransitioning || webApps.length <= visibleCards) return;
+    const goToSlide = useCallback(
+        (index: number) => {
+            if (isTransitioning) return;
 
-        setIsTransitioning(true);
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % webApps.length);
+            setIsTransitioning(true);
+            setCurrentIndex(index);
 
-        // Reset transition state after animation completes
-        setTimeout(() => {
-            setIsTransitioning(false);
-        }, 500);
-    };
-
-    const prevSlide = () => {
-        if (isTransitioning || webApps.length <= visibleCards) return;
-
-        setIsTransitioning(true);
-        setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? webApps.length - 1 : prevIndex - 1,
-        );
-
-        // Reset transition state after animation completes
-        setTimeout(() => {
-            setIsTransitioning(false);
-        }, 500);
-    };
-
-    const goToSlide = (index: number) => {
-        if (isTransitioning) return;
-
-        setIsTransitioning(true);
-        setCurrentIndex(index);
-
-        setTimeout(() => {
-            setIsTransitioning(false);
-        }, 500);
-    };
+            setTimeout(() => {
+                setIsTransitioning(false);
+            }, 500);
+        },
+        [isTransitioning],
+    );
 
     // Calculate translateX value for smooth sliding
     const getTranslateX = () => {
