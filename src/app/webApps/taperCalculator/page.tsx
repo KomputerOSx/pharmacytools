@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import Dropdown from "@/app/taperCalculator/Dropdown";
-import TabletTaper from "@/app/taperCalculator/TabletTaper";
-import EyeDropTaper from "@/app/taperCalculator/EyeDropTaper"; // Assuming you have this component
+import Dropdown from "@/app/webApps/taperCalculator/Dropdown";
+import TabletTaper from "@/app/webApps/taperCalculator/TabletTaper";
+import EyeDropTaper from "@/app/webApps/taperCalculator/EyeDropTaper"; // Assuming you have this component
 
 function TaperCalculator() {
     const [selectedTaper, setSelectedTaper] = useState<string>("Tablet Taper");

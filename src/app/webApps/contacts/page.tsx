@@ -1,6 +1,6 @@
 "use client";
 
-import GetContacts from "@/app/contacts/GetContacts";
+import GetContacts from "@/app/webApps/contacts/GetContacts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";

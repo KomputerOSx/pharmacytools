@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import "./crclCalculator.css";
-import GenderSelectButton from "@/app/crclCalculator/GenderSelectButton";
-import CrClDisplay from "@/app/crclCalculator/CrClDisplay";
+import GenderSelectButton from "@/app/webApps/crclCalculator/GenderSelectButton";
+import CrClDisplay from "@/app/webApps/crclCalculator/CrClDisplay";
 
 interface Patient {
     ibwBase: number;
@@ -252,7 +252,7 @@ function CrClCalculator() {
 
                 {/* Results Display */}
 
-                <div className="section">
+                <div className="">
                     {results.actualCrCl !== null && (
                         <h2 className="title is-2 has-text-centered">
                             Results

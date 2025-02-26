@@ -50,19 +50,25 @@ const Navbar: React.FC = () => {
                         <strong>Home</strong>
                     </Link>
                     <Link
-                        href="/taperCalculator"
+                        href="/webApps/taperCalculator"
                         className="navbar-item is-tab"
                     >
                         <strong>Taper Calculator</strong>
                     </Link>
-                    <Link href="/contacts" className="navbar-item is-tab">
+                    <Link
+                        href="/webApps/contacts"
+                        className="navbar-item is-tab"
+                    >
                         <strong>Phone Book</strong>
                     </Link>
-                    <Link href="/crclCalculator" className="navbar-item is-tab">
+                    <Link
+                        href="/webApps/crclCalculator"
+                        className="navbar-item is-tab"
+                    >
                         <strong>CrCl Calculator</strong>
                     </Link>
                     <Link
-                        href="/palliativeLabelGenerator"
+                        href="/webApps/palliativeLabelGenerator"
                         className="navbar-item is-tab"
                     >
                         <strong>Palliative Labels</strong>

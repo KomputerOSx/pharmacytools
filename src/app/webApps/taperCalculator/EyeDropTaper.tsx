@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./EyeDropTaper.css";
-import EyeButtonGroup from "@/app/taperCalculator/EyeButtonGroup";
+import EyeButtonGroup from "@/app/webApps/taperCalculator/EyeButtonGroup";
 
 function EyeDropTaper() {
     const [taperLines, setTaperLines] = useState([

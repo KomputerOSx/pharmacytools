@@ -29,16 +29,16 @@ const App: React.FC = () => {
                                 "Taper Calculator": {
                                     description:
                                         "Calculate medication tapering schedules",
-                                    link: "/taperCalculator",
+                                    link: "/webApps/taperCalculator",
                                 },
                                 "Contact Finder": {
                                     description:
                                         "Find pharmacy contacts easily",
-                                    link: "/contacts",
+                                    link: "/webApps/contacts",
                                 },
                                 "Creatinine Clearance": {
                                     description: "Cockcroft-Gault CrCl Formula",
-                                    link: "/crclCalculator",
+                                    link: "/webApps/crclCalculator",
                                 },
                             }).map(([appName, appInfo]) => (
                                 <div className="column" key={appName}>
