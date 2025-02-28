@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import SwitchTheme from "@/components/SwitchTheme";
+// import SwitchTheme from "@/components/SwitchTheme";
 import "./navbar.css";
 import Image from "next/image";
 const Navbar: React.FC = () => {

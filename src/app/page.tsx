@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import "bulma/css/bulma.min.css";
 import ScrollVelocity from "@/TextAnimations/ScrollVelocity/ScrollVelocity";
 import "./app.css";
