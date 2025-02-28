@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import "bulma/css/bulma.min.css";
 import ScrollVelocity from "@/TextAnimations/ScrollVelocity/ScrollVelocity";
 import "./app.css";
@@ -10,9 +10,9 @@ import {
     faSync,
     faFastForward,
 } from "@fortawesome/free-solid-svg-icons";
-import WebAppsCarousel from "../components/WebAppsCarosel/WebAppsCarousel";
+import AppCards from "@/components/AppCards/AppCards";
 
-const App: React.FC = () => {
+function App() {
     return (
         <>
             <ScrollVelocity
@@ -21,14 +21,13 @@ const App: React.FC = () => {
                 className=""
                 parallaxClassName={"parallax"}
             />
-            <div className={""}>
+            <div className={"container"}>
                 <section className="section">
                     <div className="container">
                         <h2 className="title is-1 has-text-centered">
                             Our Web Apps
                         </h2>
-                        {/* Pass explicit number of visible cards */}
-                        <WebAppsCarousel visibleCards={3} />
+                        <AppCards />
                     </div>
                 </section>
 
@@ -80,6 +79,6 @@ const App: React.FC = () => {
             </div>
         </>
     );
-};
+}
 
 export default App;

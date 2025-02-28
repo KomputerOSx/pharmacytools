@@ -92,8 +92,6 @@ const drugs: Drug[] = [
         name: "Morphine",
         strength: "10mg/1ml",
         defaultDoseMg: "2.5",
-        defaultDoseRangeMgMin: "1",
-        defaultDoseRangeMgMax: "5",
         frequency: "up to a maximum of once every hour",
         route: "subcutaneously",
         category: "pain",

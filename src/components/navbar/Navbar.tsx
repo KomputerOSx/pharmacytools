@@ -17,6 +17,7 @@ const Navbar: React.FC = () => {
             className="navbar is-spaced"
             role="navigation"
             aria-label="main navigation"
+            style={{ marginBottom: "1rem", marginTop: "1rem" }}
         >
             <div className="navbar-brand">
                 <div className="navbar-item">
@@ -78,9 +79,7 @@ const Navbar: React.FC = () => {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <div className="buttons">
-                            <span>
-                                <SwitchTheme />
-                            </span>
+                            <span>{/*<SwitchTheme />*/}</span>
                         </div>
                     </div>
                 </div>
