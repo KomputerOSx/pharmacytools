@@ -1,0 +1,87 @@
+/* AppShowcase.css */
+.app-showcase {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.showcase-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.tag-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.tag-filter {
+    background-color: #f0f2f5;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #444;
+}
+
+.tag-filter:hover {
+    background-color: #e4e7eb;
+}
+
+.tag-filter.active {
+    background-color: #3498db;
+    color: white;
+}
+
+.app-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.app-loading {
+    text-align: center;
+    font-size: 18px;
+    padding: 40px;
+    color: #666;
+}
+
+.app-error {
+    text-align: center;
+    font-size: 18px;
+    padding: 40px;
+    color: #e74c3c;
+    background-color: #fde2e2;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.no-apps {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    padding: 40px;
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .app-grid {
+        justify-content: center;
+    }
+
+    .tag-filters {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+}

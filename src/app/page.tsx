@@ -11,6 +11,7 @@ import {
     faFastForward,
 } from "@fortawesome/free-solid-svg-icons";
 import AppCards from "@/components/AppCards/AppCards";
+import WebAppsShowcase from "@/components/WebAppCards/WebAppsShowcase";
 
 function App() {
     return (
@@ -30,6 +31,15 @@ function App() {
                         <AppCards />
                     </div>
                 </section>
+
+                {/*<section className="section">*/}
+                {/*    <div className="container">*/}
+                {/*        <h2 className="title is-1 has-text-centered">*/}
+                {/*            NEW NEW Our Web Apps NEW NEW*/}
+                {/*        </h2>*/}
+                {/*        <WebAppsShowcase />*/}
+                {/*    </div>*/}
+                {/*</section>*/}
 
                 <section className="section">
                     <div className="container">
