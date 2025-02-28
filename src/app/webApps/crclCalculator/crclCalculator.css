@@ -8,7 +8,11 @@
 .buttons.has-addons {
     display: flex;
     margin-bottom: 1.5rem;
-    width: 100%;
+    width: 75%;
+    scale: 1.3;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .buttons.has-addons .button {
@@ -61,31 +65,4 @@
         flex: 1;
     }
 
-
-}
-
-/* Small mobile screens */
-@media screen and (max-width: 480px) {
-    .inputs-container .field {
-        min-width: 100%;
-    }
-
-    .buttons.has-addons {
-        flex-direction: column;
-    }
-
-    .buttons.has-addons .button {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 0.5rem;
-    }
-
-    .action-buttons-container {
-        flex-direction: column;
-    }
-
-    .action-buttons-container .button {
-        width: 100%;
-        margin-bottom: 0.5rem;
-    }
 }

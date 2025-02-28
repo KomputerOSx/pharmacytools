@@ -1,0 +1,190 @@
+/* AppCardsCarousel.css */
+.app-carousel-container {
+    padding: 20px 0;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.search-container {
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Carousel Wrapper - contains the fixed fading edges */
+.carousel-wrapper {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Carousel Layout */
+.carousel-container {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+}
+
+/* Hide scrollbar */
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-track {
+    display: inline-flex;
+    padding: 0 60px; /* Space for fade edges */
+}
+
+/* Carousel Items */
+.carousel-item-link {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    white-space: normal;
+    width: 300px;
+    margin-right: 20px;
+}
+
+.carousel-item {
+    height: 100%;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.carousel-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* App Card Contents */
+.app-icon {
+    margin-bottom: 0.5rem;
+}
+
+.app-description {
+    flex-grow: 1;
+    color: #4a4a4a;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.app-tags {
+    font-size: 0.85rem;
+    color: #7a7a7a;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-meta {
+    color: #7a7a7a;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Fading Edges */
+.fade-edge {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 60px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.fade-edge.left {
+    left: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.fade-edge.right {
+    right: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+/* Navigation Arrows */
+.carousel-navigation {
+    position: relative;
+    z-index: 20;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #dbdbdb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.2s ease;
+}
+
+.carousel-arrow:hover {
+    background: #f5f5f5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-arrow.left {
+    left: 10px;
+}
+
+.carousel-arrow.right {
+    right: 10px;
+}
+
+.carousel-arrow.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* No Results Message */
+.no-results {
+    width: 100%;
+    text-align: center;
+    padding: 2rem;
+    color: #7a7a7a;
+    font-size: 1.1rem;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .carousel-item-link {
+        width: 250px;
+    }
+
+    .fade-edge {
+        width: 40px;
+    }
+
+    .carousel-track {
+        padding: 0 40px;
+    }
+
+    .carousel-arrow {
+        width: 30px;
+        height: 30px;
+    }
+}
