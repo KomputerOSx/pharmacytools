@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import "./AppCardsCarousel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import {
     faPhone,
     faCalculator,
@@ -22,8 +23,7 @@ import {
     faTablets,
 } from "@fortawesome/free-solid-svg-icons";
 
-// Map of icon names to actual icons for easy reference
-const iconMap: { [key: string]: any } = {
+const iconMap: { [key: string]: IconDefinition } = {
     phone: faPhone,
     calculator: faCalculator,
     syringe: faSyringe,
@@ -249,7 +249,7 @@ function AppCardsCarousel() {
                     <div className="carousel-track">
                         {filteredApps.length > 0 ? (
                             // Main items without clones
-                            filteredApps.map((app, index) => {
+                            filteredApps.map((app) => {
                                 // Find the original index of this app in the full apps array
                                 const originalIndex = apps.findIndex(
                                     (a) => a.id === app.id,
@@ -303,8 +303,7 @@ function AppCardsCarousel() {
                         ) : (
                             <div className="no-results">
                                 <p>
-                                    No applications found matching "{searchTerm}
-                                    "
+                                    No applications found matching {searchTerm}
                                 </p>
                             </div>
                         )}

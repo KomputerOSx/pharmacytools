@@ -10,8 +10,7 @@ import {
     faSync,
     faFastForward,
 } from "@fortawesome/free-solid-svg-icons";
-import AppCards from "@/components/AppCards/AppCards";
-import WebAppsShowcase from "@/components/WebAppCards/WebAppsShowcase";
+
 import AppCardsCarousel from "@/components/AppCardsCarousel/AppCardsCarousel";
 
 function App() {
@@ -26,23 +25,9 @@ function App() {
             <div className={"container"}>
                 <section className="section">
                     <div className="container">
-                        {/*<h2 className="title is-1 has-text-centered">*/}
-                        {/*    Our Web Apps*/}
-                        {/*</h2>*/}
-                        {/*<AppCards />*/}
                         <AppCardsCarousel />
                     </div>
                 </section>
-
-                {/*<section className="section">*/}
-                {/*    <div className="container">*/}
-                {/*        <h2 className="title is-1 has-text-centered">*/}
-                {/*            NEW NEW Our Web Apps NEW NEW*/}
-                {/*        </h2>*/}
-                {/*        <WebAppsShowcase />*/}
-                {/*    </div>*/}
-                {/*</section>*/}
-
                 <section className="section">
                     <div className="container">
                         <h2 className="title is-2 has-text-centered">

@@ -64,7 +64,7 @@ export async function GET() {
         return NextResponse.json(webApps);
     } catch (error) {
         return NextResponse.json(
-            { error: "Failed to fetch web apps" },
+            { error: "Failed to fetch web apps: " + error + "." },
             { status: 500 },
         );
     }
