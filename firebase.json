@@ -8,6 +8,15 @@
     ],
     "frameworksBackend": {
       "region": "europe-west1"
-    }
+    },
+    "rewrites": [
+      {
+        "source": "/api/webApps",
+        "function": "webApps"
+      }
+    ]
+  },
+  "functions": {
+    "source": "functions"
   }
 }
