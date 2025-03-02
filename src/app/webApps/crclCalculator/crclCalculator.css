@@ -57,6 +57,12 @@
         min-width: calc(50% - 0.5rem);
     }
 
+    .field label {
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+    }
+
     .action-buttons-container {
         justify-content: stretch;
     }
@@ -66,3 +72,6 @@
     }
 
 }
+
+
+

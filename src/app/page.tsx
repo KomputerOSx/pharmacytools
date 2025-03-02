@@ -11,7 +11,8 @@ import {
     faFastForward,
 } from "@fortawesome/free-solid-svg-icons";
 
-import AppCardsCarousel from "@/components/AppCardsCarousel/AppCardsCarousel";
+// import AppCardsCarousel from "@/components/AppCardsCarousel/AppCardsCarousel";
+import AppCards from "@/components/AppCards/AppCards";
 
 function App() {
     return (
@@ -24,8 +25,13 @@ function App() {
             />
             <div className={"container"}>
                 <section className="section">
+                    <h1 className="title is-2 has-text-centered">
+                        Featured Apps
+                    </h1>
+
                     <div className="container">
-                        <AppCardsCarousel />
+                        {/*<AppCardsCarousel />*/}
+                        <AppCards />
                     </div>
                 </section>
                 <section className="section">
