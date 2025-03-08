@@ -36,6 +36,13 @@
     "department": "pharmacy"
   },
   {
+    "name": "Amelia Elwell",
+    "number": 51053,
+    "site": "srh",
+    "department": "pharmacy"
+  }
+  ,
+  {
     "name": "Andrew Luby",
     "number": 53521,
     "site": "srh",
@@ -883,7 +890,7 @@
   },
   {
     "name": "Inpatient Pharmacist",
-    "number": 41483,
+    "number": 41493,
     "site": "srh",
     "department": "pharmacy"
   },

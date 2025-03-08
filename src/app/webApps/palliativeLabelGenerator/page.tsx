@@ -88,8 +88,8 @@ const drugs: Drug[] = [
             "in the event of seizures, dose can be repeated after 10 mins if required. CALL DOCTOR IF ANY CRISIS DOSES GIVEN",
     },
     {
-        id: "morphine",
-        name: "Morphine",
+        id: "morphine/oxycodone",
+        name: "Morphine / Oxycodone",
         strength: "10mg/1ml",
         defaultDoseMg: "2.5",
         frequency: "up to a maximum of once every hour",
