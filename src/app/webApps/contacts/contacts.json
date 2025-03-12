@@ -33,7 +33,8 @@
     "name": "Alison Barron",
     "number": 51537,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Amelia Elwell",

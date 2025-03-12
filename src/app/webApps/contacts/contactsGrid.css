@@ -74,9 +74,18 @@
 }
 
 .contact-site,
-.contact-department {
+.contact-department{
     background-color: #f0f0f0;
     color: #555;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+.contact-warfarinTrained {
+    background-color: #ffd5e3;
+    color: #ff5a78;
     padding: 0.3rem 0.6rem;
     border-radius: 20px;
     font-size: 0.8rem;

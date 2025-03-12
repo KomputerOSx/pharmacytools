@@ -4,4 +4,5 @@ export interface Contact {
     number: string;
     site: string;
     department: string;
+    warfarinTrained?: boolean;
 }

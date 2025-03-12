@@ -4,17 +4,26 @@ import { useState } from "react";
 import contactJSON from "./contacts.json";
 
 interface GetContactsProps {
+    warfarinOnly: boolean;
     search: string;
 }
 
-function GetContacts({ search }: GetContactsProps) {
+function GetContacts({ warfarinOnly, search }: GetContactsProps) {
     //@ts-expect-error // Contacts saved as JSON, to save on Firestore bandwidth
     const [contacts] = useState<Contact[]>(contactJSON);
+    let filteredContacts = contacts;
 
-    const filteredContacts = contacts.filter((contact) =>
+    if (warfarinOnly) {
+        filteredContacts = contacts.filter(
+            (contact) => contact.warfarinTrained === true,
+        );
+    }
+
+    filteredContacts = filteredContacts.filter((contact) =>
         // @ts-expect-error // search is a string
         contact.name.toLowerCase().includes(String(search).toLowerCase()),
     );
+
     return (
         <div className="contact-grid">
             {filteredContacts.map((contact: Contact, index) => (
@@ -27,6 +36,11 @@ function GetContacts({ search }: GetContactsProps) {
                             <span className="contact-department">
                                 {contact.department}
                             </span>
+                            {contact.warfarinTrained && (
+                                <span className="contact-warfarinTrained">
+                                    Warfarin
+                                </span>
+                            )}
                         </div>
                     </div>
                 </div>
