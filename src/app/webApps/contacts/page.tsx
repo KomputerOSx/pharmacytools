@@ -9,11 +9,6 @@ function ContactsPage() {
     const [search, setSearch] = useState("");
     const [warfarinOnly, setWarfarinOnly] = useState(false);
 
-    const handleWarfarinOnlyChange = () => {
-        const newState = !warfarinOnly;
-        setWarfarinOnly(newState);
-    };
-
     return (
         <>
             <div

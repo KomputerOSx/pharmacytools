@@ -6,7 +6,7 @@ import { sortedDrugs } from "./data";
 import Notification from "./components/Notification";
 import DrugCard from "./components/DrugCard";
 import LabelCard from "./components/LabelCard";
-
+import "./PalliativeLabelGenerator.css";
 const PalliativeLabelGenerator = () => {
     const [selectedDrugs, setSelectedDrugs] = useState<SelectedDrug[]>([]);
     const [activeTab, setActiveTab] = useState("create");

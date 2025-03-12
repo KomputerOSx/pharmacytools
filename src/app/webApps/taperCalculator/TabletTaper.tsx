@@ -216,9 +216,7 @@ function TabletTaper() {
             <div>
                 <div>
                     <div className="field" style={{ maxWidth: "204px" }}>
-                        <label className="label">
-                            Select a date (Optional)
-                        </label>
+                        <label className="label">Start Date (Optional)</label>
                         <div className="control">
                             <input
                                 className="input is-medium"

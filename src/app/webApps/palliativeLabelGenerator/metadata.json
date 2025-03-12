@@ -1,7 +1,7 @@
 {
   "name": "Palliative Label Generator",
   "description": "Generate Palliative Care Labels & speed up your TTOs",
-  "version": "1.0.0",
+  "version": "1.2",
   "author": "Ramyar Abdullah",
   "tags": ["pharmacy", "calculator", "palliative", "tto", "discharge"],
   "icon": "syringe"

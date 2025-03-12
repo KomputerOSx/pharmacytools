@@ -15,7 +15,8 @@
     "name": "Alan Thomas",
     "number": 52336,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Alexander Watson",
@@ -33,19 +34,30 @@
     "name": "Alison Barron",
     "number": 51537,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
+  {
+    "name": "Amelia Elwell",
+    "number": 51053,
+    "site": "srh",
+    "department": "pharmacy",
+    "warfarinTrained": true
+  }
+,
   {
     "name": "Andrew Luby",
     "number": 53521,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Amber Johnson",
     "number": 50318,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Amira Abdelrahman",
@@ -105,7 +117,8 @@
     "name": "Darren Phillips",
     "number": 52473,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Deidre Brodie",
@@ -123,19 +136,22 @@
     "name": "Eddie Au",
     "number": 53283,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Eddy Thomas",
     "number": 51538,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Eimear stewart",
     "number": 53570,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Eleanor McHugh",
@@ -147,13 +163,15 @@
     "name": "Elliot Pace",
     "number": 52103,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Emily Crannage",
     "number": 51017,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Eve Webster",
@@ -165,7 +183,8 @@
     "name": "Fadhila Kuliya",
     "number": 53484,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Farhan Yousuf",
@@ -177,13 +196,15 @@
     "name": "Fifi Abd Rahman",
     "number": 52296,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Gabby stokes",
     "number": 51023,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Georgia Zacharioudaki",
@@ -213,7 +234,8 @@
     "name": "James Hogarth",
     "number": 51025,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "James Hubbard",
@@ -255,7 +277,8 @@
     "name": "Jo Cameron",
     "number": 52102,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Jonathan Hindmarsh",
@@ -279,7 +302,8 @@
     "name": "Keith Richardson",
     "number": 50331,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Keith Howard",
@@ -291,7 +315,8 @@
     "name": "Kendal Boyd",
     "number": 53536,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Lama Isreb",
@@ -309,13 +334,15 @@
     "name": "Libby Guilfoyle",
     "number": 52302,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Linda Leech",
     "number": 52295,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Lindes Callejas-Diaz",
@@ -357,7 +384,8 @@
     "name": "Mark Graham",
     "number": 53572,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Mark Learmouth",
@@ -375,7 +403,8 @@
     "name": "Megan Blenkinship",
     "number": 51024,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Mennah Eltantawy",
@@ -393,13 +422,15 @@
     "name": "Michael Schuster",
     "number": 51651,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Michael Hardy",
     "number": 53277,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Min-Na Eii",
@@ -417,7 +448,8 @@
     "name": "Monica De Leon",
     "number": 53278,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Nicola Down",
@@ -447,13 +479,15 @@
     "name": "Paul Everett",
     "number": 53567,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Paul Tasker",
     "number": 52299,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Phil Bell",
@@ -519,7 +553,8 @@
     "name": "Sara King",
     "number": 53571,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Sarah Peacock",
@@ -531,7 +566,8 @@
     "name": "Sareen Jacob",
     "number": 51654,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Sekinat Ojetola",
@@ -573,7 +609,8 @@
     "name": "Tamara Ali",
     "number": 51643,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Tanha Begum",
@@ -591,25 +628,29 @@
     "name": "Tom Harris",
     "number": 51659,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Thomas Chin",
     "number": 53528,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Tinotenda Sakarombe",
     "number": 53434,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Vivian Chiong",
     "number": 51022,
     "site": "srh",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Zahra Hyder",
@@ -633,49 +674,57 @@
     "name": "Liam Ross",
     "number": 50045,
     "site": "st",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Marga Rodriguez",
     "number": 50327,
     "site": "st",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Matthew Walton",
     "number": 50320,
     "site": "st",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Maxine Turner",
     "number": 50321,
     "site": "st",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Michael Walton",
     "number": 50323,
     "site": "st",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Nick Lawson",
     "number": 50329,
     "site": "st",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Priya Rutherford",
     "number": 50153,
     "site": "st",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Sue Morrison",
     "number": 50326,
     "site": "st",
-    "department": "pharmacy"
+    "department": "pharmacy",
+    "warfarinTrained": true
   },
   {
     "name": "Pharmacy Porter (Oxygen)",
@@ -822,7 +871,7 @@
     "department": "pharmacy"
   },
   {
-    "name": "Warfarin",
+    "name": "Warfarin Bleep",
     "number": 51660,
     "site": "srh",
     "department": "pharmacy"
@@ -883,7 +932,7 @@
   },
   {
     "name": "Inpatient Pharmacist",
-    "number": 41483,
+    "number": 41493,
     "site": "srh",
     "department": "pharmacy"
   },
@@ -1164,13 +1213,13 @@
     "department": "pharmacy"
   },
   {
-    "name": "Warfarin",
+    "name": "Warfarin Office",
     "number": 49183,
     "site": "srh",
     "department": "pharmacy"
   },
   {
-    "name": "Warfarin",
+    "name": "Warfarin Office",
     "number": 4087,
     "site": "st",
     "department": "pharmacy"
@@ -1178,7 +1227,7 @@
   {
     "name": "Haygarth Ward",
     "number": 49950,
-    "site": "st",
+    "site": "SEI",
     "department": "ward"
   },
   {

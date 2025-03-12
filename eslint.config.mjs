@@ -15,7 +15,7 @@ const eslintConfig = [
 
 const ignores = {
     paths: [
-        "src/firebase/import-script.js",
+        "src/firebase/uploadToFirestore.js",
         "src/TextAnimations/ScrollVelocity/ScrollVelocity.tsx",
     ],
 };
