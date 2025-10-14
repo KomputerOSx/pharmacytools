@@ -1,6 +1,6 @@
 [
   {
-    "name": "Aaron McGahan",
+ }   "name": "Aaron McGahan",
     "number": 53437,
     "site": "srh",
     "department": "pharmacy"
@@ -256,12 +256,6 @@
     "department": "pharmacy"
   },
   {
-    "name": "Jared (Yong Sen) Gan",
-    "number": 53435,
-    "site": "srh",
-    "department": "pharmacy"
-  },
-  {
     "name": "Jill Davison",
     "number": 52538,
     "site": "srh",
@@ -310,13 +304,6 @@
     "number": 52300,
     "site": "srh",
     "department": "pharmacy"
-  },
-  {
-    "name": "Kendal Boyd",
-    "number": 53536,
-    "site": "srh",
-    "department": "pharmacy",
-    "warfarinTrained": true
   },
   {
     "name": "Lama Isreb",
@@ -1444,6 +1431,18 @@
     "name": "Pharmacist EAU",
     "number": 3043,
     "site": "st",
+    "department": "pharmacy"
+  },
+  {
+    "name": "Aimee Lincoln",
+    "number: "53573",
+    "site": "srh",
+    "department": "pharmacy"
+  }, 
+  {
+    "name": "Ethan Cliff",
+    "number": "53536",
+    "site": "srh",
     "department": "pharmacy"
   }
 ]
