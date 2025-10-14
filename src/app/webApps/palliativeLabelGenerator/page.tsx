@@ -22,6 +22,7 @@ const PalliativeLabelGenerator = () => {
             doseRangeMgMin: drug.defaultDoseRangeMgMin || "",
             doseRangeMgMax: drug.defaultDoseRangeMgMax || "",
             frequency: drug.frequency,
+            indication: drug.indication
         }));
         setSelectedDrugs(initialDrugs);
     }, []);

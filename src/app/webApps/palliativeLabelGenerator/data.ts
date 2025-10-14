@@ -13,6 +13,7 @@ export const drugs: Drug[] = [
         frequency: "up to a maximum of once every hour",
         route: "subcutaneously",
         category: "pain",
+        indication: "for pain or shortness of breath",
         ratio: 0.5, // 1mg/2ml = 0.5mg/ml
     },
     {
@@ -23,6 +24,7 @@ export const drugs: Drug[] = [
         frequency: "up to a maximum of once every EIGHT hours",
         route: "subcutaneously",
         category: "nausea",
+        indication: "for nausea and vomiting",
         ratio: 50, // 50mg/1ml
     },
     {
@@ -33,6 +35,7 @@ export const drugs: Drug[] = [
         frequency: "up to a maximum of once every hour",
         route: "subcutaneously",
         category: "nausea",
+        indication: "for nausea and vomiting",
         ratio: 5, // 5mg/1ml
     },
     {
@@ -43,6 +46,7 @@ export const drugs: Drug[] = [
         frequency: "up to a maximum of once every hour",
         route: "subcutaneously",
         category: "secretions",
+        indication: "for respiratory tract secretions",
         ratio: 20, // 20mg/1ml
     },
     {
@@ -53,6 +57,7 @@ export const drugs: Drug[] = [
         frequency: "up to a maximum of once every hour",
         route: "subcutaneously",
         category: "sedation",
+        indication: "for anxiety/agitations/distress",
         ratio: 5, // 10mg/2ml = 5mg/ml
         hasCrisisDose: true,
         crisisDoseMg: "10",
@@ -67,6 +72,7 @@ export const drugs: Drug[] = [
         frequency: "up to a maximum of once every hour",
         route: "subcutaneously",
         category: "pain",
+        indication: "for pain and shortness of breath",
         ratio: 10, // 10mg/1ml
     },
     {
@@ -75,6 +81,7 @@ export const drugs: Drug[] = [
         strength: "10ml",
         defaultDoseMg: null,
         frequency: "as needed",
+        indication: "",
         route: "for reconstitution",
         category: "other",
         ratio: 0,

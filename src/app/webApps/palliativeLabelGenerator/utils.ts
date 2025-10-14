@@ -58,6 +58,6 @@ export const getDirectionsText = (selected: SelectedDrug): string => {
         doseText = `Inject ${ml}ml (a ${mg}mg dose)`;
     }
 
-    directionsText = `${selected.drug.route} when required, ${selected.frequency || selected.drug.frequency}`;
+    directionsText = `${selected.drug.route} when required, ${selected.frequency || selected.drug.frequency}, ${selected.drug.indication}`;
     return `${doseText} ${directionsText}`;
 };

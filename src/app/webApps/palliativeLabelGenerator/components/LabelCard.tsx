@@ -40,7 +40,7 @@ const LabelCard: React.FC<LabelCardProps> = ({
                                     } when required, ${
                                         selected.frequency ||
                                         selected.drug.frequency
-                                    }`}
+                                    }, ${selected.drug.indication}`}
                                 </p>
                             </div>
                         </div>

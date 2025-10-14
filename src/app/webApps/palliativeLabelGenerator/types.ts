@@ -9,6 +9,7 @@ export type Drug = {
     frequency: string;
     route: string;
     category: string;
+    indication: string;
     ratio?: number; // Ratio of mg per ml for calculation
     hasCrisisDose?: boolean;
     crisisDoseMg?: string;
