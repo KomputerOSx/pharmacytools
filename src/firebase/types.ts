@@ -1,6 +1,6 @@
 export interface Contact {
     id?: string;
-    name: number;
+    name: string;
     number: string;
     site: string;
     department: string;
