@@ -1,0 +1,79 @@
+[debug] [2025-12-16T16:16:45.940Z] ----------------------------------------------------------------------
+[debug] [2025-12-16T16:16:45.946Z] Command:       /home/ramyar/.local/share/mise/installs/node/24.11.0/bin/node /home/ramyar/.local/share/mise/installs/node/24.11.0/bin/firebase deploy --only hosting
+[debug] [2025-12-16T16:16:45.946Z] CLI Version:   15.0.0
+[debug] [2025-12-16T16:16:45.947Z] Platform:      linux
+[debug] [2025-12-16T16:16:45.947Z] Node Version:  v24.11.0
+[debug] [2025-12-16T16:16:45.947Z] Time:          Tue Dec 16 2025 16:16:45 GMT+0000 (Greenwich Mean Time)
+[debug] [2025-12-16T16:16:45.947Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-12-16T16:16:47.350Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-16T16:16:47.351Z] > authorizing via signed-in user (ramyarburhan26@gmail.com)
+[debug] [2025-12-16T16:16:47.351Z] [iam] checking project pharmacytools for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-12-16T16:16:47.353Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:47.353Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:47.354Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/pharmacytools:testIamPermissions [none]
+[debug] [2025-12-16T16:16:47.354Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/pharmacytools:testIamPermissions x-goog-quota-user=projects/pharmacytools
+[debug] [2025-12-16T16:16:47.354Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pharmacytools:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-12-16T16:16:48.200Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/pharmacytools:testIamPermissions 200
+[debug] [2025-12-16T16:16:48.201Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/pharmacytools:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-12-16T16:16:48.202Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:48.202Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:48.203Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/pharmacytools [none]
+[debug] [2025-12-16T16:16:48.704Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/pharmacytools 200
+[debug] [2025-12-16T16:16:48.705Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/pharmacytools {"projectId":"pharmacytools","projectNumber":"807028875436","displayName":"pharmacytools","name":"projects/pharmacytools","resources":{"hostingSite":"pharmacytools"},"state":"ACTIVE","etag":"1_cf069267-ff73-4883-a30c-b88216b4157e"}
+[debug] [2025-12-16T16:16:50.889Z] defaultcredentials: writing to file /home/ramyar/.config/firebase/ramyarburhan26_gmail_com_application_default_credentials.json
+[debug] [2025-12-16T16:16:50.891Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:50.891Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:50.891Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/pharmacytools/sites pageToken=&pageSize=10
+[debug] [2025-12-16T16:16:52.082Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/pharmacytools/sites 200
+[debug] [2025-12-16T16:16:52.083Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/pharmacytools/sites {"sites":[{"name":"projects/pharmacytools/sites/pharmacytools","defaultUrl":"https://pharmacytools.web.app","appId":"1:807028875436:web:4b2dfa7cfc3a448f16bf09","type":"DEFAULT_SITE"}]}
+[debug] [2025-12-16T16:16:52.084Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:52.084Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:52.085Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:807028875436:web:4b2dfa7cfc3a448f16bf09/config [none]
+[debug] [2025-12-16T16:16:52.695Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:807028875436:web:4b2dfa7cfc3a448f16bf09/config 200
+[debug] [2025-12-16T16:16:52.695Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:807028875436:web:4b2dfa7cfc3a448f16bf09/config {"projectId":"pharmacytools","appId":"1:807028875436:web:4b2dfa7cfc3a448f16bf09","storageBucket":"pharmacytools.firebasestorage.app","apiKey":"AIzaSyDfa1McjlABequLyxQIvmasFvNU3IyQXbk","authDomain":"pharmacytools.firebaseapp.com","messagingSenderId":"807028875436","measurementId":"G-04BW5CTRVC","projectNumber":"807028875436","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-12-16T16:16:57.244Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:57.244Z] Checked if tokens are valid: true, expires at: 1765905307580
+[debug] [2025-12-16T16:16:57.244Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/pharmacytools/sites/pharmacytools [none]
+[debug] [2025-12-16T16:16:58.140Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/pharmacytools/sites/pharmacytools 200
+[debug] [2025-12-16T16:16:58.141Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/pharmacytools/sites/pharmacytools {"name":"projects/pharmacytools/sites/pharmacytools","defaultUrl":"https://pharmacytools.web.app","appId":"1:807028875436:web:4b2dfa7cfc3a448f16bf09","type":"DEFAULT_SITE"}
+[info]    ▲ Next.js 16.0.10 (Turbopack)
+
+[info] 
+
+[info]    Creating an optimized production build ...
+
+[info]  ✓ Compiled successfully in 6.5s
+
+[info]    Running TypeScript ...
+
+[info] Failed to compile.
+
+
+[info] ./src/app/webApps/contacts/GetContacts.tsx:58:55
+Type error: Property 'localeCompare' does not exist on type 'number'.
+
+  56 |
+  57 |                 // Sort by name client-side
+> 58 |                 fetchedContacts.sort((a, b) => a.name.localeCompare(b.name));
+     |                                                       ^
+  59 |
+  60 |                 console.log(`Fetched ${fetchedContacts.length} contacts from Firestore`);
+  61 |                 setContacts(fetchedContacts);
+
+[info] Next.js build worker exited with code: 1 and signal: null
+
+[debug] [2025-12-16T16:17:16.404Z] Error: ENOENT: no such file or directory, open '/home/ramyar/apps/pharmacytools/.next/export-marker.json'
+[error] 
+[error] Error: An unexpected error has occurred.
