@@ -6,21 +6,9 @@ import { useState } from "react";
 
 function ContactsPage() {
     const [search, setSearch] = useState("");
-    const [activeSearch, setActiveSearch] = useState("");
     const [warfarinOnly, setWarfarinOnly] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 20;
-
-    const handleSearch = () => {
-        setActiveSearch(search);
-        setCurrentPage(1); // Reset to first page on new search
-    };
-
-    const handleKeyPress = (e: React.KeyboardEvent) => {
-        if (e.key === "Enter") {
-            handleSearch();
-        }
-    };
 
     return (
         <>
@@ -37,8 +25,10 @@ function ContactsPage() {
                             className="input"
                             type="text"
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                setCurrentPage(1); // Reset to first page on search
+                            }}
                             placeholder="Enter Name"
                             style={{ maxWidth: "300px" }}
                         />
@@ -50,15 +40,6 @@ function ContactsPage() {
                             />
                         </span>
                     </div>
-                    <button
-                        className="button is-primary mr-4 mb-2"
-                        onClick={handleSearch}
-                    >
-                        <span className="icon">
-                            <FontAwesomeIcon icon={faSearch} />
-                        </span>
-                        <span>Search</span>
-                    </button>
                     <div className={"field subtitle mr-1 mb-2"}>
                         <strong>Warfarin Only</strong>
                     </div>
@@ -80,7 +61,7 @@ function ContactsPage() {
 
                 <div className="mb-4">
                 <GetContacts
-                    search={activeSearch}
+                    search={search}
                     warfarinOnly={warfarinOnly}
                     currentPage={currentPage}
                     itemsPerPage={itemsPerPage}
