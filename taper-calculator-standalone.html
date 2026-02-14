@@ -18,7 +18,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1050px;
             margin: 0 auto;
             background: white;
             padding: 20px;
@@ -74,7 +74,7 @@
         /* Taper input rows */
         .taper-input-row {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             gap: 1rem;
             align-items: flex-end;
             margin-top: 10px;
@@ -85,8 +85,8 @@
         }
 
         .taper-input-row .field {
-            flex: 1 1 calc(25% - 1rem);
-            min-width: 120px;
+            flex: 1 1 0;
+            min-width: 0;
             margin-bottom: 0;
         }
 
@@ -542,34 +542,58 @@
                 <button class="modal-close" onclick="closeHelpModal()">&times;</button>
             </div>
             <div class="modal-body">
-                <h3>Tablet Taper (Steroid Tablets)</h3>
-                <p>Use this calculator to create a tapering schedule for steroid tablets.</p>
+                <h3>Tablet Taper</h3>
+                <p>Create tapering schedules for steroid tablets. Select your medication, set the taper parameters, and click Calculate.</p>
+
+                <h3>Prednisolone</h3>
+                <p>Available strengths: 1mg, 5mg tablets. Once daily dosing only.</p>
                 <ul>
-                    <li><strong>Medication:</strong> Choose between Prednisolone (1mg, 5mg tablets) or Dexamethasone (0.5mg, 2mg, 4mg tablets).</li>
-                    <li><strong>Tablet Strengths:</strong> Select which tablet strengths to use for the calculation. Useful when certain strengths are out of stock.</li>
-                    <li><strong>Start Date (Optional):</strong> If set, the output will show specific date ranges instead of "for X days".</li>
-                    <li><strong>Dose:</strong> The starting dose in mg for this taper step.</li>
-                    <li><strong>Taper Amount:</strong> How many mg to reduce by at each interval.</li>
-                    <li><strong>Interval:</strong> Number of days to stay on each dose level.</li>
+                    <li><strong>Dose:</strong> Starting dose in mg (e.g., 30mg)</li>
+                    <li><strong>Taper Amount:</strong> Reduce dose by this amount each step (e.g., 5mg)</li>
+                    <li><strong>Interval:</strong> Days at each dose level (e.g., 7 days)</li>
                 </ul>
-                <p><strong>Example:</strong> Dose: 30mg, Taper: 5mg, Interval: 7 days = Start at 30mg for 7 days, then 25mg for 7 days, etc.</p>
-                <p>Use <strong>Add Taper</strong> to add another taper step with different settings (e.g., slower taper at lower doses).</p>
-                <p><strong>Note:</strong> If a dose cannot be made exactly with the selected tablet strengths, a warning will be shown.</p>
+                <p><strong>Example:</strong> Dose: 30mg, Taper: 5mg, Interval: 7 days</p>
+                <p>Output: 30mg for 7 days, then 25mg for 7 days, then 20mg for 7 days, etc.</p>
+
+                <h3>Dexamethasone</h3>
+                <p>Available strengths: 0.5mg, 2mg, 4mg tablets. Supports OD (once daily) or BD (twice daily) dosing.</p>
+                <ul>
+                    <li><strong>Dose:</strong> Per-dose amount in mg (e.g., 4mg)</li>
+                    <li><strong>Frequency:</strong> OD (once daily) or BD (twice daily)</li>
+                    <li><strong>Taper Amount:</strong> Reduce <em>total daily dose</em> by this amount each step</li>
+                    <li><strong>Interval:</strong> Days at each dose level</li>
+                </ul>
+                <p><strong>Example:</strong> 4mg BD, Taper: 4mg, Interval: 7 days, then add line for 2mg OD</p>
+                <p>Output: 4mg BD (8mg daily) for 7 days, then 2mg BD (4mg daily) for 7 days, then 2mg OD for 7 days</p>
+                <p><strong>Note:</strong> Use "Add Taper" to change frequency mid-taper (e.g., BD to OD).</p>
+
+                <h3>General Options</h3>
+                <ul>
+                    <li><strong>Tablet Strengths:</strong> Deselect strengths that are out of stock.</li>
+                    <li><strong>Start Date:</strong> Optional. Shows specific date ranges instead of "for X days".</li>
+                    <li><strong>Add Taper:</strong> Add another line with different settings (slower taper, frequency change, etc.)</li>
+                </ul>
+
+                <h3>Copy Options</h3>
                 <ul>
                     <li><strong>Copy Label:</strong> Copies just the dosing instructions.</li>
                     <li><strong>Document Copy:</strong> Copies instructions with steroid warning card info.</li>
                 </ul>
+                <p><strong>Warning:</strong> If a dose cannot be made exactly with the selected tablet strengths, a warning will be shown in red.</p>
+
+                <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
 
                 <h3>Eye Drop Taper</h3>
-                <p>Use this calculator for post-operative eye drop tapering schedules.</p>
+                <p>Create post-operative eye drop tapering schedules.</p>
                 <ul>
-                    <li><strong>Select Eye(s):</strong> Choose Left, Right, or Both eyes.</li>
+                    <li><strong>Select Eye(s):</strong> Left, Right, or Both eyes.</li>
                     <li><strong>Drop(s):</strong> Number of drops per dose.</li>
-                    <li><strong>Frequency / Day:</strong> How many times per day to apply drops.</li>
+                    <li><strong>Frequency / Day:</strong> Times per day to apply drops.</li>
                     <li><strong>Taper Interval:</strong> Days at each frequency before reducing.</li>
                 </ul>
-                <p><strong>Example:</strong> 1 drop, Frequency: 4, Interval: 7 = Apply 1 drop FOUR times a day for 7 days, then THREE times a day for 7 days, etc.</p>
-                <p>The calculator will estimate the total mls of eye drops needed. <strong>Note:</strong> When "Both" eyes is selected, the total is automatically doubled.</p>
+                <p><strong>Example:</strong> 1 drop, Frequency: 4, Interval: 7 days</p>
+                <p>Output: 1 drop FOUR times a day for 7 days, then THREE times a day for 7 days, etc.</p>
+                <p><strong>Note:</strong> Total mls are estimated automatically. "Both" eyes doubles the total.</p>
             </div>
         </div>
     </div>
@@ -581,7 +605,7 @@
 
     <script>
         // ==================== STATE ====================
-        let tabletTaperLines = [{ dose: 0, taperAmount: 0, interval: 0 }];
+        let tabletTaperLines = [{ dose: 0, taperAmount: 0, interval: 0, frequency: 1 }];
         let eyeDropTaperLines = [{ dropCount: 0, frequency: 0, interval: 0 }];
         let selectedEye = 'Left';
         let tabletTextToCopy = '';
@@ -592,12 +616,16 @@
             prednisolone: {
                 name: 'Prednisolone',
                 strengths: [5, 1], // ordered from highest to lowest
-                defaultEnabled: [5, 1]
+                defaultEnabled: [5, 1],
+                supportedFrequencies: [1],
+                defaultFrequency: 1
             },
             dexamethasone: {
                 name: 'Dexamethasone',
                 strengths: [4, 2, 0.5],
-                defaultEnabled: [4, 2, 0.5]
+                defaultEnabled: [4, 2, 0.5],
+                supportedFrequencies: [1, 2],
+                defaultFrequency: 1
             }
         };
         let selectedMedication = 'prednisolone';
@@ -671,6 +699,7 @@
             const config = medicationConfig[selectedMedication];
             enabledStrengths = [...config.defaultEnabled];
             renderTabletStrengths();
+            renderTabletTaperLines(); // Re-render to show/hide frequency dropdowns
         }
 
         function renderTabletStrengths() {
@@ -748,6 +777,9 @@
         // ==================== TABLET TAPER ====================
         function renderTabletTaperLines() {
             const container = document.getElementById('tabletTaperLines');
+            const config = medicationConfig[selectedMedication];
+            const showFrequency = config.supportedFrequencies.length > 1;
+
             container.innerHTML = tabletTaperLines.map((line, index) => `
                 <div class="taper-input-row">
                     <div class="field">
@@ -757,6 +789,15 @@
                                onchange="updateTabletLine(${index}, 'dose', this.value)"
                                placeholder="Enter Dose">
                     </div>
+                    ${showFrequency ? `
+                    <div class="field">
+                        <label class="label">Frequency</label>
+                        <select class="input" onchange="updateTabletLine(${index}, 'frequency', this.value)">
+                            <option value="1" ${line.frequency === 1 ? 'selected' : ''}>OD</option>
+                            <option value="2" ${line.frequency === 2 ? 'selected' : ''}>BD</option>
+                        </select>
+                    </div>
+                    ` : ''}
                     <div class="field">
                         <label class="label">Taper Amount</label>
                         <input class="input" type="number" min="0" step="1"
@@ -779,14 +820,14 @@
         }
 
         function addTabletTaperLine() {
-            tabletTaperLines.push({ dose: 0, taperAmount: 0, interval: 0 });
+            tabletTaperLines.push({ dose: 0, taperAmount: 0, interval: 0, frequency: 1 });
             renderTabletTaperLines();
         }
 
         function deleteTabletLine(index) {
             tabletTaperLines.splice(index, 1);
             if (tabletTaperLines.length === 0) {
-                tabletTaperLines = [{ dose: 0, taperAmount: 0, interval: 0 }];
+                tabletTaperLines = [{ dose: 0, taperAmount: 0, interval: 0, frequency: 1 }];
             }
             renderTabletTaperLines();
         }
@@ -807,7 +848,6 @@
 
             const config = medicationConfig[selectedMedication];
             let textToCopy = `${config.name} Taper:\n`;
-            let currentDose = tabletTaperLines[0].dose;
 
             const startDateInput = document.getElementById('tablet-date-selector');
             let startDate = startDateInput && startDateInput.value ? new Date(startDateInput.value) : null;
@@ -823,11 +863,21 @@
             headerParagraph.innerHTML = `<strong>${config.name} Taper</strong>`;
             taperLabel.appendChild(headerParagraph);
 
-            for (let i = 0; i < tabletTaperLines.length; i++) {
-                const nextDose = i < tabletTaperLines.length - 1 ? tabletTaperLines[i + 1].dose : 0;
+            // Work in terms of total daily dose
+            const firstFreq = tabletTaperLines[0].frequency || 1;
+            let currentDailyDose = tabletTaperLines[0].dose * firstFreq;
 
-                while (currentDose > nextDose) {
-                    const calculation = calculateTabletsForDose(currentDose, enabledStrengths);
+            for (let i = 0; i < tabletTaperLines.length; i++) {
+                const lineFrequency = tabletTaperLines[i].frequency || 1;
+                const nextDose = i < tabletTaperLines.length - 1 ? tabletTaperLines[i + 1].dose : 0;
+                const nextFrequency = i < tabletTaperLines.length - 1 ? (tabletTaperLines[i + 1].frequency || 1) : 1;
+                const nextDailyDose = nextDose * nextFrequency;
+
+                // Compare total daily doses to determine when to stop tapering
+                while (currentDailyDose > nextDailyDose) {
+                    // Calculate per-dose amount from daily dose
+                    const perDose = currentDailyDose / lineFrequency;
+                    const calculation = calculateTabletsForDose(perDose, enabledStrengths);
 
                     let text = 'Take ';
                     const tabletParts = [];
@@ -836,16 +886,20 @@
                         const strengthLabel = strength < 1 ? `${strength}mg` : `${strength}mg`;
                         tabletParts.push(`${numberToWords(count)} ${strengthLabel} tablet${count > 1 ? 's' : ''}`);
 
-                        // Add to totals
-                        tabletTotals[strength] += count * tabletTaperLines[i].interval;
+                        // Add to totals (multiply by frequency for twice daily)
+                        tabletTotals[strength] += count * tabletTaperLines[i].interval * lineFrequency;
                     });
 
                     if (tabletParts.length === 0) {
-                        text = `Cannot make ${currentDose}mg dose with selected tablets`;
+                        text = `Cannot make ${perDose}mg dose with selected tablets`;
                         hasWarnings = true;
                     } else {
                         text += tabletParts.join(' and ');
-                        text += ` (a ${currentDose}mg dose)`;
+                        if (lineFrequency === 2) {
+                            text += ` TWICE a day (${currentDailyDose}mg daily)`;
+                        } else {
+                            text += ` (a ${perDose}mg dose)`;
+                        }
 
                         if (!calculation.exact) {
                             text += ` [WARNING: ${calculation.remainder}mg short]`;
@@ -869,7 +923,8 @@
                     taperLabel.appendChild(paragraph);
                     textToCopy += text + '\n';
 
-                    currentDose = Math.max(nextDose, currentDose - tabletTaperLines[i].taperAmount);
+                    // Taper by reducing daily dose
+                    currentDailyDose = Math.max(nextDailyDose, currentDailyDose - tabletTaperLines[i].taperAmount);
                 }
             }
 
@@ -921,7 +976,7 @@ I need extra steroids during illness or injury
 I should carry extra medication at all times`;
 
             const patientInfo2 = `--- Additional Information ---
-- Take your medication as prescribed, usually once a day in the morning with food.
+- Take your medication as prescribed with food.
 - Never stop taking steroids suddenly.
 - Report any new symptoms or side effects to your healthcare provider promptly.
 - Attend regular check-ups and blood tests as recommended by your doctor.
