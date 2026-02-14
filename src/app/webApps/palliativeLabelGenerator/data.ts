@@ -50,6 +50,17 @@ export const drugs: Drug[] = [
         ratio: 20, // 20mg/1ml
     },
     {
+        id: "levomepromazine",
+        name: "Levomepromazine",
+        strength: "25mg/1ml",
+        defaultDoseMg: "6.25",
+        frequency: "up to a maximum of once every hour",
+        route: "subcutaneously",
+        category: "nausea",
+        indication: "for nausea and vomiting",
+        ratio: 25, // 25mg/1ml
+    },
+    {
         id: "midazolam",
         name: "Midazolam",
         strength: "10mg/2ml",
