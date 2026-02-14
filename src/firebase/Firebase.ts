@@ -48,21 +48,13 @@ export const firebaseService = {
         return docRef.id;
     },
 
-    // Update blog
+    // Update contact
     updateContact: async (
         id: string,
-        name: string,
-        number: string,
-        site: string,
-        department: string,
+        contact: Partial<Omit<Contact, "id">>
     ): Promise<void> => {
         const docRef = doc(db, "contacts", id);
-        await updateDoc(docRef, {
-            name,
-            number,
-            site,
-            department,
-        });
+        await updateDoc(docRef, contact);
     },
 
     // Delete blog

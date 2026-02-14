@@ -5,4 +5,5 @@ export interface Contact {
     site: string;
     department: string;
     warfarinTrained?: boolean;
+    _pin?: string; // Used for Firestore rules validation
 }
