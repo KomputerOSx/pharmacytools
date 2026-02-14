@@ -5,15 +5,15 @@
 
 .taper-input-row {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 1rem;
     align-items: flex-start;
     margin-top: 10px;
 }
 
 .taper-input-row .field {
-    flex: 1 1 calc(25% - 1rem);
-    min-width: 150px;
+    flex: 1 1 0;
+    min-width: 0;
     margin-bottom: 0.75rem;
 }
 
@@ -41,10 +41,11 @@
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
+    justify-content: flex-start;
 }
 
 .action-buttons-container button {
-    flex: 0 1 auto; /* Don't grow in full screen */
+    flex: 0 0 auto;
 }
 
 @media screen and (max-width: 769px) {

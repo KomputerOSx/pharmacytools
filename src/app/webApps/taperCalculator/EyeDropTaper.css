@@ -1,11 +1,15 @@
 .taper-input-row {
     display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
     align-items: flex-end;
+    margin-top: 10px;
 }
 
 .taper-input-row .field {
-    flex: 1;
+    flex: 1 1 0;
     min-width: 0;
+    margin-bottom: 0.75rem;
 }
 
 .taper-input-row .field:last-child {
@@ -15,5 +19,76 @@
 .taper-input-row .input,
 .taper-input-row .button {
     width: 100%;
+}
+
+/* Eye button group - don't stretch full width */
+.eye-button-group {
+    display: inline-flex;
+    margin-bottom: 1rem;
+}
+
+/* Action buttons - align left */
+.action-buttons-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: flex-start;
+}
+
+.action-buttons-container button {
+    flex: 0 0 auto;
+}
+
+/* Delete button container */
+.delete-button-container {
+    display: flex;
+    align-items: flex-end;
+    flex: 0 0 auto;
+}
+
+.delete-button-container .label {
+    visibility: hidden;
+    height: 0;
+    margin-bottom: 0.6rem;
+}
+
+@media screen and (max-width: 768px) {
+    .taper-input-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .taper-input-row .field {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .delete-button-container {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .delete-button-container .label {
+        display: none;
+    }
+
+    .delete-button-container .control {
+        width: 100%;
+    }
+
+    .delete-button-container .button {
+        width: 100%;
+    }
+
+    .action-buttons-container {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .action-buttons-container button {
+        width: 100%;
+    }
 }
 

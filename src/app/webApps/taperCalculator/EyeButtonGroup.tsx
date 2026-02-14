@@ -15,7 +15,7 @@ const EyeButtonGroup: React.FC<EyeButtonGroupProps> = ({ onSelect }) => {
     };
 
     return (
-        <div className="buttons has-addons field">
+        <div className="buttons has-addons" style={{ marginBottom: '1rem' }}>
             <button
                 className={`button ${selected === 'Left' ? 'is-primary is-selected' : ''}`}
                 onClick={() => handleSelection('Left')}
