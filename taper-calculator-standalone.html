@@ -102,15 +102,6 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.1s;
-        }
-
-        .button:hover {
-            transform: translateY(-1px);
-        }
-
-        .button:active {
-            transform: translateY(0);
         }
 
         .button.is-primary {
@@ -185,7 +176,7 @@
         }
 
         /* Results */
-        #taperLabel, #eyeDropLabel {
+        #predTaperLabel, #dexTaperLabel, #eyeDropLabel {
             margin-top: 30px;
             padding: 20px;
             background: #f9f9f9;
@@ -193,16 +184,16 @@
             border: 1px solid #ddd;
         }
 
-        #taperLabel:empty, #eyeDropLabel:empty {
+        #predTaperLabel:empty, #dexTaperLabel:empty, #eyeDropLabel:empty {
             display: none;
         }
 
-        #taperLabel p, #eyeDropLabel p {
+        #predTaperLabel p, #dexTaperLabel p, #eyeDropLabel p {
             margin: 8px 0;
             line-height: 1.6;
         }
 
-        #taperLabel .subtitle, #eyeDropLabel .subtitle {
+        #predTaperLabel .subtitle, #dexTaperLabel .subtitle, #eyeDropLabel .subtitle {
             margin-top: 20px;
             padding-top: 15px;
             border-top: 1px solid #ddd;
@@ -466,7 +457,6 @@
     <div class="container">
         <div class="header-row">
             <h1 style="margin-bottom: 0;">Taper Calculator</h1>
-            <button class="help-button" onclick="openHelpModal()" title="How to use">?</button>
         </div>
 
         <div class="warning-banner">
@@ -474,43 +464,59 @@
             <p><strong>Disclaimer:</strong> This is a calculation tool only. The user is solely responsible for verifying the accuracy of all information generated. Always confirm dosing instructions with appropriate clinical references before use.</p>
         </div>
 
-        <div class="taper-selector">
+        <div class="taper-selector" style="display: flex; align-items: center; gap: 10px;">
             <select id="taperType" onchange="switchTaperType()">
-                <option value="tablet">Tablet Taper</option>
+                <option value="prednisolone">Prednisolone Taper</option>
+                <option value="dexamethasone">Dexamethasone Taper</option>
                 <option value="eyedrop">Eye Drop Taper</option>
             </select>
+            <button class="help-button" onclick="openHelpModal()" title="How to use">?</button>
         </div>
 
-        <!-- Tablet Taper Section -->
-        <div id="tabletTaper" class="taper-section active">
+        <!-- Prednisolone Taper Section -->
+        <div id="prednisoloneTaper" class="taper-section active">
+            <div class="medication-options">
+                <div class="field" style="max-width: 200px;">
+                    <label class="label">Start Date (Optional)</label>
+                    <input class="input" type="date" id="pred-date-selector">
+                </div>
+            </div>
+
+            <div id="predTaperLines"></div>
+
+            <div class="action-buttons-container">
+                <button class="button is-warning" onclick="addPredTaperLine()">Add Taper</button>
+                <button class="button is-primary" onclick="calculatePredTaper()">Calculate</button>
+                <button class="button is-secondary" onclick="copyPredLabel()">Copy Label</button>
+                <button class="button is-secondary" onclick="copyPredDocument()">Document Copy</button>
+            </div>
+
+            <div id="predTaperLabel"></div>
+        </div>
+
+        <!-- Dexamethasone Taper Section -->
+        <div id="dexamethasoneTaper" class="taper-section">
             <div class="medication-options">
                 <div class="field">
-                    <label class="label">Medication</label>
-                    <select class="input" id="medication-selector" onchange="changeMedication()" style="width: auto;">
-                        <option value="prednisolone">Prednisolone</option>
-                        <option value="dexamethasone">Dexamethasone</option>
-                    </select>
-                </div>
-                <div class="field">
                     <label class="label">Tablet Strengths to Use</label>
-                    <div class="tablet-strengths" id="tablet-strengths"></div>
+                    <div class="tablet-strengths" id="dex-tablet-strengths"></div>
                 </div>
                 <div class="field" style="max-width: 200px;">
                     <label class="label">Start Date (Optional)</label>
-                    <input class="input" type="date" id="tablet-date-selector">
+                    <input class="input" type="date" id="dex-date-selector">
                 </div>
             </div>
 
-            <div id="tabletTaperLines"></div>
+            <div id="dexTaperLines"></div>
 
             <div class="action-buttons-container">
-                <button class="button is-warning" onclick="addTabletTaperLine()">Add Taper</button>
-                <button class="button is-primary" onclick="calculateTabletTaper()">Calculate</button>
-                <button class="button is-secondary" onclick="copyTabletLabel()">Copy Label</button>
-                <button class="button is-secondary" onclick="copyTabletDocument()">Document Copy</button>
+                <button class="button is-warning" onclick="addDexTaperLine()">Add Taper</button>
+                <button class="button is-primary" onclick="calculateDexTaper()">Calculate</button>
+                <button class="button is-secondary" onclick="copyDexLabel()">Copy Label</button>
+                <button class="button is-secondary" onclick="copyDexDocument()">Document Copy</button>
             </div>
 
-            <div id="taperLabel"></div>
+            <div id="dexTaperLabel"></div>
         </div>
 
         <!-- Eye Drop Taper Section -->
@@ -538,63 +544,10 @@
     <div id="helpModal" class="modal-overlay" onclick="closeHelpModal(event)">
         <div class="modal" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h2>How to Use</h2>
+                <h2 id="helpModalTitle">How to Use</h2>
                 <button class="modal-close" onclick="closeHelpModal()">&times;</button>
             </div>
-            <div class="modal-body">
-                <h3>Tablet Taper</h3>
-                <p>Create tapering schedules for steroid tablets. Select your medication, set the taper parameters, and click Calculate.</p>
-
-                <h3>Prednisolone</h3>
-                <p>Available strengths: 1mg, 5mg tablets. Once daily dosing only.</p>
-                <ul>
-                    <li><strong>Dose:</strong> Starting dose in mg (e.g., 30mg)</li>
-                    <li><strong>Taper Amount:</strong> Reduce dose by this amount each step (e.g., 5mg)</li>
-                    <li><strong>Interval:</strong> Days at each dose level (e.g., 7 days)</li>
-                </ul>
-                <p><strong>Example:</strong> Dose: 30mg, Taper: 5mg, Interval: 7 days</p>
-                <p>Output: 30mg for 7 days, then 25mg for 7 days, then 20mg for 7 days, etc.</p>
-
-                <h3>Dexamethasone</h3>
-                <p>Available strengths: 0.5mg, 2mg, 4mg tablets. Supports OD (once daily) or BD (twice daily) dosing.</p>
-                <ul>
-                    <li><strong>Dose:</strong> Per-dose amount in mg (e.g., 4mg)</li>
-                    <li><strong>Frequency:</strong> OD (once daily) or BD (twice daily)</li>
-                    <li><strong>Taper Amount:</strong> Reduce <em>total daily dose</em> by this amount each step</li>
-                    <li><strong>Interval:</strong> Days at each dose level</li>
-                </ul>
-                <p><strong>Example:</strong> 4mg BD, Taper: 4mg, Interval: 7 days, then add line for 2mg OD</p>
-                <p>Output: 4mg BD (8mg daily) for 7 days, then 2mg BD (4mg daily) for 7 days, then 2mg OD for 7 days</p>
-                <p><strong>Note:</strong> Use "Add Taper" to change frequency mid-taper (e.g., BD to OD).</p>
-
-                <h3>General Options</h3>
-                <ul>
-                    <li><strong>Tablet Strengths:</strong> Deselect strengths that are out of stock.</li>
-                    <li><strong>Start Date:</strong> Optional. Shows specific date ranges instead of "for X days".</li>
-                    <li><strong>Add Taper:</strong> Add another line with different settings (slower taper, frequency change, etc.)</li>
-                </ul>
-
-                <h3>Copy Options</h3>
-                <ul>
-                    <li><strong>Copy Label:</strong> Copies just the dosing instructions.</li>
-                    <li><strong>Document Copy:</strong> Copies instructions with steroid warning card info.</li>
-                </ul>
-                <p><strong>Warning:</strong> If a dose cannot be made exactly with the selected tablet strengths, a warning will be shown in red.</p>
-
-                <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
-
-                <h3>Eye Drop Taper</h3>
-                <p>Create post-operative eye drop tapering schedules.</p>
-                <ul>
-                    <li><strong>Select Eye(s):</strong> Left, Right, or Both eyes.</li>
-                    <li><strong>Drop(s):</strong> Number of drops per dose.</li>
-                    <li><strong>Frequency / Day:</strong> Times per day to apply drops.</li>
-                    <li><strong>Taper Interval:</strong> Days at each frequency before reducing.</li>
-                </ul>
-                <p><strong>Example:</strong> 1 drop, Frequency: 4, Interval: 7 days</p>
-                <p>Output: 1 drop FOUR times a day for 7 days, then THREE times a day for 7 days, etc.</p>
-                <p><strong>Note:</strong> Total mls are estimated automatically. "Both" eyes doubles the total.</p>
-            </div>
+            <div class="modal-body" id="helpModalBody"></div>
         </div>
     </div>
 
@@ -605,31 +558,20 @@
 
     <script>
         // ==================== STATE ====================
-        let tabletTaperLines = [{ dose: 0, taperAmount: 0, interval: 0, frequency: 1 }];
+        // Prednisolone state
+        let predTaperLines = [{ dose: 0, taperAmount: 0, interval: 0 }];
+        let predTextToCopy = '';
+
+        // Dexamethasone state
+        let dexTaperLines = [{ dose: 0, taperAmount: 0, interval: 0, frequency: 1 }];
+        let dexTextToCopy = '';
+        let dexEnabledStrengths = [4, 2, 0.5];
+        const dexAvailableStrengths = [4, 2, 0.5];
+
+        // Eye drop state
         let eyeDropTaperLines = [{ dropCount: 0, frequency: 0, interval: 0 }];
         let selectedEye = 'Left';
-        let tabletTextToCopy = '';
         let eyeDropTextToCopy = '';
-
-        // Medication configurations
-        const medicationConfig = {
-            prednisolone: {
-                name: 'Prednisolone',
-                strengths: [5, 1], // ordered from highest to lowest
-                defaultEnabled: [5, 1],
-                supportedFrequencies: [1],
-                defaultFrequency: 1
-            },
-            dexamethasone: {
-                name: 'Dexamethasone',
-                strengths: [4, 2, 0.5],
-                defaultEnabled: [4, 2, 0.5],
-                supportedFrequencies: [1, 2],
-                defaultFrequency: 1
-            }
-        };
-        let selectedMedication = 'prednisolone';
-        let enabledStrengths = [...medicationConfig.prednisolone.defaultEnabled];
 
         // ==================== UTILITY FUNCTIONS ====================
         function numberToWords(num) {
@@ -674,6 +616,70 @@
         }
 
         function openHelpModal() {
+            const type = document.getElementById('taperType').value;
+            const title = document.getElementById('helpModalTitle');
+            const body = document.getElementById('helpModalBody');
+
+            if (type === 'prednisolone') {
+                title.textContent = 'Prednisolone Taper - How to Use';
+                body.innerHTML = `
+                    <h3>Prednisolone Taper</h3>
+                    <p>Create tapering schedules for Prednisolone tablets using 5mg and 1mg strengths. Once daily dosing only.</p>
+                    <ul>
+                        <li><strong>Dose:</strong> Starting dose in mg (e.g., 30mg)</li>
+                        <li><strong>Taper Amount:</strong> Reduce dose by this amount each step (e.g., 5mg)</li>
+                        <li><strong>Interval:</strong> Days at each dose level (e.g., 7 days)</li>
+                    </ul>
+                    <p><strong>Example:</strong> Dose: 30mg, Taper: 5mg, Interval: 7 days</p>
+                    <p>Output: Take SIX 5mg tablets (a 30mg dose) for 7 days, then FIVE 5mg tablets (a 25mg dose) for 7 days, etc.</p>
+                    <p><strong>Add Taper:</strong> Use to change taper rate mid-schedule (e.g., taper by 5mg then by 2.5mg at lower doses).</p>
+                    <h3>Copy Options</h3>
+                    <ul>
+                        <li><strong>Start Date:</strong> Optional. Shows specific date ranges instead of "for X days".</li>
+                        <li><strong>Copy Label:</strong> Copies just the dosing instructions.</li>
+                        <li><strong>Document Copy:</strong> Copies instructions with steroid warning card info.</li>
+                    </ul>
+                `;
+            } else if (type === 'dexamethasone') {
+                title.textContent = 'Dexamethasone Taper - How to Use';
+                body.innerHTML = `
+                    <h3>Dexamethasone Taper</h3>
+                    <p>Create tapering schedules for Dexamethasone tablets. Supports OD (once daily) or BD (twice daily) dosing.</p>
+                    <ul>
+                        <li><strong>Tablet Strengths:</strong> Select available strengths (4mg, 2mg, 0.5mg). Deselect any that are out of stock.</li>
+                        <li><strong>Dose:</strong> Per-dose amount in mg (e.g., 4mg)</li>
+                        <li><strong>Frequency:</strong> OD (once daily) or BD (twice daily)</li>
+                        <li><strong>Taper Amount:</strong> Reduce <em>total daily dose</em> by this amount each step</li>
+                        <li><strong>Interval:</strong> Days at each dose level</li>
+                    </ul>
+                    <p><strong>Example:</strong> 4mg BD, Taper: 4mg, Interval: 7 days, then add line for 2mg OD</p>
+                    <p>Output: 4mg BD (8mg daily) for 7 days, then 2mg BD (4mg daily) for 7 days, then 2mg OD for 7 days</p>
+                    <p><strong>Note:</strong> Use "Add Taper" to change frequency mid-taper (e.g., BD to OD).</p>
+                    <p><strong>Warning:</strong> If a dose cannot be made exactly with the selected tablet strengths, a warning will be shown in red.</p>
+                    <h3>Copy Options</h3>
+                    <ul>
+                        <li><strong>Start Date:</strong> Optional. Shows specific date ranges instead of "for X days".</li>
+                        <li><strong>Copy Label:</strong> Copies just the dosing instructions.</li>
+                        <li><strong>Document Copy:</strong> Copies instructions with steroid warning card info.</li>
+                    </ul>
+                `;
+            } else {
+                title.textContent = 'Eye Drop Taper - How to Use';
+                body.innerHTML = `
+                    <h3>Eye Drop Taper</h3>
+                    <p>Create post-operative eye drop tapering schedules.</p>
+                    <ul>
+                        <li><strong>Select Eye(s):</strong> Left, Right, or Both eyes.</li>
+                        <li><strong>Drop(s):</strong> Number of drops per dose.</li>
+                        <li><strong>Frequency / Day:</strong> Times per day to apply drops.</li>
+                        <li><strong>Taper Interval:</strong> Days at each frequency before reducing.</li>
+                    </ul>
+                    <p><strong>Example:</strong> 1 drop, Frequency: 4, Interval: 7 days</p>
+                    <p>Output: 1 drop FOUR times a day for 7 days, then THREE times a day for 7 days, etc.</p>
+                    <p><strong>Note:</strong> Total mls are estimated automatically. "Both" eyes doubles the total.</p>
+                `;
+            }
+
             document.getElementById('helpModal').classList.add('active');
         }
 
@@ -693,54 +699,11 @@
             }
         }
 
-        // ==================== MEDICATION FUNCTIONS ====================
-        function changeMedication() {
-            selectedMedication = document.getElementById('medication-selector').value;
-            const config = medicationConfig[selectedMedication];
-            enabledStrengths = [...config.defaultEnabled];
-            renderTabletStrengths();
-            renderTabletTaperLines(); // Re-render to show/hide frequency dropdowns
-        }
-
-        function renderTabletStrengths() {
-            const container = document.getElementById('tablet-strengths');
-            const config = medicationConfig[selectedMedication];
-
-            container.innerHTML = config.strengths.map(strength => {
-                const isChecked = enabledStrengths.includes(strength);
-                const strengthLabel = strength < 1 ? `${strength}mg` : `${strength}mg`;
-                return `
-                    <label class="checkbox-label ${isChecked ? 'checked' : ''}">
-                        <input type="checkbox"
-                               value="${strength}"
-                               ${isChecked ? 'checked' : ''}
-                               onchange="toggleStrength(${strength}, this)">
-                        ${strengthLabel}
-                    </label>
-                `;
-            }).join('');
-        }
-
-        function toggleStrength(strength, checkbox) {
-            const label = checkbox.parentElement;
-            if (checkbox.checked) {
-                if (!enabledStrengths.includes(strength)) {
-                    enabledStrengths.push(strength);
-                    enabledStrengths.sort((a, b) => b - a); // Sort descending
-                }
-                label.classList.add('checked');
-            } else {
-                enabledStrengths = enabledStrengths.filter(s => s !== strength);
-                label.classList.remove('checked');
-            }
-        }
-
-        // Calculate tablets needed for a dose using available strengths
+        // Calculate tablets needed for a dose using available strengths (used by Dexamethasone)
         function calculateTabletsForDose(dose, strengths) {
             const result = [];
             let remaining = dose;
 
-            // Sort strengths from highest to lowest
             const sortedStrengths = [...strengths].sort((a, b) => b - a);
 
             for (const strength of sortedStrengths) {
@@ -748,12 +711,11 @@
                     const count = Math.floor(remaining / strength);
                     if (count > 0) {
                         result.push({ strength, count });
-                        remaining = Math.round((remaining - (count * strength)) * 100) / 100; // Handle floating point
+                        remaining = Math.round((remaining - (count * strength)) * 100) / 100;
                     }
                 }
             }
 
-            // Check if we couldn't make exact dose
             if (remaining > 0.001) {
                 return { tablets: result, remainder: remaining, exact: false };
             }
@@ -761,133 +723,316 @@
             return { tablets: result, remainder: 0, exact: true };
         }
 
+        // Steroid document text (shared by pred and dex)
+        const steroidPatientInfo1 = `ALERT: I TAKE STEROID MEDICATION
+I am at risk of adrenal crisis
+
+IN CASE OF EMERGENCY:
+
+I need immediate hydrocortisone
+Call 999 or take me to A&E
+Show this card to the medical staff
+
+IMPORTANT:
+
+I must not stop taking steroids suddenly
+I need extra steroids during illness or injury
+I should carry extra medication at all times`;
+
+        const steroidPatientInfo2 = `--- Additional Information ---
+- Take your medication as prescribed with food.
+- Never stop taking steroids suddenly.
+- Report any new symptoms or side effects to your healthcare provider promptly.
+- Attend regular check-ups and blood tests as recommended by your doctor.
+
+--- End of Document ---`;
+
         // ==================== TAPER TYPE SWITCHING ====================
         function switchTaperType() {
             const type = document.getElementById('taperType').value;
-            document.getElementById('tabletTaper').classList.remove('active');
+            document.getElementById('prednisoloneTaper').classList.remove('active');
+            document.getElementById('dexamethasoneTaper').classList.remove('active');
             document.getElementById('eyeDropTaper').classList.remove('active');
 
-            if (type === 'tablet') {
-                document.getElementById('tabletTaper').classList.add('active');
+            if (type === 'prednisolone') {
+                document.getElementById('prednisoloneTaper').classList.add('active');
+            } else if (type === 'dexamethasone') {
+                document.getElementById('dexamethasoneTaper').classList.add('active');
             } else {
                 document.getElementById('eyeDropTaper').classList.add('active');
             }
         }
 
-        // ==================== TABLET TAPER ====================
-        function renderTabletTaperLines() {
-            const container = document.getElementById('tabletTaperLines');
-            const config = medicationConfig[selectedMedication];
-            const showFrequency = config.supportedFrequencies.length > 1;
-
-            container.innerHTML = tabletTaperLines.map((line, index) => `
+        // ==================== PREDNISOLONE TAPER ====================
+        function renderPredTaperLines() {
+            const container = document.getElementById('predTaperLines');
+            container.innerHTML = predTaperLines.map((line, index) => `
                 <div class="taper-input-row">
                     <div class="field">
                         <label class="label">Dose (mg)</label>
                         <input class="input" type="number" min="0" step="1"
                                value="${line.dose}"
-                               onchange="updateTabletLine(${index}, 'dose', this.value)"
+                               onchange="updatePredLine(${index}, 'dose', this.value)"
                                placeholder="Enter Dose">
                     </div>
-                    ${showFrequency ? `
-                    <div class="field">
-                        <label class="label">Frequency</label>
-                        <select class="input" onchange="updateTabletLine(${index}, 'frequency', this.value)">
-                            <option value="1" ${line.frequency === 1 ? 'selected' : ''}>OD</option>
-                            <option value="2" ${line.frequency === 2 ? 'selected' : ''}>BD</option>
-                        </select>
-                    </div>
-                    ` : ''}
                     <div class="field">
                         <label class="label">Taper Amount</label>
                         <input class="input" type="number" min="0" step="1"
                                value="${line.taperAmount}"
-                               onchange="updateTabletLine(${index}, 'taperAmount', this.value)"
+                               onchange="updatePredLine(${index}, 'taperAmount', this.value)"
                                placeholder="Enter Taper Amount">
                     </div>
                     <div class="field">
                         <label class="label">Interval (days)</label>
                         <input class="input" type="number" min="0" step="1"
                                value="${line.interval}"
-                               onchange="updateTabletLine(${index}, 'interval', this.value)"
+                               onchange="updatePredLine(${index}, 'interval', this.value)"
                                placeholder="Enter Interval">
                     </div>
                     <div class="field delete-button-container">
-                        <button class="button is-danger" onclick="deleteTabletLine(${index})">Delete</button>
+                        <button class="button is-danger" onclick="deletePredLine(${index})">Delete</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function addTabletTaperLine() {
-            tabletTaperLines.push({ dose: 0, taperAmount: 0, interval: 0, frequency: 1 });
-            renderTabletTaperLines();
+        function addPredTaperLine() {
+            predTaperLines.push({ dose: 0, taperAmount: 0, interval: 0 });
+            renderPredTaperLines();
         }
 
-        function deleteTabletLine(index) {
-            tabletTaperLines.splice(index, 1);
-            if (tabletTaperLines.length === 0) {
-                tabletTaperLines = [{ dose: 0, taperAmount: 0, interval: 0, frequency: 1 }];
+        function deletePredLine(index) {
+            predTaperLines.splice(index, 1);
+            if (predTaperLines.length === 0) {
+                predTaperLines = [{ dose: 0, taperAmount: 0, interval: 0 }];
             }
-            renderTabletTaperLines();
+            renderPredTaperLines();
         }
 
-        function updateTabletLine(index, field, value) {
-            tabletTaperLines[index][field] = Math.max(0, Math.floor(Number(value))) || 0;
+        function updatePredLine(index, field, value) {
+            predTaperLines[index][field] = Math.max(0, Number(value)) || 0;
         }
 
-        function calculateTabletTaper() {
-            const taperLabel = document.getElementById('taperLabel');
+        function calculatePredTaper() {
+            const taperLabel = document.getElementById('predTaperLabel');
             taperLabel.innerHTML = '';
 
-            // Check if any strengths are selected
-            if (enabledStrengths.length === 0) {
+            let textToCopy = 'Prednisolone Taper:\n';
+
+            const startDateInput = document.getElementById('pred-date-selector');
+            let startDate = startDateInput && startDateInput.value ? new Date(startDateInput.value) : null;
+
+            let totalFiveMg = 0;
+            let totalOneMg = 0;
+
+            const headerParagraph = document.createElement('p');
+            headerParagraph.innerHTML = '<strong>Prednisolone Taper</strong>';
+            taperLabel.appendChild(headerParagraph);
+
+            let currentDose = predTaperLines[0].dose;
+
+            for (let i = 0; i < predTaperLines.length; i++) {
+                const nextDose = i < predTaperLines.length - 1 ? predTaperLines[i + 1].dose : 0;
+
+                while (currentDose > nextDose) {
+                    const fiveMilligramTablets = Math.floor(currentDose / 5);
+                    const oneMilligramTablets = currentDose % 5;
+
+                    let text = 'Take ';
+                    const parts = [];
+
+                    if (fiveMilligramTablets > 0) {
+                        parts.push(`${numberToWords(fiveMilligramTablets)} 5mg tablet${fiveMilligramTablets > 1 ? 's' : ''}`);
+                    }
+                    if (oneMilligramTablets > 0) {
+                        parts.push(`${numberToWords(oneMilligramTablets)} 1mg tablet${oneMilligramTablets > 1 ? 's' : ''}`);
+                    }
+
+                    if (parts.length === 0) {
+                        text = `Cannot make ${currentDose}mg dose`;
+                    } else {
+                        text += parts.join(' and ');
+                        text += ` (a ${currentDose}mg dose)`;
+                    }
+
+                    if (startDate) {
+                        const endDate = new Date(startDate.getTime() + (predTaperLines[i].interval - 1) * 24 * 60 * 60 * 1000);
+                        text += ` from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
+                        startDate = new Date(endDate.getTime() + 24 * 60 * 60 * 1000);
+                    } else {
+                        text += ` for ${predTaperLines[i].interval} days`;
+                    }
+
+                    const paragraph = document.createElement('p');
+                    paragraph.textContent = text;
+                    taperLabel.appendChild(paragraph);
+                    textToCopy += text + '\n';
+
+                    totalFiveMg += fiveMilligramTablets * predTaperLines[i].interval;
+                    totalOneMg += oneMilligramTablets * predTaperLines[i].interval;
+
+                    currentDose = Math.max(nextDose, currentDose - predTaperLines[i].taperAmount);
+                }
+            }
+
+            // Totals
+            const totalParagraph = document.createElement('p');
+            totalParagraph.className = 'subtitle';
+            const totalParts = [];
+            if (totalFiveMg > 0) totalParts.push(`<strong>${totalFiveMg}</strong> x 5mg tablets`);
+            if (totalOneMg > 0) totalParts.push(`<strong>${totalOneMg}</strong> x 1mg tablets`);
+            totalParagraph.innerHTML = `<strong>Total tablets required:</strong><br>${totalParts.join(' & ')}`;
+            taperLabel.appendChild(totalParagraph);
+
+            predTextToCopy = textToCopy;
+        }
+
+        function copyPredLabel() {
+            if (predTextToCopy) {
+                copyToClipboard(predTextToCopy);
+            }
+        }
+
+        function copyPredDocument() {
+            if (predTextToCopy) {
+                copyToClipboard(steroidPatientInfo1 + '\n\n' + predTextToCopy + '\n' + steroidPatientInfo2);
+            }
+        }
+
+        // ==================== DEXAMETHASONE TAPER ====================
+        function renderDexStrengths() {
+            const container = document.getElementById('dex-tablet-strengths');
+            container.innerHTML = dexAvailableStrengths.map(strength => {
+                const isChecked = dexEnabledStrengths.includes(strength);
+                return `
+                    <label class="checkbox-label ${isChecked ? 'checked' : ''}">
+                        <input type="checkbox"
+                               value="${strength}"
+                               ${isChecked ? 'checked' : ''}
+                               onchange="toggleDexStrength(${strength}, this)">
+                        ${strength}mg
+                    </label>
+                `;
+            }).join('');
+        }
+
+        function toggleDexStrength(strength, checkbox) {
+            const label = checkbox.parentElement;
+            if (checkbox.checked) {
+                if (!dexEnabledStrengths.includes(strength)) {
+                    dexEnabledStrengths.push(strength);
+                    dexEnabledStrengths.sort((a, b) => b - a);
+                }
+                label.classList.add('checked');
+            } else {
+                dexEnabledStrengths = dexEnabledStrengths.filter(s => s !== strength);
+                label.classList.remove('checked');
+            }
+        }
+
+        function renderDexTaperLines() {
+            const container = document.getElementById('dexTaperLines');
+            container.innerHTML = dexTaperLines.map((line, index) => `
+                <div class="taper-input-row">
+                    <div class="field">
+                        <label class="label">Dose (mg)</label>
+                        <input class="input" type="number" min="0" step="0.5"
+                               value="${line.dose}"
+                               onchange="updateDexLine(${index}, 'dose', this.value)"
+                               placeholder="Enter Dose">
+                    </div>
+                    <div class="field">
+                        <label class="label">Frequency</label>
+                        <select class="input" onchange="updateDexLine(${index}, 'frequency', this.value)">
+                            <option value="1" ${line.frequency === 1 ? 'selected' : ''}>OD</option>
+                            <option value="2" ${line.frequency === 2 ? 'selected' : ''}>BD</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label class="label">Taper Amount</label>
+                        <input class="input" type="number" min="0" step="0.5"
+                               value="${line.taperAmount}"
+                               onchange="updateDexLine(${index}, 'taperAmount', this.value)"
+                               placeholder="Enter Taper Amount">
+                    </div>
+                    <div class="field">
+                        <label class="label">Interval (days)</label>
+                        <input class="input" type="number" min="0" step="1"
+                               value="${line.interval}"
+                               onchange="updateDexLine(${index}, 'interval', this.value)"
+                               placeholder="Enter Interval">
+                    </div>
+                    <div class="field delete-button-container">
+                        <button class="button is-danger" onclick="deleteDexLine(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addDexTaperLine() {
+            dexTaperLines.push({ dose: 0, taperAmount: 0, interval: 0, frequency: 1 });
+            renderDexTaperLines();
+        }
+
+        function deleteDexLine(index) {
+            dexTaperLines.splice(index, 1);
+            if (dexTaperLines.length === 0) {
+                dexTaperLines = [{ dose: 0, taperAmount: 0, interval: 0, frequency: 1 }];
+            }
+            renderDexTaperLines();
+        }
+
+        function updateDexLine(index, field, value) {
+            if (field === 'frequency') {
+                dexTaperLines[index][field] = parseInt(value) || 1;
+            } else {
+                dexTaperLines[index][field] = Math.max(0, Number(value)) || 0;
+            }
+        }
+
+        function calculateDexTaper() {
+            const taperLabel = document.getElementById('dexTaperLabel');
+            taperLabel.innerHTML = '';
+
+            if (dexEnabledStrengths.length === 0) {
                 taperLabel.innerHTML = '<p style="color: #e74c3c;"><strong>Please select at least one tablet strength.</strong></p>';
                 return;
             }
 
-            const config = medicationConfig[selectedMedication];
-            let textToCopy = `${config.name} Taper:\n`;
+            let textToCopy = 'Dexamethasone Taper:\n';
 
-            const startDateInput = document.getElementById('tablet-date-selector');
+            const startDateInput = document.getElementById('dex-date-selector');
             let startDate = startDateInput && startDateInput.value ? new Date(startDateInput.value) : null;
 
-            // Track totals for each strength
             const tabletTotals = {};
-            enabledStrengths.forEach(s => tabletTotals[s] = 0);
+            dexEnabledStrengths.forEach(s => tabletTotals[s] = 0);
 
             let hasWarnings = false;
 
-            // Add medication header
             const headerParagraph = document.createElement('p');
-            headerParagraph.innerHTML = `<strong>${config.name} Taper</strong>`;
+            headerParagraph.innerHTML = '<strong>Dexamethasone Taper</strong>';
             taperLabel.appendChild(headerParagraph);
 
             // Work in terms of total daily dose
-            const firstFreq = tabletTaperLines[0].frequency || 1;
-            let currentDailyDose = tabletTaperLines[0].dose * firstFreq;
+            const firstFreq = dexTaperLines[0].frequency || 1;
+            let currentDailyDose = dexTaperLines[0].dose * firstFreq;
 
-            for (let i = 0; i < tabletTaperLines.length; i++) {
-                const lineFrequency = tabletTaperLines[i].frequency || 1;
-                const nextDose = i < tabletTaperLines.length - 1 ? tabletTaperLines[i + 1].dose : 0;
-                const nextFrequency = i < tabletTaperLines.length - 1 ? (tabletTaperLines[i + 1].frequency || 1) : 1;
+            for (let i = 0; i < dexTaperLines.length; i++) {
+                const lineFrequency = dexTaperLines[i].frequency || 1;
+                const nextDose = i < dexTaperLines.length - 1 ? dexTaperLines[i + 1].dose : 0;
+                const nextFrequency = i < dexTaperLines.length - 1 ? (dexTaperLines[i + 1].frequency || 1) : 1;
                 const nextDailyDose = nextDose * nextFrequency;
 
-                // Compare total daily doses to determine when to stop tapering
                 while (currentDailyDose > nextDailyDose) {
-                    // Calculate per-dose amount from daily dose
                     const perDose = currentDailyDose / lineFrequency;
-                    const calculation = calculateTabletsForDose(perDose, enabledStrengths);
+                    const calculation = calculateTabletsForDose(perDose, dexEnabledStrengths);
 
                     let text = 'Take ';
                     const tabletParts = [];
 
                     calculation.tablets.forEach(({ strength, count }) => {
-                        const strengthLabel = strength < 1 ? `${strength}mg` : `${strength}mg`;
-                        tabletParts.push(`${numberToWords(count)} ${strengthLabel} tablet${count > 1 ? 's' : ''}`);
-
-                        // Add to totals (multiply by frequency for twice daily)
-                        tabletTotals[strength] += count * tabletTaperLines[i].interval * lineFrequency;
+                        tabletParts.push(`${numberToWords(count)} ${strength}mg tablet${count > 1 ? 's' : ''}`);
+                        tabletTotals[strength] += count * dexTaperLines[i].interval * lineFrequency;
                     });
 
                     if (tabletParts.length === 0) {
@@ -908,11 +1053,11 @@
                     }
 
                     if (startDate) {
-                        const endDate = new Date(startDate.getTime() + (tabletTaperLines[i].interval - 1) * 24 * 60 * 60 * 1000);
+                        const endDate = new Date(startDate.getTime() + (dexTaperLines[i].interval - 1) * 24 * 60 * 60 * 1000);
                         text += ` from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
                         startDate = new Date(endDate.getTime() + 24 * 60 * 60 * 1000);
                     } else {
-                        text += ` for ${tabletTaperLines[i].interval} days`;
+                        text += ` for ${dexTaperLines[i].interval} days`;
                     }
 
                     const paragraph = document.createElement('p');
@@ -923,8 +1068,7 @@
                     taperLabel.appendChild(paragraph);
                     textToCopy += text + '\n';
 
-                    // Taper by reducing daily dose
-                    currentDailyDose = Math.max(nextDailyDose, currentDailyDose - tabletTaperLines[i].taperAmount);
+                    currentDailyDose = Math.max(nextDailyDose, currentDailyDose - dexTaperLines[i].taperAmount);
                 }
             }
 
@@ -933,10 +1077,9 @@
             totalParagraph.className = 'subtitle';
 
             const totalParts = [];
-            enabledStrengths.sort((a, b) => b - a).forEach(strength => {
+            dexEnabledStrengths.sort((a, b) => b - a).forEach(strength => {
                 if (tabletTotals[strength] > 0) {
-                    const strengthLabel = strength < 1 ? `${strength}mg` : `${strength}mg`;
-                    totalParts.push(`<strong>${tabletTotals[strength]}</strong> x ${strengthLabel} tablets`);
+                    totalParts.push(`<strong>${tabletTotals[strength]}</strong> x ${strength}mg tablets`);
                 }
             });
 
@@ -950,41 +1093,18 @@
                 taperLabel.appendChild(warningParagraph);
             }
 
-            tabletTextToCopy = textToCopy;
+            dexTextToCopy = textToCopy;
         }
 
-        function copyTabletLabel() {
-            if (tabletTextToCopy) {
-                copyToClipboard(tabletTextToCopy);
+        function copyDexLabel() {
+            if (dexTextToCopy) {
+                copyToClipboard(dexTextToCopy);
             }
         }
 
-        function copyTabletDocument() {
-            const patientInfo1 = `ALERT: I TAKE STEROID MEDICATION
-I am at risk of adrenal crisis
-
-IN CASE OF EMERGENCY:
-
-I need immediate hydrocortisone
-Call 999 or take me to A&E
-Show this card to the medical staff
-
-IMPORTANT:
-
-I must not stop taking steroids suddenly
-I need extra steroids during illness or injury
-I should carry extra medication at all times`;
-
-            const patientInfo2 = `--- Additional Information ---
-- Take your medication as prescribed with food.
-- Never stop taking steroids suddenly.
-- Report any new symptoms or side effects to your healthcare provider promptly.
-- Attend regular check-ups and blood tests as recommended by your doctor.
-
---- End of Document ---`;
-
-            if (tabletTextToCopy) {
-                copyToClipboard(patientInfo1 + '\n\n' + tabletTextToCopy + '\n' + patientInfo2);
+        function copyDexDocument() {
+            if (dexTextToCopy) {
+                copyToClipboard(steroidPatientInfo1 + '\n\n' + dexTextToCopy + '\n' + steroidPatientInfo2);
             }
         }
 
@@ -1099,11 +1219,9 @@ I should carry extra medication at all times`;
                 }
             }
 
-            // Double the amount if both eyes selected
             const eyeMultiplier = selectedEye === 'Both' ? 2 : 1;
             const totalMls = (totalDropCount * eyeMultiplier) / 20;
 
-            // Display results
             if (results.length > 0) {
                 const eyeHeader = document.createElement('p');
                 eyeHeader.innerHTML = `<strong>Apply to ${selectedEye.toUpperCase()} EYE</strong>`;
@@ -1134,8 +1252,9 @@ I should carry extra medication at all times`;
 
         // ==================== INITIALIZATION ====================
         document.addEventListener('DOMContentLoaded', function() {
-            renderTabletStrengths();
-            renderTabletTaperLines();
+            renderPredTaperLines();
+            renderDexStrengths();
+            renderDexTaperLines();
             renderEyeDropTaperLines();
         });
     </script>
