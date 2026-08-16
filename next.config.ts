@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
     async redirects() {
         return [
             {
-                source: "/:path*",
-                destination: "https://tools.strixon.co.uk/:path*",
+                source: "/:path((?!_next/|api/|favicon.ico).*)",
+                destination: "https://tools.strixon.co.uk",
                 permanent: false,
             },
         ];
