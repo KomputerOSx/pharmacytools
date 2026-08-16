@@ -74,6 +74,12 @@ const Navbar: React.FC = () => {
                     >
                         <strong>Palliative Labels</strong>
                     </Link>
+                    <Link
+                        href="/webApps/reviewBuddy"
+                        className="navbar-item is-tab"
+                    >
+                        <strong>Review Buddy</strong>
+                    </Link>
                 </div>
 
                 <div className="navbar-end">

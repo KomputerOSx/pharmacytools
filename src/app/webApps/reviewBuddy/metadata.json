@@ -1,0 +1,8 @@
+{
+  "name": "Review Buddy",
+  "description": "Create formatted pharmacist review notes without saving patient data",
+  "version": "1.0",
+  "author": "Ramyar Abdullah",
+  "tags": ["pharmacy", "review", "medicines", "ward", "clinical"],
+  "icon": "clipboard"
+}

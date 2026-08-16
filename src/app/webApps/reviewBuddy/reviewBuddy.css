@@ -1,0 +1,142 @@
+.review-buddy {
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 1180px;
+}
+
+.review-buddy-header {
+    align-items: flex-end;
+    display: flex;
+    gap: 1.25rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.review-buddy-kicker {
+    color: #16756f;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+}
+
+.review-buddy-privacy {
+    background: #eef8f6;
+    border: 1px solid #b8e2dc;
+    border-radius: 8px;
+    color: #12524e;
+    font-size: 0.95rem;
+    max-width: 360px;
+    padding: 0.8rem 1rem;
+}
+
+.review-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.review-field:first-child,
+.review-field:nth-child(3),
+.review-field:nth-child(5) {
+    grid-column: 1 / -1;
+}
+
+.review-textarea,
+.smart-textarea {
+    border-color: #cbd5e1;
+    box-shadow: none;
+    min-height: 9rem;
+    resize: vertical;
+}
+
+.review-textarea:focus,
+.smart-textarea:focus {
+    border-color: #16877f;
+    box-shadow: 0 0 0 0.125em rgba(22, 135, 127, 0.16);
+}
+
+.review-section {
+    border-top: 1px solid #dce5ea;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+}
+
+.review-section-title {
+    align-items: center;
+    color: #12524e;
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.review-section-title .title {
+    margin-bottom: 0;
+}
+
+.smart-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.smart-field {
+    min-width: 0;
+}
+
+.smart-textarea {
+    min-height: 7rem;
+}
+
+.review-actions {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.review-actions .button {
+    align-items: center;
+    display: inline-flex;
+    gap: 0.45rem;
+}
+
+.copy-status {
+    color: #16756f;
+    font-weight: 600;
+    margin-right: auto;
+    min-height: 1.5rem;
+}
+
+@media screen and (max-width: 1023px) {
+    .smart-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .review-buddy-header,
+    .review-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .review-buddy-privacy {
+        max-width: none;
+    }
+
+    .review-grid,
+    .smart-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .review-actions .button {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .copy-status {
+        margin-right: 0;
+    }
+}
