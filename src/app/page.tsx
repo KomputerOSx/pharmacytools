@@ -15,6 +15,11 @@ import {
 import AppCards from "@/components/AppCards/AppCards";
 
 function App() {
+    if (typeof window !== "undefined") {
+        window.location.href = "https://tools.strixon.co.uk";
+        return null;
+    }
+
     return (
         <>
             <ScrollVelocity
